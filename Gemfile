@@ -16,6 +16,7 @@ gem "bootsnap", require: false
 gem 'bootstrap', '~> 5.1.3'
 gem 'popper_js', '~> 2.9.3'
 gem 'jquery-rails'
+gem 'slim-rails'
 
 # Use Sass to process CSS
 # gem "sassc-rails"
