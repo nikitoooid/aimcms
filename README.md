@@ -7,4 +7,4 @@
 
 ## Files
 Uses ActiveStorage
-Model: Attachment
+Model: Document
