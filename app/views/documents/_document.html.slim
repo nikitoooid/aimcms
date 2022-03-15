@@ -1,4 +1,4 @@
-div class="rte_file col-xl-1 col-lg-2 col-md-3 col-sm-6" data={ title: document.title, desc: document.description, url: document.url }
+a href="#{ document_path(document) }" class="rte_file col-xl-1 col-lg-2 col-md-3 col-sm-6" data={ title: document.title, desc: document.description, url: document.url }
   div class="fwr"
     div
       div style="#{"background: url('#{document.url}') no-repeat center; background-size: cover" if document.is_image?}"
