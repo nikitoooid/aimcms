@@ -16,7 +16,7 @@ class DocumentsController < ApplicationController
     @document = Document.new(document_params)
 
     if @document.save
-      redirect_to document_path(@document)
+      redirect_to documents_path
     else
       rendeer :new
     end

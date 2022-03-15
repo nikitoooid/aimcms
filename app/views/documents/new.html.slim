@@ -1,0 +1,16 @@
+= form_with model: @document do |f|
+  
+  p
+    = f.label :title, "Title"
+    = f.text_field :title
+
+  p
+    = f.label :description, "File description"
+    = f.text_area :description
+
+  p
+    = f.label :file, "Upload file"
+    = f.file_field :file
+
+  p
+    = f.submit
