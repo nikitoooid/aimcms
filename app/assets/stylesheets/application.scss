@@ -1,6 +1,8 @@
 // Custom bootstrap variables must be set or imported *before* bootstrap.
 @import "bootstrap";
 
+.hide { display: none; }
+
 .rte_template_item {
   height: 50px;
   display: flex;
@@ -66,9 +68,7 @@
   width: fit-content;
 }
 
-.hidden {
-  display: none;
-}
+.hidden { display: none; }
 
 .ml-1 { margin-left: 2px; }
 
@@ -82,9 +82,7 @@
 
 /* ------------------------------------------------------ */
 
-.rte_codeeditor .modal-header .btn-close {
-  background-color: #fff;
-}
+.rte_codeeditor .modal-header .btn-close { background-color: #fff; }
 
 /* ------------------------------------------------------ */
 
@@ -137,7 +135,7 @@
 
 .rte_file {
   cursor: pointer;
-  padding: 5px;
+  padding: 2px;
   text-decoration: none;
 }
 
@@ -150,7 +148,7 @@
 .rte_file i {
   display: inline-block;
   width: 100%;
-  font-size: 60px;
+  font-size: 70px;
   text-align: center;
   color: #1f2324;
 }
@@ -158,6 +156,7 @@
 .rte_file p {
   text-align: center;
   color: #1f2324;
+  margin-bottom: 0;
 }
 
 .rte_file.active .fwr,
@@ -165,3 +164,24 @@
   border: 1px solid #1f2324;
 }
 
+// ------------------------------------------------
+
+.admin-page .content {
+  width: 100%;
+  padding: 1em;
+}
+
+.admin-page .nav a,
+.admin-page .nav a:hover,
+.admin-page .nav a:focus,
+.admin-page .nav a:active {
+  color: #fff;
+}
+
+// ------------------------------------------------
+
+.upload-form {
+  border-radius: 8px;
+  border: 1px solid #aaa;
+  width: 350px;
+}
