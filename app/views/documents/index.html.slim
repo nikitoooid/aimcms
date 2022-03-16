@@ -1,3 +1,8 @@
-div class="container-fluid"
-  div class="row"
-    == render @documents
+div class="d-flex align-items-center"
+  h1 style="margin-right: 1rem" Files
+  = link_to 'Upload file', new_document_path, class: 'btn btn-sm btn-dark'
+
+hr
+
+div class="row"
+  == render @documents

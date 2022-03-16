@@ -8,4 +8,5 @@
 
 ## Files
 Uses ActiveStorage
+Uses Bootstrap icons
 Model: Document
