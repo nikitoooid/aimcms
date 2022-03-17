@@ -17,6 +17,7 @@ gem 'bootstrap', '~> 5.1.3'
 gem 'popper_js', '~> 2.9.3'
 gem 'jquery-rails'
 gem 'slim-rails'
+gem 'rails-i18n'
 
 # Use Sass to process CSS
 # gem "sassc-rails"

@@ -1,0 +1,14 @@
+en:
+  activerecord:
+    models:
+      document: "Файл"
+
+    attributes:
+      document:
+        title: "Название"
+        description: "Описание файла"
+        file: "Файл"
+
+    errors:
+      messages:
+        blank: "не может быть пустым"

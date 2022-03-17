@@ -14,29 +14,29 @@ div class="d-flex" style="height: 100%"
         = f.text_field :title, class: "form-control"
 
       div class="mb-3"
-        = f.label :description, "File description", class: "form-label"
+        = f.label :description, t('.description'), class: "form-label"
         = f.text_area :description, class: "form-control"
 
       div class="mb-3"
         div class="alert alert-secondary d-flex align-items-center justify-content-center" 
-          a href="#{@document.url}" class="btn btn-sm btn-outline-dark" File url
+          a href="#{@document.url}" class="btn btn-sm btn-outline-dark" = t('.url')
 
       hr
-      p class="text-muted mb-0" Created at: #{@document.created_at}
-      p class="text-muted" Updated at: #{@document.updated_at}
-      p class="text-muted" File size: #{@document.file.byte_size / 1024} kb
+      p class="text-muted mb-0" #{t('.created')} #{@document.created_at.strftime("%d.%m.%Y %H:%M:%S")}
+      p class="text-muted" #{t('.updated')} #{@document.updated_at.strftime("%d.%m.%Y %H:%M:%S")}
+      p class="text-muted" #{t('.size')} #{@document.file.byte_size / 1024} #{t('.kb')}
       hr
 
-      = f.submit 'Save changes', class: "btn btn-sm btn-primary w-100"
+      = f.submit t('.save'), class: "btn btn-sm btn-primary w-100"
 
     hr
 
-    = button_to 'Delete', document_path(@document),
+    = button_to t('delete'), document_path(@document),
                           method: :delete,
                           data: { confirm: 'Are you sure?' },
                           class: 'btn btn-sm btn-danger w-100 mb-2'
 
-    = link_to 'Back', documents_path, class: 'btn btn-sm btn-outline-dark w-100 mb-2'
+    = link_to t('back'), documents_path, class: 'btn btn-sm btn-outline-dark w-100 mb-2'
   
 
 

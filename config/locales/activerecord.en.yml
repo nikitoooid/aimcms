@@ -1,0 +1,14 @@
+en:
+  activerecord:
+    models:
+      document: "File"
+
+    attributes:
+      document:
+        title: "Title"
+        description: "File description"
+        file: "File"
+
+    errors:
+      messages:
+        blank: "can't be blank"
