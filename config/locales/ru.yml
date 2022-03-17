@@ -1,0 +1,44 @@
+ru:
+  signup: "Регистрация"
+  login: "Вход"
+  logout: "Выйти"
+
+  home: "Главная"
+  back: "Назад"
+  file: "Файл"
+  files: "Файлы"
+
+  new: "Новый"
+  upload: "Загрузить"
+  download: "Скачать"
+  delete: "Удалить"
+  save: "Сохранить" 
+
+  main:
+    index:
+      show: "Перейти"
+      files: "Файлы"
+      file:
+        one: "%{count} файл"
+        few: "%{count} файла"
+        many: "%{count} файлов"
+        other: "%{count} файлов"
+      files_description: "Вы можете использовать файлы для хранения, обмена с пользователями и прикрепления к страницам и публикациям"
+
+  documents:
+    index:
+      header: "Файлы"
+      new: "Загрузить файл"
+    new:
+      new: "Новый файл"
+      upload: "Загрузить файл"
+      description: "Описание"
+    show:
+      description: "Описание файла"
+      url: "Ссылка на файл"
+      size: "Размер файла:"
+      kb: "кб"
+      created: "Создано:"
+      updated: "Изменено:"
+      save: "Сохранить изменения"
+
