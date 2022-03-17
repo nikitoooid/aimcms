@@ -18,8 +18,9 @@ class DocumentsController < ApplicationController
     @document = Document.new(@params)
 
     if @document.save
-      redirect_to documents_path
+      redirect_to documents_path, flash: { success: t('.success') }
     else
+      flash[:danger] = t('.fail')
       render :new
     end
   end
@@ -28,8 +29,9 @@ class DocumentsController < ApplicationController
     if @document.update(document_params)
       @document.file.filename = @document.title
       
-      redirect_to document_path(@document)
+      redirect_to document_path(@document), flash: { success: t('.success') }
     else
+      flash[:danger] = t('.fail')
       render :show
     end
   end
@@ -38,7 +40,7 @@ class DocumentsController < ApplicationController
     @document.file.purge
     @document.destroy
 
-    redirect_to documents_path, flash: { danger: 'File deleted' }
+    redirect_to documents_path, flash: { success: t('.success') }
   end
 
   private

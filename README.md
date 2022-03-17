@@ -10,3 +10,12 @@
 Uses ActiveStorage
 Uses Bootstrap icons
 Model: Document
+
+## Localization
+* EN
+- Main#index (Admin)
+- Documents (Admin)
+
+* RU
+- Main#index (Admin)
+- Documents (Admin)

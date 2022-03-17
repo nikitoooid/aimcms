@@ -40,4 +40,13 @@ en:
       created: "Created at:"
       updated: "Updated at:"
       save: "Save changes"
+
+    create:
+      success: "File created"
+      fail: "File creation failed"
+    update:
+      success: "File updated"
+      fail: "File update failed"
+    destroy:
+      success: "File deleted"
       
