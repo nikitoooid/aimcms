@@ -1,7 +1,7 @@
-- flash.each do |key, message|
-  - if key == 'alert'
-    div class="alert alert-danger" role="alert" #{message}
-  - elsif key == 'notice'
-    div class="alert alert-primary" role="alert" #{message}
-  - else
-    div class="alert alert-#{key}" role="alert" #{message}
+  - flash.each do |key, message|
+    - if key == 'alert'
+      div class="alert flash alert-danger" role="alert" #{message}
+    - elsif key == 'notice'
+      div class="alert flash alert-primary" role="alert" #{message}
+    - else
+      div class="alert flash alert-#{key}" role="alert" #{message}

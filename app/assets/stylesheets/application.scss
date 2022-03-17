@@ -185,3 +185,11 @@
   border: 1px solid #aaa;
   width: 350px;
 }
+
+.flash {
+  position: absolute;
+  right: 2em;
+  bottom: 1em;
+
+  z-index: 9001;
+}

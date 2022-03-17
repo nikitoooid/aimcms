@@ -22,8 +22,8 @@ div class="d-flex" style="height: 100%"
           a href="#{@document.url}" class="btn btn-sm btn-outline-dark" = t('.url')
 
       hr
-      p class="text-muted mb-0" #{t('.created')} #{@document.created_at}
-      p class="text-muted" #{t('.updated')} #{@document.updated_at}
+      p class="text-muted mb-0" #{t('.created')} #{@document.created_at.strftime("%d.%m.%Y %H:%M:%S")}
+      p class="text-muted" #{t('.updated')} #{@document.updated_at.strftime("%d.%m.%Y %H:%M:%S")}
       p class="text-muted" #{t('.size')} #{@document.file.byte_size / 1024} #{t('.kb')}
       hr
 
