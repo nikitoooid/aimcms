@@ -1,0 +1,5 @@
+li class="list-group-item d-flex align-items-center"
+  
+  h5 class="w-100" #{user.first_name} #{user.last_name} #{content_tag :span, t('.role'), class: 'badge bg-secondary'}
+      
+  = link_to t('.edit'), edit_admin_user_path(user), class: 'btn btn-sm btn-dark'
