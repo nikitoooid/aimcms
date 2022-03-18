@@ -18,6 +18,7 @@ gem 'popper_js', '~> 2.9.3'
 gem 'jquery-rails'
 gem 'slim-rails'
 gem 'rails-i18n'
+gem 'devise', '~> 4.8.1'
 
 # Use Sass to process CSS
 # gem "sassc-rails"
