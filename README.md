@@ -14,9 +14,11 @@ Model: Document
 
 ## Localization
 * EN
+- Devise
 - Main#index (Admin)
 - Documents (Admin)
 
 * RU
+- Devise
 - Main#index (Admin)
 - Documents (Admin)
