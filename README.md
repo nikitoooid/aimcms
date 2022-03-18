@@ -5,6 +5,7 @@
 * Bootstrap 5.1.3
 * Popper 2.9.3
 * slim-rails 3.3.0
+* Devise 4.8.1
 
 ## Files
 Uses ActiveStorage
@@ -13,9 +14,11 @@ Model: Document
 
 ## Localization
 * EN
+- Devise
 - Main#index (Admin)
 - Documents (Admin)
 
 * RU
+- Devise
 - Main#index (Admin)
 - Documents (Admin)

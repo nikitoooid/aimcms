@@ -1,7 +1,9 @@
-class DocumentsController < ApplicationController
+class Admin::DocumentsController < Admin::MainController
   
   before_action :set_document, only: %i[show update destroy]
   before_action :set_documents, only: %i[index]
+
+  rescue_from ActiveRecord::RecordNotFound, with: :rescue_with_document_not_found
 
   def index
   end
@@ -18,7 +20,7 @@ class DocumentsController < ApplicationController
     @document = Document.new(@params)
 
     if @document.save
-      redirect_to documents_path, flash: { success: t('.success') }
+      redirect_to admin_documents_path, flash: { success: t('.success') }
     else
       flash[:danger] = t('.fail')
       render :new
@@ -29,7 +31,7 @@ class DocumentsController < ApplicationController
     if @document.update(document_params)
       @document.file.filename = @document.title
       
-      redirect_to document_path(@document), flash: { success: t('.success') }
+      redirect_to admin_document_path(@document), flash: { success: t('.success') }
     else
       flash[:danger] = t('.fail')
       render :show
@@ -40,7 +42,7 @@ class DocumentsController < ApplicationController
     @document.file.purge
     @document.destroy
 
-    redirect_to documents_path, flash: { success: t('.success') }
+    redirect_to admin_documents_path, flash: { success: t('.success') }
   end
 
   private
@@ -55,5 +57,9 @@ class DocumentsController < ApplicationController
 
   def document_params
     params.require(:document).permit(:title, :description, :file)
+  end
+
+  def rescue_with_document_not_found
+    redirect_to admin_path, flash: { danger: t('not_found', item: Document.model_name.human(count: 10) ) }
   end
 end

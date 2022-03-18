@@ -8,7 +8,7 @@ div class="d-flex" style="height: 100%"
 
   div class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 350px; height: 100%"
     
-    = form_with model: @document do |f|
+    = form_with model: [:admin, @document], local: true do |f|
       
       div class="mb-3"
         = f.text_field :title, class: "form-control"
@@ -31,12 +31,12 @@ div class="d-flex" style="height: 100%"
 
     hr
 
-    = button_to t('delete'), document_path(@document),
+    = button_to t('delete'), admin_document_path(@document),
                           method: :delete,
                           data: { confirm: 'Are you sure?' },
                           class: 'btn btn-sm btn-danger w-100 mb-2'
 
-    = link_to t('back'), documents_path, class: 'btn btn-sm btn-outline-dark w-100 mb-2'
+    = link_to t('back'), admin_documents_path, class: 'btn btn-sm btn-outline-dark w-100 mb-2'
   
 
 
