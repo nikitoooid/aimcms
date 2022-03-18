@@ -1,6 +1,6 @@
 div class="w-100 d-flex align-items-center justify-content-center" style="height:100%"
 
-  = form_with model: @document, class: 'p-3 upload-form' do |f|
+  = form_with model: [:admin, @document], local: true, class: 'p-3 upload-form' do |f|
     
     h1 #{t('.new')}
 
@@ -19,4 +19,4 @@ div class="w-100 d-flex align-items-center justify-content-center" style="height
       = f.submit t('.upload'), class: "btn btn-sm btn-primary w-100"
 
     div class="d-flex justify-content-center"
-      = link_to t('back'), documents_path
+      = link_to t('back'), admin_documents_path
