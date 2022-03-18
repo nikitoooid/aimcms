@@ -7,46 +7,55 @@ ru:
   back: "Назад"
   file: "Файл"
   files: "Файлы"
+  users: "Пользователи"
 
   new: "Новый"
   upload: "Загрузить"
   download: "Скачать"
   delete: "Удалить"
-  save: "Сохранить" 
+  save: "Сохранить"
 
-  main:
-    index:
-      show: "Перейти"
-      files: "Файлы"
-      file:
-        one: "%{count} файл"
-        few: "%{count} файла"
-        many: "%{count} файлов"
-        other: "%{count} файлов"
-      files_description: "Вы можете использовать файлы для хранения, обмена с пользователями и прикрепления к страницам и публикациям"
+  not_uthorized: "Вы не авторизованы для просмотра данной страницы!"
 
-  documents:
-    index:
-      header: "Файлы"
-      new: "Загрузить файл"
-    new:
-      new: "Новый файл"
-      upload: "Загрузить файл"
-      description: "Описание"
-    show:
-      description: "Описание файла"
-      url: "Ссылка на файл"
-      size: "Размер файла:"
-      kb: "кб"
-      created: "Создано:"
-      updated: "Изменено:"
-      save: "Сохранить изменения"
+  admin:
+    main:
+      index:
+        show: "Перейти"
+        file:
+          one: "%{count} файл"
+          few: "%{count} файла"
+          many: "%{count} файлов"
+          other: "%{count} файлов"
+        files_description: "Вы можете использовать файлы для хранения, обмена с пользователями и прикрепления к страницам и публикациям"
+        user:
+          one: "%{count} пользователь"
+          few: "%{count} пользователя"
+          many: "%{count} пользователей"
+          other: "%{count} пользователей"
+        users_description: "Управление пользователями и их ролями."
 
-    create:
-      success: "Файл создан"
-      fail: "Ошибка при создании файла"
-    update:
-      success: "Файл обновлён"
-      fail: "Ошибка при обновлении файла"
-    destroy:
-      success: "Файл удалён"
+    documents:
+      index:
+        header: "Файлы"
+        new: "Загрузить файл"
+      new:
+        new: "Новый файл"
+        upload: "Загрузить файл"
+        description: "Описание"
+      show:
+        description: "Описание файла"
+        url: "Ссылка на файл"
+        size: "Размер файла:"
+        kb: "кб"
+        created: "Создано:"
+        updated: "Изменено:"
+        save: "Сохранить изменения"
+
+      create:
+        success: "Файл создан"
+        fail: "Ошибка при создании файла"
+      update:
+        success: "Файл обновлён"
+        fail: "Ошибка при обновлении файла"
+      destroy:
+        success: "Файл удалён"

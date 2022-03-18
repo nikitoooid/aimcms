@@ -7,6 +7,7 @@ en:
   back: "Back"
   file: "File"
   files: "Files"
+  users: "Users"
 
   new: "New"
   upload: "Upload"
@@ -14,39 +15,49 @@ en:
   delete: "Delete"
   save: "Save"
 
-  main:
-    index:
-      show: "Show"
-      file:
-        one: "%{count} file"
-        few: "%{count} files"
-        many: "%{count} files"
-        other: "%{count} files"
-      files_description: "You can store files or use it for exchange with users, or attaching them to pages or publications."
+  not_uthorized: "You are not authorized for this page!"
+  not_found: "%{item} not found"
 
-  documents:
-    index:
-      header: "Files"
-      new: "Upload file"
-    new:
-      new: "New file"
-      upload: "Upload file"
-      description: "Description"
-    show:
-      description: "File description"
-      url: "File url"
-      size: "File size:"
-      kb: "kb"
-      created: "Created at:"
-      updated: "Updated at:"
-      save: "Save changes"
+  admin:
+    main:
+      index:
+        show: "Show"
+        file:
+          one: "%{count} file"
+          few: "%{count} files"
+          many: "%{count} files"
+          other: "%{count} files"
+        files_description: "You can store files or use it for exchange with users, or attaching them to pages or publications."
+        user:
+          one: "%{count} user"
+          few: "%{count} users"
+          many: "%{count} users"
+          other: "%{count} users"
+        users_description: "Control users, change it roles."
 
-    create:
-      success: "File created"
-      fail: "File creation failed"
-    update:
-      success: "File updated"
-      fail: "File update failed"
-    destroy:
-      success: "File deleted"
+    documents:
+      index:
+        header: "Files"
+        new: "Upload file"
+      new:
+        new: "New file"
+        upload: "Upload file"
+        description: "Description"
+      show:
+        description: "File description"
+        url: "File url"
+        size: "File size:"
+        kb: "kb"
+        created: "Created at:"
+        updated: "Updated at:"
+        save: "Save changes"
+
+      create:
+        success: "File created"
+        fail: "File creation failed"
+      update:
+        success: "File updated"
+        fail: "File update failed"
+      destroy:
+        success: "File deleted"
       

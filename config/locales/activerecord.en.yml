@@ -1,7 +1,13 @@
 en:
   activerecord:
     models:
-      document: "File"
+      user:
+        one: User
+        other: Users
+      document:
+        one: File
+        few: Files
+        other: Files
 
     attributes:
       document:
