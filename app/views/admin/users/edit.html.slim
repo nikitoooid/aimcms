@@ -23,7 +23,6 @@ hr
   div class="mb-3"
     = f.submit t('.submit'), class: 'btn btn-sm btn-primary'
 
-div class="mb-3"
-  = button_to t('.delete'), user_registration_path, method: :delete, class: 'btn btn-sm btn-danger'
-  
-= link_to t('back'), admin_users_path
+  div class="mb-3"
+    = button_to t('.delete'), admin_user_path, method: :delete, class: 'btn btn-sm btn-danger', form: {data: {turbo_confirm: t('.confirm')}}
+  = link_to t('back'), admin_users_path, class: 'btn btn-sm btn-dark'

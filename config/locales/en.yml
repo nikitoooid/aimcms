@@ -86,7 +86,11 @@ en:
         email: "E-mail"
         role: "User role"
         submit: "Save changes"
+        delete: "Delete user"
+        confirm: "Are you sure?"
       update:
         success: "Данные пользователя обновлены"
         fail: "Ошибка при обновлении данных пользователя"
+      destroy:
+        success: "User deleted."
       

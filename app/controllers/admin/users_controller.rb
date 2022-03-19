@@ -1,6 +1,6 @@
 class Admin::UsersController < Admin::MainController
 
-  before_action :set_user, only: %i[edit update]
+  before_action :set_user, only: %i[edit update destroy]
 
   rescue_from ActiveRecord::RecordNotFound, with: :rescue_with_user_not_found
 
@@ -22,6 +22,12 @@ class Admin::UsersController < Admin::MainController
       flash[:danger] = t('.fail')
       render :edit
     end
+  end
+
+  def destroy
+    @user.destroy
+
+    redirect_to admin_users_path, flash: { success: t('.success') }
   end
 
   private
