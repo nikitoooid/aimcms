@@ -3,8 +3,16 @@ en:
   login: "Log in"
   logout: "Logout"
   email: "Email"
+  new_avatar: "New avatar"
   password: "Password"
+  new_password: "New password"
+  current_password: "Current password"
   password_confirmation: "Confirm password"
+  min_password_length:
+    one: "%{count} character minimum"
+    few: "%{count} character minimum"
+    many: "%{count} character minimum"
+    other: "%{count} character minimum"
   remember_me: "Remember me"
   first_name: "First name"
   last_name: "Last name"
@@ -14,8 +22,8 @@ en:
   home: "Home"
   back: "Back"
   file: "File"
-  files: "Files"
-  users: "Users"
+  files_title: "Files"
+  users_title: "Users"
 
   new: "New"
   upload: "Upload"
@@ -25,6 +33,11 @@ en:
 
   not_uthorized: "You are not authorized for this page!"
   not_found: "%{item} not found"
+
+  users:
+    show:
+      edit: "Edit profile"
+      delete: "Delete profile"
 
   admin:
     main:
