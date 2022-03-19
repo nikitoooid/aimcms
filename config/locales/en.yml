@@ -1,22 +1,45 @@
 en:
-  signup: "Signup"
-  login: "Login"
+  signup: "Sign up"
+  login: "Log in"
   logout: "Logout"
+  email: "Email"
+  new_avatar: "New avatar"
+  password: "Password"
+  new_password: "New password"
+  current_password: "Current password"
+  password_confirmation: "Confirm password"
+  min_password_length:
+    one: "%{count} character minimum"
+    few: "%{count} character minimum"
+    many: "%{count} character minimum"
+    other: "%{count} character minimum"
+  remember_me: "Remember me"
+  first_name: "First name"
+  last_name: "Last name"
+
+  admin_panel: "Admin panel"
 
   home: "Home"
   back: "Back"
   file: "File"
-  files: "Files"
-  users: "Users"
+  files_title: "Files"
+  users_title: "Users"
 
   new: "New"
   upload: "Upload"
   download: "Download"
   delete: "Delete"
   save: "Save"
+  show_profile: "Show profile"
 
+  need_login: "You need to log in before."
   not_uthorized: "You are not authorized for this page!"
   not_found: "%{item} not found"
+
+  users:
+    show:
+      edit: "Edit profile"
+      delete: "Delete profile"
 
   admin:
     main:
@@ -60,4 +83,29 @@ en:
         fail: "File update failed"
       destroy:
         success: "File deleted"
+
+    admins:
+      admin:
+        role: "Administrator"
+        edit: "Edit"
+    users:
+      user:
+        role: "User"
+        edit: "Edit user"
+      index:
+        header: "Users"
+      edit:
+        header: "Edit user"
+        first_name: "First name"
+        last_name: "Last name"
+        email: "E-mail"
+        role: "User role"
+        submit: "Save changes"
+        delete: "Delete user"
+        confirm: "Are you sure?"
+      update:
+        success: "Данные пользователя обновлены"
+        fail: "Ошибка при обновлении данных пользователя"
+      destroy:
+        success: "User deleted."
       

@@ -2,20 +2,44 @@ ru:
   signup: "Регистрация"
   login: "Вход"
   logout: "Выйти"
+  email: "Email"
+  new_avatar: "Новый аватар"
+  password: "Пароль"
+  new_password: "Новый пароль"
+  current_password: "Текущий пароль"
+  password_confirmation: "Повторите пароль"
+  min_password_length:
+    one: "Минимум %{count} символ"
+    few: "Минимум %{count} символа"
+    many: "Минимум %{count} символов"
+    other: "Минимум %{count} символов"
+  remember_me: "Запомнить меня"
+  first_name: "Имя"
+  last_name: "Фамилия"
+
+  admin_panel: "Панель администратора"
 
   home: "Главная"
   back: "Назад"
   file: "Файл"
-  files: "Файлы"
-  users: "Пользователи"
+  files_title: "Файлы"
+  users_title: "Пользователи"
 
   new: "Новый"
   upload: "Загрузить"
   download: "Скачать"
   delete: "Удалить"
   save: "Сохранить"
+  show_profile: "Посмотреть профиль"
 
+  need_login: "Сначала авторизуйтесь."
   not_uthorized: "Вы не авторизованы для просмотра данной страницы!"
+  not_found: "%{item} не найдены"
+
+  users:
+    show:
+      edit: "Редактировать профиль"
+      delete: "Удалить профиль"
 
   admin:
     main:
@@ -59,3 +83,28 @@ ru:
         fail: "Ошибка при обновлении файла"
       destroy:
         success: "Файл удалён"
+
+    admins:
+      admin:
+        role: "Администратор"
+        edit: "Редактировать"
+    users:
+      user:
+        role: "Пользователь"
+        edit: "Редактировать"
+      index:
+        header: "Пользователи"
+      edit:
+        header: "Редактировать пользователя"
+        first_name: "Имя"
+        last_name: "Фамилия"
+        email: "E-mail"
+        role: "Роль пользователя"
+        submit: "Сохранить изменения"
+        delete: "Удалить пользователя"
+        confirm: "Вы уверены?"
+      update:
+        success: "Данные пользователя обновлены"
+        fail: "Ошибка при обновлении данных пользователя"
+      destroy:
+        success: "Пользователь удалён."

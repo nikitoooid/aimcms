@@ -1,15 +1,19 @@
 .row
 
-  div class="card text-center col-lg-3 col-md-4 col-sm-6 col-xs-12"
-    div class="card-body"
-      h2 class="card-title" 
-        span class="badge bg-dark" = t('.user', count: User.count)
-      p class="card-text" = t('.users_description')
-      a href="#" class="btn btn-sm btn-primary" = t('.show')
-
-  div class="card text-center col-lg-3 col-md-4 col-sm-6 col-xs-12"
-    div class="card-body"
-      h2 class="card-title" 
-        span class="badge bg-dark" = t('.file', count: Document.count)
-      p class="card-text" = t('.files_description')
-      a href="#{admin_documents_path}" class="btn btn-sm btn-primary" = t('.show')
+  div class="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+    div class="card text-center h-100"
+      div class="card-body"
+        h2 class="card-title" 
+          span class="badge bg-dark" = t('.user', count: User.count)
+        p class="card-text" = t('.users_description')
+      div class="card-footer"
+        a href="#{admin_users_path}" class="btn btn-sm btn-primary" = t('.show')
+  
+  div class="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+    div class="card text-center h-100"
+      div class="card-body"
+        h2 class="card-title" 
+          span class="badge bg-dark" = t('.file', count: Document.count)
+        p class="card-text" = t('.files_description')
+      div class="card-footer"
+        a href="#{admin_documents_path}" class="btn btn-sm btn-primary" = t('.show')

@@ -1,0 +1,15 @@
+div style="height:30vh;width:100%;position:absolute;top:0;z-index:0;background:#222"
+
+div class="container" style="padding-top: 15vh"
+  div class="card mb-3"
+    div class="row g-0"
+      div class="col-md-4 d-flex p-3 justify-content-center align-items-center"
+        = user_avatar(current_user)
+      div class="col-md-8 d-flex p-3 align-items-center"
+        div class="card-body"
+          h1 class="card-title" #{current_user.first_name} #{current_user.last_name}
+          p class="card-text" #{current_user.email}
+          p class="card-text"
+            small class="text-muted" Small text
+          = link_to t('users.show.edit'), edit_user_registration_path, class: 'btn btn-sm btn-dark'
+       
