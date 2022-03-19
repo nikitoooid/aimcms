@@ -30,7 +30,9 @@ en:
   download: "Download"
   delete: "Delete"
   save: "Save"
+  show_profile: "Show profile"
 
+  need_login: "You need to log in before."
   not_uthorized: "You are not authorized for this page!"
   not_found: "%{item} not found"
 

@@ -2,7 +2,10 @@ class UsersController < ApplicationController
 
   rescue_from ActiveRecord::RecordNotFound, with: :rescue_with_user_not_found
   
-  def profile    
+  def profile
+    unless user_signed_in?
+      redirect_to(new_user_session_path, flash: { danger: t('need_login') })
+    end
   end
 
   def show
