@@ -2,6 +2,9 @@ class UsersController < ApplicationController
 
   rescue_from ActiveRecord::RecordNotFound, with: :rescue_with_user_not_found
   
+  def profile    
+  end
+
   def show
     @user = User.find(params[:id])
   end
