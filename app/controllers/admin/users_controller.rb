@@ -1,6 +1,6 @@
 class Admin::UsersController < Admin::MainController
 
-  before_action :set_user, only: %i[edit update destroy]
+  before_action :set_user, only: %i[show edit update destroy]
 
   rescue_from ActiveRecord::RecordNotFound, with: :rescue_with_user_not_found
 
@@ -11,7 +11,6 @@ class Admin::UsersController < Admin::MainController
   end
 
   def edit
-    
   end
 
   def update

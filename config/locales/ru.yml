@@ -26,6 +26,10 @@ ru:
   not_uthorized: "Вы не авторизованы для просмотра данной страницы!"
   not_found: "%{item} не найдены"
 
+  users:
+    show:
+      edit: "Редактировать профиль"
+
   admin:
     main:
       index:
