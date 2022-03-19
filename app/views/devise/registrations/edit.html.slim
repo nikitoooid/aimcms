@@ -1,0 +1,124 @@
+div style="height:30vh;width:100%;position:absolute;top:0;z-index:0;background:#222"
+
+div class='container' style='padding-top: 15vh'
+  = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
+    = render "devise/shared/error_messages", resource: resource
+
+    div class="card mb-3"
+      div class="row g-0"
+
+        div class="col-md-4 d-flex p-3 justify-content-center align-items-center"
+          div
+            = user_avatar(resource)
+            div class="mt-3"
+                = f.label :avatar, t('new_avatar'), class: 'form-label'
+                = f.file_field :avatar, class: 'form-control'
+
+        div class="col-md-8 d-flex p-3 align-items-center"
+          div class="card-body"
+            h1 class="card-title" #{t('users.show.edit')}: #{resource.first_name} #{resource.last_name}
+            
+            div class="mb-3"
+              = f.label :first_name, t('first_name'), class: 'form-label'
+              = f.text_field :first_name, class: 'form-control', required: true 
+
+            div class="mb-3"
+              = f.label :last_name, t('last_name'), class: 'form-label'
+              = f.text_field :last_name, class: 'form-control', required: true
+
+            div class="mb-3"
+              = f.label :email, t('email'), class: 'form-label'
+              = f.email_field :email, autocomplete: "email", class: 'form-control'
+
+            - if devise_mapping.confirmable? && resource.pending_reconfirmation?
+              div class="mb-3"
+                div Currently waiting confirmation for: #{resource.unconfirmed_email}
+
+    div class="card mb-3"
+      div class="card-body"
+        div class="mb-3"
+          = f.label :password, t('new_password'), class: 'form-label'
+          = f.password_field :password, autocomplete: "new-password", class: 'form-control'
+          - if @minimum_password_length
+            p
+              small = t('min_password_length', count: @minimum_password_length)
+      
+        div class="mb-3"
+          = f.label :password_confirmation, t('password_confirmation'), class: 'form-label'
+          = f.password_field :password_confirmation, autocomplete: "new-password", class: 'form-control'
+
+        div class="mb-3"
+          = f.label :current_password, t('current_password'), class: 'form-label'
+          = f.password_field :current_password, autocomplete: "current-password", class: 'form-control', required: true
+
+        div
+          = f.submit t('admin.users.edit.submit'), class: 'btn btn-primary'
+  div class="card mb-3"
+    div class="card-body"
+      div
+        h3 = t('users.show.delete')
+        = button_to t('users.show.delete'), registration_path(resource_name), data: { confirm: t('admin.users.edit.confirm') }, method: :delete, class: 'btn btn-danger'
+        p = link_to t('back'), :back
+
+
+
+
+
+
+
+
+
+
+/ div class="container" style="padding-top: 20vh"
+
+/   div class="card mb-3"
+/     div class="row g-0"
+      
+/       div class="col-md-4 d-flex p-3 justify-content-center align-items-center"
+/         = user_avatar(resource)
+      
+/       div class="col-md-8 d-flex p-3 align-items-center"
+/         div class="card-body"
+/           h1 class="card-title" #{t('users.show.edit')}: #{@user.first_name} #{@user.last_name}
+          
+/           = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
+/             = render "devise/shared/error_messages", resource: resource
+
+/             div class="mb-3"
+/               = f.label :first_name, t('first_name'), class: 'form-label'
+/               = f.text_field :first_name, class: 'form-control' 
+
+/             div class="mb-3"
+/               = f.label :last_name, t('last_name'), class: 'form-label'
+/               = f.text_field :last_name, class: 'form-control'
+
+/             div class="mb-3"
+/               = f.label :email, t('email'), class: 'form-label'
+/               = f.email_field :email, autocomplete: "email", class: 'form-control'
+
+/             - if devise_mapping.confirmable? && resource.pending_reconfirmation?
+/               div class="mb-3"
+/                 div Currently waiting confirmation for: #{resource.unconfirmed_email}
+
+/             div class="mb-3"
+/               = f.label :password, t('new_password'), class: 'form-label'
+/               = f.password_field :password, autocomplete: "new-password", class: 'form-control'
+/               - if @minimum_password_length
+/                 p
+/                   small = t('min_password_length', count: @minimum_password_length)
+          
+/             div class="mb-3"
+/               = f.label :password_confirmation, t('password_confirmation'), class: 'form-label'
+/               = f.password_field :password_confirmation, autocomplete: "new-password", class: 'form-control'
+
+/             div class="mb-3"
+/               = f.label :current_password, t('current_password'), class: 'form-label'
+/               = f.password_field :current_password, autocomplete: "current-password", class: 'form-control'
+
+/             div class="mb-5"
+/               = f.submit t('admin.users.edit.submit'), class: 'btn btn-primary'
+
+/ div class="mb-3"
+/   h3 = t('users.show.delete')
+/   p = button_to t('users.show.delete'), registration_path(resource_name), data: { confirm: t('admin.users.edit.confirm') }, method: :delete, class: 'btn btn-danger'
+/   = link_to t('back'), :back

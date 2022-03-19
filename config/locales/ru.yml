@@ -3,8 +3,16 @@ ru:
   login: "Вход"
   logout: "Выйти"
   email: "Email"
+  new_avatar: "Новый аватар"
   password: "Пароль"
+  new_password: "Новый пароль"
+  current_password: "Текущий пароль"
   password_confirmation: "Повторите пароль"
+  min_password_length:
+    one: "Минимум %{count} символ"
+    few: "Минимум %{count} символа"
+    many: "Минимум %{count} символов"
+    other: "Минимум %{count} символов"
   remember_me: "Запомнить меня"
   first_name: "Имя"
   last_name: "Фамилия"
@@ -14,8 +22,8 @@ ru:
   home: "Главная"
   back: "Назад"
   file: "Файл"
-  files: "Файлы"
-  users: "Пользователи"
+  files_title: "Файлы"
+  users_title: "Пользователи"
 
   new: "Новый"
   upload: "Загрузить"
@@ -29,6 +37,7 @@ ru:
   users:
     show:
       edit: "Редактировать профиль"
+      delete: "Удалить профиль"
 
   admin:
     main:
