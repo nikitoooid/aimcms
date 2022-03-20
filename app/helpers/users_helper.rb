@@ -8,4 +8,12 @@ module UsersHelper
     end
   end
 
+  def avatar_url(user)
+    if user.avatar.attached?
+      Rails.application.routes.url_helpers.rails_blob_path(user.avatar, only_path: true)
+    else
+      asset_path('user.png')
+    end
+  end
+
 end

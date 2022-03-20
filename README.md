@@ -3,7 +3,8 @@
 * Ruby 2.7.5p203
 * Rails 7.0.2.3
 * Bootstrap 5.1.3
-* Popper 2.9.3
+* Popperjs/core 2.11.4
+* JQuery 3.6.0
 * slim-rails 3.3.0
 * Devise 4.8.1
 

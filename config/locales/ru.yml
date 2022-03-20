@@ -3,6 +3,7 @@ ru:
   login: "Вход"
   logout: "Выйти"
   email: "Email"
+  profile: "Профиль"
   new_avatar: "Новый аватар"
   password: "Пароль"
   new_password: "Новый пароль"
