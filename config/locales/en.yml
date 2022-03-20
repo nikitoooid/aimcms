@@ -3,6 +3,7 @@ en:
   login: "Log in"
   logout: "Logout"
   email: "Email"
+  profile: "Profile"
   new_avatar: "New avatar"
   password: "Password"
   new_password: "New password"

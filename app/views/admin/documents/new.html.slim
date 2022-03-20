@@ -7,7 +7,7 @@ div class="w-100 d-flex align-items-center justify-content-center" style="height
     div class="mb-3"
       = f.label :file,
         "#{t('upload')} #{t('file')}"
-      = f.file_field :file, class: "form-control w-100"
+      = f.file_field :file, class: "form-control w-100", required: true
 
     div class="mb-3"
       = f.label :description,
