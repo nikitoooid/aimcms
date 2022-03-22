@@ -1,6 +1,5 @@
 a href="#{ admin_document_path(document) }" class="rte_file col-xl-1 col-lg-2 col-md-3 col-sm-6"
   div class="fwr"
     div
-      div style="#{"background: url('#{document.url}') no-repeat center; background-size: cover" if document.is_image?}"
-        i class="#{document.is_dir? ? 'bi-folder' : "bi-filetype-#{document.extension}"}" style="#{'color: transparent' if document.is_image?}"
+      = document_cover(document)
       p.title data={file_id: document.id} = document.title
