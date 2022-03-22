@@ -25,6 +25,7 @@ ru:
   file: "Файл"
   files_title: "Файлы"
   users_title: "Пользователи"
+  pages_title: "Страницы"
 
   new: "Новый"
   upload: "Загрузить"
@@ -111,6 +112,11 @@ ru:
         success: "Пользователь удалён."
 
     pages:
+      index:
+        header: "Страницы"
+      page:
+        edit: "Редактировать"
+        delete: "Удалить"
       create:
         success: "Страница успешно создана"
         fail: "Ошибка при создании страницы"
