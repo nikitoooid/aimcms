@@ -9,6 +9,10 @@ class Document < ApplicationRecord
     Rails.application.routes.url_helpers.rails_blob_path(self.file, only_path: true)
   end
 
+  def permanent_url
+    "/file/#{self.id}"
+  end
+
   def is_dir?
     self.extension == 'dir'
   end

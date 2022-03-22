@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   
   root 'main#index'
   get '/profile', to: 'users#profile'
+  get '/file/:id', to: 'documents#show'
 
   resources :users, only: [:show]
 

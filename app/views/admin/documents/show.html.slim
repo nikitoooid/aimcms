@@ -18,8 +18,11 @@ div class="d-flex" style="height: 100%"
         = f.text_area :description, class: "form-control"
 
       div class="mb-3"
-        div class="alert alert-secondary d-flex align-items-center justify-content-center" 
-          a href="#{@document.url}" class="btn btn-sm btn-outline-dark" = t('.url')
+        div class="alert alert-secondary text-center" 
+          p class="alert-heading" = t('.url')
+          hr
+          p class="mb-0"
+            code = @document.permanent_url
 
       hr
       p class="text-muted mb-0" #{t('.created')} #{@document.created_at.strftime("%d.%m.%Y %H:%M:%S")}
