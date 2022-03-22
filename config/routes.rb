@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     root 'main#index'
     resources :documents, path: 'files', only: [:index, :show, :new, :create, :update, :destroy]
     resources :users, only: [:index, :edit, :update, :destroy]
+    resources :pages
   end
 
 end

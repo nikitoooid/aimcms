@@ -105,8 +105,17 @@ en:
         delete: "Delete user"
         confirm: "Are you sure?"
       update:
-        success: "Данные пользователя обновлены"
-        fail: "Ошибка при обновлении данных пользователя"
+        success: "User data successfully updated"
+        fail: "User data updating failed"
       destroy:
         success: "User deleted."
-      
+
+    pages:
+      create:
+        success: "Page successfully created"
+        fail: "Page creation failed"
+      update:
+        success: "Page successfully updated"
+        fail: "Page updating failed"
+      destroy:
+        success: "Page deleted"
