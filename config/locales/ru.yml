@@ -25,6 +25,7 @@ ru:
   file: "Файл"
   files_title: "Файлы"
   users_title: "Пользователи"
+  pages_title: "Страницы"
 
   new: "Новый"
   upload: "Загрузить"
@@ -58,6 +59,12 @@ ru:
           many: "%{count} пользователей"
           other: "%{count} пользователей"
         users_description: "Управление пользователями и их ролями."
+        page:
+          one: "%{count} страница"
+          few: "%{count} страницы"
+          many: "%{count} страниц"
+          other: "%{count} страниц"
+        pages_description: "Управление страницами сайта."
 
     documents:
       index:
@@ -109,3 +116,19 @@ ru:
         fail: "Ошибка при обновлении данных пользователя"
       destroy:
         success: "Пользователь удалён."
+
+    pages:
+      index:
+        header: "Страницы"
+        new: "Создать страницу"
+      page:
+        edit: "Редактировать"
+        delete: "Удалить"
+      create:
+        success: "Страница успешно создана"
+        fail: "Ошибка при создании страницы"
+      update:
+        success: "Страница успешно обновлена"
+        fail: "Ошибка при обновлении страницы"
+      destroy:
+        success: "Страница удалена"

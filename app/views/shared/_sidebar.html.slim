@@ -7,6 +7,7 @@ div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width
   
     ul class="nav nav-pills flex-column mb-auto"
       == sidebar_item t('home'), admin_root_path, 'house'
+      == sidebar_item t('pages_title'), admin_pages_path, 'window'
       == sidebar_item t('files_title'), admin_documents_path, 'file-earmark'
       hr
       == sidebar_item t('users_title'), admin_users_path, 'people'

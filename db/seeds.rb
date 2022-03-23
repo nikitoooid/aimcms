@@ -1,5 +1,6 @@
 User.delete_all
 Document.delete_all
+Page.delete_all
 ActiveStorage::Attachment.all.each { |attachment| attachment.purge }
 
 # create admin
