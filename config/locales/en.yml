@@ -59,6 +59,12 @@ en:
           many: "%{count} users"
           other: "%{count} users"
         users_description: "Control users, change it roles."
+        page:
+          one: "%{count} page"
+          few: "%{count} pages"
+          many: "%{count} pages"
+          other: "%{count} pages"
+        pages_description: "Control pages, create, edit or delete it."
 
     documents:
       index:
@@ -112,6 +118,12 @@ en:
         success: "User deleted."
 
     pages:
+      index:
+        header: "Pages"
+        new: "New page"
+      page:
+        edit: "Edit"
+        delete: "Delete"
       create:
         success: "Page successfully created"
         fail: "Page creation failed"
