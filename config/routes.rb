@@ -15,4 +15,6 @@ Rails.application.routes.draw do
     resources :pages
   end
 
+  get '/:slug', to: 'pages#showbypath'
+
 end
