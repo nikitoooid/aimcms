@@ -3,6 +3,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 }
 
 .rte_control {
@@ -10,6 +11,9 @@
   min-height: 100vh;
 }
 
+.rteblock {
+  cursor: pointer;
+}
 .rteblock.active{
   border: 1px dashed red !important;
 }
@@ -47,14 +51,17 @@
   font-size: 1.5rem
 }
 
-.rte_blocklist .list-group-item,
-.rteblock, .rte_template_item, .rte_file {
+.rte_block_item {
   cursor: pointer;
 }
+.rte_block_item:not(.active):hover {
+  background: #e0e0e0;
+}
 
-.sidebar.collapsed { height: fit-content; width: fit-content; }
-
-.hidden { display: none; }
+.sidebar.collapsed {
+  height: fit-content;
+  width: fit-content;
+}
 
 /* ------------------------------------------------------ */
 
@@ -66,9 +73,7 @@
 
 /* ------------------------------------------------------ */
 
-.rte_codeeditor .modal-header .btn-close {
-  background-color: #fff;
-}
+.rte_codeeditor .modal-header .btn-close { background-color: #fff; }
 
 /* ------------------------------------------------------ */
 
@@ -120,7 +125,9 @@
 }
 
 .rte_file {
-  padding: 5px;
+  cursor: pointer;
+  padding: 2px;
+  text-decoration: none;
 }
 
 .rte_file .fwr {
@@ -132,7 +139,7 @@
 .rte_file i {
   display: inline-block;
   width: 100%;
-  font-size: 60px;
+  font-size: 70px;
   text-align: center;
   color: #1f2324;
 }
@@ -140,6 +147,7 @@
 .rte_file p {
   text-align: center;
   color: #1f2324;
+  margin-bottom: 0;
 }
 
 .rte_file.active .fwr,
@@ -147,6 +155,4 @@
   border: 1px solid #1f2324;
 }
 
-.modal-backdrop {
-  z-index: 1043 !important;
-}
+

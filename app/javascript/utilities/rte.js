@@ -925,7 +925,9 @@ function getSidebar(block, blocklib = rte_forms) {
 // формирует форму
 function getForm(template, block) {
   // очищаем буфер параметров
-  for (k in paramsbuffer) delete paramsbuffer[k]
+  // for (k in paramsbuffer) delete paramsbuffer[k]
+  paramsbuffer = {}
+
   paramsbuffer.target = block.block_name
   
   if (block.blocks) paramsbuffer.blocks = block.blocks
@@ -987,9 +989,9 @@ function createBlock(b, forRte = true) {
   if (b.hasOwnProperty('id')) element.id = b.id
   if (b.hasOwnProperty('classlist')) element.className += (' ' + b.classlist)
   if (b.hasOwnProperty('style')) element.style.cssText = b.style
-  if (b.hasOwnProperty('src')) element.src = b.src
-  if (b.hasOwnProperty('href')) element.href = b.href
-  if (b.hasOwnProperty('type')) element.type = b.type
+  if (b.hasOwnProperty('src')) element.setAttribute('src', b.src)
+  if (b.hasOwnProperty('href')) element.setAttribute('href', b.href)
+  if (b.hasOwnProperty('type')) element.setAttribute('type', b.type)
   if (b.hasOwnProperty('height')) element.height = b.height
   if (b.hasOwnProperty('width')) element.width = b.width
   if (b.hasOwnProperty('content')) element.innerHTML = b.content
