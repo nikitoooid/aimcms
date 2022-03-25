@@ -45,8 +45,8 @@ javascript:
       div class="offcanvas-header"
         div class="wrapper w-100"
         
-          input type="text" class="form-control mb-2" id="rte_title" = @page.title unless @page.title.nil?
-          input type="text" class="form-control mb-2" id="rte_path" = @page.slug unless @page.slug.nil?
+          input type="text" class="form-control mb-2" id="rte_title" value="#{@page.title unless @page.title.nil?}"
+          input type="text" class="form-control mb-2" id="rte_path" value="#{@page.slug unless @page.slug.nil?}"
           div class="btn btn-sm btn-primary rte_button w-100 mb-2" data-action="save" Save
           button type="button" class="btn btn-sm btn-outline-secondary w-100" data-bs-dismiss="offcanvas" Close
 

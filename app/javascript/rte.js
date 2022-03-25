@@ -463,8 +463,7 @@ function savePage() {
 
 // ----------------------------------------
 
-document.addEventListener('DOMContentLoaded', function () {
-  alert('Lol kek')
+document.addEventListener("DOMContentLoaded", function () {
   var control = document.querySelector('.rte_body')
 
   if (control) {
