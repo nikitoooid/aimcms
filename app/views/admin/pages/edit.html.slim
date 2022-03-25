@@ -1,11 +1,10 @@
 .content 
   = render 'form'
-  
-  javascript:
-    // входящая/исходящая страница
-    var page = {'blocks' : []}
-    // var block_templates = <%= @templates.to_s.html_safe %>
 
+  javascript:
+    var page = #{@page.content.to_s.html_safe}
+    // var block_templates = #{@templates.to_s.html_safe}
+  
     // templates library
     var block_templates = {
       blocks: [

@@ -1,45 +1,5 @@
 // STORE IN PARTIAL
-// входящая/исходящая страница
-var page = { blocks: [{ 'block' : 'div', 'block_name' : 'tpl00', 'title' : 'Blank block'}] }
-// templates library
-var block_templates = {
-  blocks: [
-    { block: 'p',   block_name: 'tpltxt', title: 'Text block',      template_name: 'text', content: 'Lorem ipsum dolor sit amet...'},
-    { block: 'div', block_name: 'tplbln', title: 'Blank block'},
-    { block: 'img', block_name: 'tplimg', title: 'Image',           template_name: 'image' },
-    { block: 'div', block_name: 'tplcnt', title: 'Container',       template_name: 'container', classlist: 'container'},
-    { block: 'div', block_name: 'tpladv', title: 'Advanced block',  template_name: 'advanced' }
-  ]
-}
-// localization
-var loc = {
-  new: 'New',
-  save: 'Save',
-  apply: 'Apply',
-  close: 'Close',
-  delete: 'Delete',
-  empty: 'empty',
-  code: 'Code',
-  get_json: 'Get Json',
-  blocklist_header: 'Blocklist',
-  code_header: 'Cool code editor',
-  select_block: 'Select block',
-  main_settings: 'Main settings',
-  block_name: 'Block name',
-  id: 'Id',
-  classes: 'Css classes',
-  template: 'Block template',
-  style: 'Style',
-  styles: 'Styles',
-  advanced: 'Advanced options',
-  tag: 'Block tag',
-  src: 'Source',
-  href: 'Link',
-  alt: 'Alternative text',
-  type: 'Type',
-  content: 'Content',
-  select_ff: 'Select from file'
-}
+
 
 
 // forms library
@@ -499,7 +459,8 @@ function getBlockLibrary() {
 function savePage() {
   formSave()
 
-  document.querySelector('.submit').click()
+  document.querySelector('.rte_submit') ? console.log('Submit found') : console.log('Submit not found')
+  document.querySelector('.rte_submit').click()
 }
 
 // ----------------------------------------
@@ -1175,6 +1136,7 @@ function formSave(){
   let res_cont = document.querySelector('textarea.result_content')
   if (res_cont) res_cont.value = JSON.stringify(page)
 
+  console.log(res_cont.value)
   // res_cont = document.querySelector('textarea.result_title')
   // if (res_cont) res_cont.value = document.querySelector('#rte_title').value
   
