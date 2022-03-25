@@ -1,8 +1,10 @@
-div class="d-flex align-items-center"
-  h1 style="margin-right: 1rem" #{t('.header')}
-  = link_to t('.new'), new_admin_document_path, class: 'btn btn-sm btn-dark'
+div class="content container-fluid p-1"
 
-hr
+  div class="d-flex align-items-center"
+    h1 style="margin-right: 1rem" #{t('.header')}
+    = link_to t('.new'), new_admin_document_path, class: 'btn btn-sm btn-dark'
 
-div class="row"
-  == render @documents
+  hr
+
+  div class="row"
+    == render @documents
