@@ -4,7 +4,7 @@ import "controllers"
 import "popper"
 import "bootstrap"
 
-import "utilities/rte"
+// import "utilities/rte"
 
 //= require jquery3
 //= require popper

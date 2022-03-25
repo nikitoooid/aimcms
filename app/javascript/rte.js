@@ -1,7 +1,6 @@
 // STORE IN PARTIAL
 
 
-
 // forms library
 var rte_forms = [
   // default
@@ -459,14 +458,13 @@ function getBlockLibrary() {
 function savePage() {
   formSave()
 
-  document.querySelector('.rte_submit') ? console.log('Submit found') : console.log('Submit not found')
   document.querySelector('.rte_submit').click()
 }
 
 // ----------------------------------------
 
 document.addEventListener('DOMContentLoaded', function () {
-  
+  alert('Lol kek')
   var control = document.querySelector('.rte_body')
 
   if (control) {
@@ -1125,6 +1123,7 @@ function nameDuplicateProtected(block) {
 function formSave(){
   let block = page.blocks.getBlock('block_name', paramsbuffer.target, 'blocks')
 
+  
   if (block) {
     for (var k in paramsbuffer) {
       if (k != 'target' && k != undefined) block[k] = paramsbuffer[k]
@@ -1136,12 +1135,14 @@ function formSave(){
   let res_cont = document.querySelector('textarea.result_content')
   if (res_cont) res_cont.value = JSON.stringify(page)
 
+  console.log('Set title to form')
+  res_cont = document.querySelector('input.result_title')
+  if (res_cont) res_cont.value = document.querySelector('#rte_title').value
   console.log(res_cont.value)
-  // res_cont = document.querySelector('textarea.result_title')
-  // if (res_cont) res_cont.value = document.querySelector('#rte_title').value
-  
-  // res_cont = document.querySelector('textarea.result_path')
-  // if (res_cont && document.querySelector('#rte_path')) res_cont.value = document.querySelector('#rte_path').value
+  console.log('Set slug to form')
+  res_cont = document.querySelector('input.result_path')
+  if (res_cont && document.querySelector('#rte_path')) res_cont.value = document.querySelector('#rte_path').value
+  console.log(res_cont.value)
 
   renderPage()
 }
