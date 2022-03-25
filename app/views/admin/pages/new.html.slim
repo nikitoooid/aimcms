@@ -1,0 +1,26 @@
+div class="rte_body"
+  div class="offcanvas offcanvas-end rte_sidebar" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
+    div class="offcanvas-header"
+      div class="wrapper w-100"
+        // RAILS FORM CAN BE HERE
+        input required id="rte_title" type="text" class="form-control mb-2" value="#{@page.title}"
+        input required id="rte_path" type="text" class="form-control mb-2" value="#{@page.slug}"
+        //  END OF RAILS FORM
+        div class="btn btn-sm btn-primary rte_button w-100 mb-2" data-action="save" Save
+        button type="button" class="btn btn-sm btn-outline-secondary w-100" data-bs-dismiss="offcanvas" Close
+  
+      div class="offcanvas-header"
+        div class="" role="group"
+          div class="btn btn-sm btn-primary rte_button" data-action="apply" Apply
+          div class="btn btn-sm btn-outline-dark rte_button" data-action="blocklist" Blocklist
+          div class="btn btn-sm btn-outline-danger" data-action="delete" Delete
+        
+        div role="group"
+          div class="btn btn-sm btn-dark" data-action="cde_open_in" Code
+  
+      // TOOLS (LIVE UPDATE)
+      div class="offcanvas-body accordion accordion-flush sidebar_wrapper"
+
+
+<script src="https://pagecdn.io/lib/ace/1.4.13/ace.min.js" crossorigin="anonymous" integrity="sha256-GjtAsBCI/KPlEYQf0I8yNimcThRoWMnk7Vpi+dUt+GY=" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.14/ext-language_tools.min.js" integrity="sha512-S7Whi8oQAQu/MK6AhBWufIJIyOvqORj+/1YDM9MaHeRalsZjzyYS7Usk4fsh+6J77PUhuk5v/BxaMDXRdWd1KA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
