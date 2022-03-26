@@ -134,7 +134,8 @@ en:
         success: "Page deleted"
 
   rte:
-    new:                "New "
+    select:             'Select'
+    new:                'New '
     save:               'Save'
     apply:              'Apply'
     close:              'Close'

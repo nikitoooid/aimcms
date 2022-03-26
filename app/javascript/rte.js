@@ -13,10 +13,10 @@ var rte_forms = [
     'template_name' : 'advanced',
     'forms' : [
       {
-        'title' : 'Main settings',
+        'title' : loc.main_settings,
         'forms' : [
           {
-            'label': 'Block name',
+            'label': loc.block_name,
             'classlist': 'mb-3',
             'input': 'input',
             'type': 'text',
@@ -24,53 +24,48 @@ var rte_forms = [
             'target': 'block_name'
           },
           {
-            'label': 'ID',
+            'label': loc.id,
             'classlist': 'mb-3',
             'input': 'input',
             'type': 'text',
-            'target': 'id',
-            'description': 'Поле для указания идентификатора выбранного блока.'
+            'target': 'id'
           },
           {
-            'label': 'CSS classes',
+            'label': loc.classes,
             'classlist': 'mb-3',
             'input': 'textarea',
-            'target': 'classlist',
-            'description': 'Поле для редактирования списка классов блока.'
+            'target': 'classlist'
           },
           {
-            'label': 'Block template',
+            'label': loc.template,
             'input': 'input',
             'type': 'text',
-            'target': 'block_template',
-            'description': 'Название шаблона блока. После сохранения, будут отображены формы шаблона'
+            'target': 'block_template'
           }
         ]
       },
       {
-        'title' : 'Style',
+        'title' : loc.style,
         'forms' : [
           {
-            'label': 'Styles',
+            'label': loc.styles,
             'classlist': 'mb-3',
             'input': 'textarea',
-            'target': 'style',
-            'description': 'Поле для редактирования стилей блока.'
+            'target': 'style'
           }
         ]
       },
       {
-        'title' : 'Advanced options',
+        'title' : loc.advanced,
         'forms' : [
           {
-            'label': 'Block tag',
+            'label': loc.tag,
             'input': 'input',
             'type': 'text',
-            'target': 'block',
-            'description': 'HTML-тег блока (div, p, a, span и т.д.)'
+            'target': 'block'
           },
           {
-            'label': 'Src',
+            'label': loc.src,
             'input': 'input',
             'type': 'text',
             'target': 'src'
@@ -78,23 +73,23 @@ var rte_forms = [
           {
             block: 'div',
             classlist: 'btn btn-sm btn-primary mt-2 w-100',
-            content: 'Select from file',
+            content: loc.select_ff,
             data: { action: 'fs', target: 'src'}
           },
           {
-            'label': 'Href',
+            'label': loc.href,
             'input': 'input',
             'type': 'text',
             'target': 'href'
           },
           {
-            'label': 'Alt',
+            'label': loc.alt,
             'input': 'textarea',
             'type': 'text',
             'target': 'alt'
           },
           {
-            'label': 'Type',
+            'label': loc.type,
             'input': 'input',
             'type': 'text',
             'target': 'value'
@@ -102,7 +97,7 @@ var rte_forms = [
         ]
       },
       {
-        'label': 'Content',
+        'label': loc.content,
         'input': 'textarea',
         'type': 'text',
         'target': 'content'
@@ -132,28 +127,26 @@ var rte_forms = [
         ]
       },
       {
-        'label': 'CSS classes',
+        'label': loc.classes,
         'classlist': 'mb-3',
         'input': 'textarea',
-        'target': 'classlist',
-        'description': 'Поле для редактирования списка классов блока.'
+        'target': 'classlist'
       },
       {
-        'label': 'Styles',
+        'label': loc.styles,
         'classlist': 'mb-3',
         'input': 'textarea',
-        'target': 'style',
-        'description': 'Поле для редактирования стилей блока.'
+        'target': 'style'
       },
       {
-        'label': 'Content',
+        'label': loc.content,
         'input': 'textarea',
         'type': 'text',
         'target': 'content'
       },
       { block: 'hr' },
       {
-        'label': 'ID',
+        'label': loc.id,
         'classlist': 'mb-3',
         'input': 'input',
         'type': 'text',
@@ -175,18 +168,16 @@ var rte_forms = [
         ]
       },
       {
-        'label': 'CSS classes',
+        'label': loc.classes,
         'classlist': 'mb-3',
         'input': 'textarea',
-        'target': 'classlist',
-        'description': 'Поле для редактирования списка классов блока.'
+        'target': 'classlist'
       },
       {
-        'label': 'Styles',
+        'label': loc.styles,
         'classlist': 'mb-3',
         'input': 'textarea',
-        'target': 'style',
-        'description': 'Поле для редактирования стилей блока.'
+        'target': 'style'
       }
     ]
   },
@@ -195,14 +186,13 @@ var rte_forms = [
     'template_name' : 'image',
     'forms' : [
       {
-        'label': 'Styles',
+        'label': loc.styles,
         'classlist': 'mb-3',
         'input': 'textarea',
-        'target': 'style',
-        'description': 'Поле для редактирования стилей блока.'
+        'target': 'style'
       },
       {
-        'label': 'Src',
+        'label': loc.src,
         'input': 'input',
         'type': 'text',
         'target': 'src'
@@ -214,24 +204,23 @@ var rte_forms = [
         data: { action: 'fs', target: 'src'}
       },
       {
-        'label': 'Alt',
+        'label': loc.alt,
         'input': 'textarea',
         'type': 'text',
         'target': 'alt'
       },
       {
-        'label': 'ID',
+        'label': loc.id,
         'classlist': 'mb-3',
         'input': 'input',
         'type': 'text',
         'target': 'id'
       },
       {
-        'label': 'CSS classes',
+        'label': loc.classes,
         'classlist': 'mb-3',
         'input': 'textarea',
-        'target': 'classlist',
-        'description': 'Поле для редактирования списка классов блока.'
+        'target': 'classlist'
       }
     ]
   }
@@ -543,9 +532,9 @@ function fileManager(files, target) {
               { block: 'p', classlist: 'url', style: 'color: #aaa' },
               { block: 'hr' },
               { block: 'div', classlist: 'btn-group btn-group-sm', blocks:[
-                { block: 'div', classlist: 'btn btn-primary', data: {action: 'fs_open'}, content: 'Open' },
-                { block: 'div', classlist: 'btn btn-danger', data: {action: 'fs_destroy'}, content: 'Delete' },
-                { block: 'div', classlist: 'btn btn-dark', data: {action: 'fs_close'}, content: 'Close' }
+                { block: 'div', classlist: 'btn btn-primary', data: {action: 'fs_open'}, content: loc.select },
+                { block: 'div', classlist: 'btn btn-danger', data: {action: 'fs_destroy'}, content: loc.delete },
+                { block: 'div', classlist: 'btn btn-dark', data: {action: 'fs_close'}, content: loc.close }
               ]}
             ]
           }
