@@ -133,11 +133,12 @@ ru:
         fail:     "Ошибка при обновлении страницы"
       destroy:
         success:  "Страница удалена"
-    templates:
+    blocks:
       index:
         header:   "Шаблоны"
         new:      "Создать шаблон"
-      page:
+      block:
+        show:     "Посмотреть"
         edit:     "Редактировать"
         delete:   "Удалить"
       create:
@@ -151,7 +152,7 @@ ru:
 
   rte:
     select:             'Выбрать'
-    new:                'Добавить '
+    new:                'Вставить '
     save:               'Сохранить'
     apply:              'Применить'
     close:              'Закрыть'
@@ -161,7 +162,7 @@ ru:
     get_json:           'Получить Json'
     blocklist_header:   'Список блоков'
     code_header:        'Редактор CODE'
-    select_block:       'Выбрать блок'
+    select_block:       'Выбрать шаблон'
     main_settings:      'Основные параметры'
     block_name:         'Имя блока'
     id:                 'Id блока'

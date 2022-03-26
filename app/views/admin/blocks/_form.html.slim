@@ -1,17 +1,17 @@
 javascript:
-  var page = #{@page.content.nil? ? "{blocks:[]}".html_safe : @page.content.html_safe}
+  var page = #{@block.content.nil? ? "{blocks:[]}".html_safe : @block.content.html_safe}
   var loc = #{rte_localization}
   var files = #{Document.json_list.html_safe}
   var block_templates = #{Block.json_list.html_safe}
-
+  
 .content
   div class="rte_body" style="height: 100%"
     div class="offcanvas offcanvas-end rte_sidebar" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
       div class="offcanvas-header"
         div class="wrapper w-100"
         
-          input type="text" class="form-control mb-2" id="rte_title" value="#{@page.title unless @page.title.nil?}"
-          input type="text" class="form-control mb-2" id="rte_path" value="#{@page.slug unless @page.slug.nil?}"
+          input type="text" class="form-control mb-2" id="rte_title" value="#{@block.title unless @block.title.nil?}"
+          input type="text" class="form-control mb-2" id="rte_template" value="#{@block.template_name unless @block.template_name.nil?}"
           div class="btn btn-sm btn-primary rte_button w-100 mb-2" data-action="save" = t('rte.save')
           button type="button" class="btn btn-sm btn-outline-secondary w-100" data-bs-dismiss="offcanvas" = t('rte.close')
 
@@ -28,9 +28,9 @@ javascript:
       div class="offcanvas-body accordion accordion-flush sidebar_wrapper"
 
 div style="visibility: collapse"
-  = form_with model: [:admin, @page] do |f|
+  = form_with model: [:admin, @block] do |f|
     = f.text_field :title, class: "result_title"
-    = f.text_field :slug, class: "result_path"
+    = f.text_field :template_name, class: "result_template"
     = f.text_area :content, class: 'result_content'
     = f.submit 'submit', class: 'rte_submit'  
 

@@ -42,6 +42,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_26_140435) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "blocks", force: :cascade do |t|
+    t.string "title"
+    t.string "template_name"
+    t.json "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "documents", force: :cascade do |t|
     t.string "title"
     t.text "description"
@@ -52,14 +60,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_26_140435) do
   create_table "pages", force: :cascade do |t|
     t.string "title"
     t.string "slug"
-    t.json "content"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "templates", force: :cascade do |t|
-    t.string "title"
-    t.text "description"
     t.json "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

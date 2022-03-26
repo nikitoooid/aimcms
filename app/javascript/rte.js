@@ -6,7 +6,33 @@ var rte_forms = [
   // default
   {
     template_name: 'default',
-    forms: []
+    forms: [
+      {
+        'label': loc.id,
+        'classlist': 'mb-3',
+        'input': 'input',
+        'type': 'text',
+        'target': 'id'
+      },
+      {
+        'label': loc.classes,
+        'classlist': 'mb-3',
+        'input': 'textarea',
+        'target': 'classlist'
+      },
+      {
+        'label': loc.content,
+        'input': 'textarea',
+        'type': 'text',
+        'target': 'content'
+      },
+      {
+        'label': loc.styles,
+        'classlist': 'mb-3',
+        'input': 'textarea',
+        'target': 'style'
+      }
+    ]
   },
   // advanced
   {
@@ -35,12 +61,6 @@ var rte_forms = [
             'classlist': 'mb-3',
             'input': 'textarea',
             'target': 'classlist'
-          },
-          {
-            'label': loc.template,
-            'input': 'input',
-            'type': 'text',
-            'target': 'block_template'
           }
         ]
       },
@@ -251,7 +271,7 @@ var sidebarOffCanvas
 
 var paramsbuffer = {}   // буфер параметров формы
 var blockbuffer         // буфер для копирования блока
-var newblockbuffer = block_templates.blocks[0]      // буфер нового блока
+var newblockbuffer = block_templates.blocks[0] || {block: 'div', title: 'advanced block', template_name: 'advanced'}      // буфер нового блока
 
 var codeEditor
 // ----------------------------------------
@@ -436,14 +456,6 @@ function generateRte() {
 
 // ----------------------------------------
 
-function getPage() {
-  return page
-}
-
-function getBlockLibrary() {
-  return blocks
-}
-
 function savePage() {
   formSave()
 
@@ -523,7 +535,6 @@ function fileManager(files, target) {
               { block: 'hr' },
               { block: 'div', classlist: 'btn-group btn-group-sm', blocks:[
                 { block: 'div', classlist: 'btn btn-primary', data: {action: 'fs_open'}, content: loc.select },
-                { block: 'div', classlist: 'btn btn-danger', data: {action: 'fs_destroy'}, content: loc.delete },
                 { block: 'div', classlist: 'btn btn-dark', data: {action: 'fs_close'}, content: loc.close }
               ]}
             ]
@@ -623,6 +634,7 @@ function cdeOpen() {
 
 function cdeOpenIn() {
   let tmp = document.createElement('div')
+  
   tmp.appendChild(createBlock(paramsbuffer, false))
   codeEditor.setValue(tmp.innerHTML)
   codeEditorModal.show()
@@ -635,7 +647,6 @@ function cdeGetJson() {
 // конвертация элемента в json
 function rawConvert(element) {
   if (!element.tagName) return
-
   let result = {}
   result.block = element.tagName.toLowerCase()
 
@@ -656,13 +667,13 @@ function rawConvert(element) {
   if (element.rows) result.value = element.value
 
   // конвертируем data аттрибуты
-  if(element.dataset) {
+  if(element.dataset.length) {
     result.data = {}
     for (let k in element.dataset) result.data[k] = element.dataset[k]
   }
 
   // наполняем дочерними
-  if (element.children != null) {
+  if (element.children.length != 0) {
     result.blocks = []
 
     for (let k in element.children) {
@@ -865,6 +876,7 @@ function getForm(template, block) {
   // for (k in paramsbuffer) delete paramsbuffer[k]
   paramsbuffer = {}
 
+  paramsbuffer.block = block.block
   paramsbuffer.target = block.block_name
   
   if (block.blocks) paramsbuffer.blocks = block.blocks
@@ -1113,14 +1125,15 @@ function formSave(){
   let res_cont = document.querySelector('textarea.result_content')
   if (res_cont) res_cont.value = JSON.stringify(page)
 
-  console.log('Set title to form')
   res_cont = document.querySelector('input.result_title')
   if (res_cont) res_cont.value = document.querySelector('#rte_title').value
-  console.log(res_cont.value)
-  console.log('Set slug to form')
+
+  res_cont = document.querySelector('input.result_template')
+  if (res_cont && document.querySelector('#rte_template')) res_cont.value = document.querySelector('#rte_template').value
+
   res_cont = document.querySelector('input.result_path')
   if (res_cont && document.querySelector('#rte_path')) res_cont.value = document.querySelector('#rte_path').value
-  console.log(res_cont.value)
+
 
   renderPage()
 }

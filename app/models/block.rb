@@ -1,11 +1,11 @@
-class Template < ApplicationRecord
+class Block < ApplicationRecord
   include ActionView::Helpers::TagHelper
 
   def prepare_template
     template = ActiveSupport::JSON.decode(self.content)['blocks'].first
 
     template['title'] = self.title
-    template['block_name'] = "tpl_#{self.id}"
+    template['template_name'] = self.template_name
     template
   end
 
@@ -21,10 +21,11 @@ class Template < ApplicationRecord
   def self.json_list
     result = {blocks: []}
 
-    self.all.each do |doc|
-      result.blocks.push(doc.prepare_template)
+    self.all.each do |block|
+      result[:blocks].push(block.prepare_template)
     end
-
+    
+    result[:blocks].push({block: 'div', title: 'Advanced block', template_name: 'advanced'})
     result.to_json
   end
 

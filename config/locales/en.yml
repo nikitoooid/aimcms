@@ -133,21 +133,22 @@ en:
         fail:     "Page updating failed"
       destroy:
         success:  "Page deleted"
-    pages:
+    blocks:
       index:
-        header:   "Templates"
-        new:      "New template"
-      page:
+        header:   "Blocks"
+        new:      "New block"
+      block:
+        show:     "Show"
         edit:     "Edit"
         delete:   "Delete"
       create:
-        success:  "Template successfully created"
-        fail:     "Template creation failed"
+        success:  "Block successfully created"
+        fail:     "Block creation failed"
       update:
-        success:  "Template successfully updated"
-        fail:     "Template updating failed"
+        success:  "Block successfully updated"
+        fail:     "Block updating failed"
       destroy:
-        success:  "Template deleted"
+        success:  "Block deleted"
 
   rte:
     select:             'Select'
