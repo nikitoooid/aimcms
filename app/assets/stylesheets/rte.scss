@@ -47,14 +47,14 @@
   font-size: 1.5rem
 }
 
-.rte_blocklist .list-group-item,
+.rte_blocklist .list-group-item, .rte_block_item,
 .rteblock, .rte_template_item, .rte_file {
   cursor: pointer;
 }
 
-.sidebar.collapsed { height: fit-content; width: fit-content; }
+.rte_block_item:not(.active):hover { background: #e0e0e0; }
 
-.hidden { display: none; }
+.sidebar.collapsed { height: fit-content; width: fit-content; }
 
 /* ------------------------------------------------------ */
 
@@ -84,7 +84,7 @@
   background: #fff;
   overflow: hidden;
 
-  z-index: 9999;
+  z-index: 1060;
 }
 
 .rte_filemanager.fullscreen {
@@ -120,7 +120,9 @@
 }
 
 .rte_file {
-  padding: 5px;
+  cursor: pointer;
+  padding: 2px;
+  text-decoration: none;
 }
 
 .rte_file .fwr {
@@ -132,7 +134,7 @@
 .rte_file i {
   display: inline-block;
   width: 100%;
-  font-size: 60px;
+  font-size: 70px;
   text-align: center;
   color: #1f2324;
 }
@@ -140,6 +142,7 @@
 .rte_file p {
   text-align: center;
   color: #1f2324;
+  margin-bottom: 0;
 }
 
 .rte_file.active .fwr,
