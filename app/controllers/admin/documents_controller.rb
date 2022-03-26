@@ -1,7 +1,7 @@
 class Admin::DocumentsController < Admin::MainController
   
   before_action :set_document, only: %i[show update destroy]
-  before_action :set_documents, only: %i[index]
+  before_action :set_documents, only: %i[index list]
 
   rescue_from ActiveRecord::RecordNotFound, with: :rescue_with_document_not_found
 
@@ -13,6 +13,10 @@ class Admin::DocumentsController < Admin::MainController
 
   def new
     @document = Document.new
+  end
+
+  def list
+    render json: Document.json_list
   end
 
   def create

@@ -1,6 +1,3 @@
-// STORE IN PARTIAL
-
-
 // forms library
 var rte_forms = [
   // default
@@ -269,7 +266,6 @@ var rte_actions = {
   //---------------------------
   'fs' : fs,
   'fs_open' : fs_openFile,
-  'fs_destroy' : fs_destroyFile,
   'fs_close' : fs_closeWindow
 }
        
@@ -506,9 +502,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function fs(el) {
   // получить список файлов
-  let fs = files
-  // открыть файловую систему
-  fileManager(fs, el.dataset.target)
+  fetch("/admin/files/list").then((response) => {return response.json()}).then((data) => {
+    // открыть файловую систему
+    fileManager(data, el.dataset.target)
+  })
 }
 
 function fileManager(files, target) {
@@ -555,15 +552,14 @@ function fileManager(files, target) {
   document.querySelector('body').appendChild(createBlock(fswin, false))
   // draw files
   let content = document.querySelector('.rte_filemanager .content .row')
-  files.forEach( file => { if (file.ext == 'dir') content.appendChild(createFile(file)) })
-  files.forEach( file => { if (file.ext != 'dir') content.appendChild(createFile(file)) })
+  files.forEach( file => { content.appendChild(createFile(file)) })
 }
 
 function createFile(file){
   let preview = { block: 'div', blocks: [{ block: 'i', classlist: file.ext == 'dir' ? 'bi-folder' : `bi-filetype-${file.ext}` }] }
-
+  console.log(file)
   if ( file.ext == 'jpg' || file.ext == 'jpeg' || file.ext == 'png' || file.ext == 'svg' || file.ext == 'bmp' ) {
-    preview.style = "background: url('" + file.url + "') no-repeat center; background-size: cover"
+    preview.style = "background: url('" + file.cover + "') no-repeat center; background-size: cover"
     preview.blocks[0].style = 'color: transparent'
   }
 
@@ -613,10 +609,8 @@ function fs_openFile() {
     f.value = result_url
     paramsbuffer[result_target] = result_url
   }
-}
 
-function fs_destroyFile() {
-  alert('Destroy file')
+  formSave()
 }
 
 function fs_closeWindow() {

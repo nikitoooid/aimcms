@@ -1,7 +1,6 @@
 javascript:
   var page = #{@block.content.nil? ? "{blocks:[]}".html_safe : @block.content.html_safe}
   var loc = #{rte_localization}
-  var files = #{Document.json_list.html_safe}
   var block_templates = #{Block.json_list.html_safe}
   
 .content
