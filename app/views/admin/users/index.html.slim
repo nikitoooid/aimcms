@@ -5,5 +5,11 @@ div class="content p-2 pt-3"
 
     hr
 
-    ul class="list-group"
-      == render @users
+    div.table-responsive
+      table class="table"
+        thead
+          tr
+            th = t('.title')
+            th = t('.role')
+        tbody
+          == render @users

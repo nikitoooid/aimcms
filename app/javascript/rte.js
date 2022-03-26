@@ -50,6 +50,13 @@ var rte_forms = [
             'target': 'block_name'
           },
           {
+            'label': loc.template,
+            'classlist': 'mb-3',
+            'input': 'input',
+            'type': 'text',
+            'target': 'template_name'
+          },
+          {
             'label': loc.id,
             'classlist': 'mb-3',
             'input': 'input',
@@ -110,6 +117,7 @@ var rte_forms = [
           },
           {
             'label': loc.type,
+            'classlist': 'mb-3',
             'input': 'input',
             'type': 'text',
             'target': 'value'
