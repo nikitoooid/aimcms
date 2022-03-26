@@ -132,3 +132,31 @@ ru:
         fail: "Ошибка при обновлении страницы"
       destroy:
         success: "Страница удалена"
+
+  rte:
+    new:                'Добавить '
+    save:               'Сохранить'
+    apply:              'Применить'
+    close:              'Закрыть'
+    delete:             'Удалить'
+    empty:              'пустой блок'
+    code:               'Code'
+    get_json:           'Получить Json'
+    blocklist_header:   'Список блоков'
+    code_header:        'Редактор CODE'
+    select_block:       'Выбрать блок'
+    main_settings:      'Основные параметры'
+    block_name:         'Имя блока'
+    id:                 'Id блока'
+    classes:            'Css классы'
+    template:           'Шаблон блока'
+    style:              'Стиль'
+    styles:             'Стили блока'
+    advanced:           'Расширенные параметры'
+    tag:                'Block tag'
+    src:                'Source'
+    href:               'Ссылка'
+    alt:                'Атрибут Alt'
+    type:               'Атрибут type'
+    content:            'Содержимое блока'
+    select_ff:          'Выбрать файл'

@@ -1,33 +1,7 @@
 javascript:
   var page = #{@page.content.nil? ? "{blocks:[]}".html_safe : @page.content.html_safe}
-  var loc = {
-    new: 'New',
-    save: 'Save',
-    apply: 'Apply',
-    close: 'Close',
-    delete: 'Delete',
-    empty: 'empty',
-    code: 'Code',
-    get_json: 'Get Json',
-    blocklist_header: 'Blocklist',
-    code_header: 'Cool code editor',
-    select_block: 'Select block',
-    main_settings: 'Main settings',
-    block_name: 'Block name',
-    id: 'Id',
-    classes: 'Css classes',
-    template: 'Block template',
-    style: 'Style',
-    styles: 'Styles',
-    advanced: 'Advanced options',
-    tag: 'Block tag',
-    src: 'Source',
-    href: 'Link',
-    alt: 'Alternative text',
-    type: 'Type',
-    content: 'Content',
-    select_ff: 'Select from file'
-  };
+  var loc = #{rte_localization}
+  
 
   var block_templates = {
     blocks: [
@@ -47,17 +21,17 @@ javascript:
         
           input type="text" class="form-control mb-2" id="rte_title" value="#{@page.title unless @page.title.nil?}"
           input type="text" class="form-control mb-2" id="rte_path" value="#{@page.slug unless @page.slug.nil?}"
-          div class="btn btn-sm btn-primary rte_button w-100 mb-2" data-action="save" Save
-          button type="button" class="btn btn-sm btn-outline-secondary w-100" data-bs-dismiss="offcanvas" Close
+          div class="btn btn-sm btn-primary rte_button w-100 mb-2" data-action="save" = t('rte.save')
+          button type="button" class="btn btn-sm btn-outline-secondary w-100" data-bs-dismiss="offcanvas" = t('rte.close')
 
       div class="offcanvas-header"
         div class="" role="group"
-          div class="btn btn-sm btn-primary rte_button me-2" data-action="apply" Apply
-          div class="btn btn-sm btn-outline-dark rte_button me-2" data-action="blocklist" Blocklist
-          div class="btn btn-sm btn-outline-danger" data-action="delete" Delete
+          div class="btn btn-sm btn-primary rte_button me-2 mb-2" data-action="apply" = t('rte.apply')
+          div class="btn btn-sm btn-outline-dark rte_button me-2 mb-2" data-action="blocklist" = t('rte.blocklist_header')
+          div class="btn btn-sm btn-outline-danger mb-2" data-action="delete" = t('rte.delete')
         
-        div role="group"
-          div class="btn btn-sm btn-dark" data-action="cde_open_in" Code
+        
+          div class="btn btn-sm btn-dark mb-2" data-action="cde_open_in" = t('rte.code')
 
       // TOOLS (LIVE UPDATE)
       div class="offcanvas-body accordion accordion-flush sidebar_wrapper"

@@ -132,3 +132,31 @@ en:
         fail: "Page updating failed"
       destroy:
         success: "Page deleted"
+
+  rte:
+    new:                "New "
+    save:               'Save'
+    apply:              'Apply'
+    close:              'Close'
+    delete:             'Delete'
+    empty:              'empty'
+    code:               'Code'
+    get_json:           'Get Json'
+    blocklist_header:   'Blocklist'
+    code_header:        'Cool code editor'
+    select_block:       'Select block'
+    main_settings:      'Main settings'
+    block_name:         'Block name'
+    id:                 'Id'
+    classes:            'Css classes'
+    template:           'Block template'
+    style:              'Style'
+    styles:             'Styles'
+    advanced:           'Advanced options'
+    tag:                'Block tag'
+    src:                'Source'
+    href:               'Link'
+    alt:                'Alternative text'
+    type:               'Type'
+    content:            'Content'
+    select_ff:          'Select from file'
