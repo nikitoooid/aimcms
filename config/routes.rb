@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     resources :documents, path: 'files', only: [:index, :show, :new, :create, :update, :destroy]
     resources :users, only: [:index, :edit, :update, :destroy]
     resources :pages
+    resources :templates
   end
 
   get '/:slug', to: 'main#show'
