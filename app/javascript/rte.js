@@ -484,16 +484,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // ------------------------------------------------- FILEMANAGER
 
-var files = [
-  { title: 'Test folder 1', ext: 'dir', url: '/testdir'},
-  { title: 'Test image', desc: 'Basic file description', ext: 'jpg', url: 'https://d5nunyagcicgy.cloudfront.net/external_assets/hero_examples/hair_beach_v391182663/original.jpeg' },
-  { title: 'Test text file', desc: 'Basic file description', ext: 'txt', url: '#lolkek.com/file.txt' },
-  { title: 'Test folder 2', ext: 'dir', url: '/testdir'},
-  { title: 'Test sheet', desc: 'Basic file description', ext: 'xlsx', url: '#lolkek.com/file.xlsx' },
-  { title: 'Test folder 3', ext: 'dir', url: '/testdir'},
-  { title: 'Test bitmap', desc: 'Basic file description', ext: 'png', url: 'https://png.pngtree.com/png-clipart/20190517/original/pngtree-instagram-icon-png-image_3584853.png' },
-]
-
 function fs(el) {
   // получить список файлов
   let fs = files

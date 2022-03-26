@@ -21,4 +21,19 @@ class Document < ApplicationRecord
     self.extension == 'jpg' || self.extension == 'jpeg' || self.extension == 'gif' || self.extension == 'png' || self.extension == 'svg' || self.extension == 'bmp'
   end
 
+  def self.json_list
+    result = []
+
+    self.all.each do |doc|
+      result.push({
+        title: doc.title,
+        ext: doc.extension,
+        url: doc.permanent_url,
+        desc: doc.description
+      })
+    end
+
+    result.to_json
+  end
+
 end
