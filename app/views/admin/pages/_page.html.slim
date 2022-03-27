@@ -1,9 +1,9 @@
-li class="list-group-item d-flex align-items-center" style="justify-content: space-between"
-  .row
-    div class="col-md-4 col-sm-6"
-      h5 = page.title
-    div class="col-md-4 col-sm-6"
-      span class="text-muted" = page.slug
-    div class="col-md-4 col-sm-12"
-      = link_to t('.edit'), edit_admin_page_path(page), class: 'btn btn-sm btn-dark'
-      = button_to t('.delete'), admin_page_path(page), method: :delete, class: 'btn btn-sm btn-danger'
+tr
+  td = page.title
+  td.text-muted = page.slug
+  td
+    div class="d-flex justify-content-end"
+      = link_to t('.show'), admin_page_path(page), class: 'btn btn-sm btn-dark me-2'
+      = link_to t('.edit'), edit_admin_page_path(page), class: 'btn btn-sm btn-dark me-2', data: { turbo: false }
+      = link_to t('.delete'), admin_page_path(page), data: {'turbo-method' => :delete}, class: 'btn btn-sm btn-danger'
+ 

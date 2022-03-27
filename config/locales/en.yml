@@ -26,6 +26,7 @@ en:
   files_title: "Files"
   users_title: "Users"
   pages_title: "Pages"
+  templates_title: "Templates"
 
   new: "New"
   upload: "Upload"
@@ -68,67 +69,119 @@ en:
 
     documents:
       index:
-        header: "Files"
-        new: "Upload file"
+        header:       "Files"
+        new:          "Upload file"
       new:
-        new: "New file"
-        upload: "Upload file"
-        description: "Description"
+        new:          "New file"
+        upload:       "Upload file"
+        description:  "Description"
       show:
-        description: "File description"
-        url: "File url"
-        size: "File size:"
-        kb: "kb"
-        created: "Created at:"
-        updated: "Updated at:"
-        save: "Save changes"
+        description:  "File description"
+        url:          "File url"
+        size:         "File size:"
+        kb:           "kb"
+        created:      "Created at:"
+        updated:      "Updated at:"
+        save:         "Save changes"
 
       create:
-        success: "File created"
-        fail: "File creation failed"
+        success:    "File created"
+        fail:       "File creation failed"
       update:
-        success: "File updated"
-        fail: "File update failed"
+        success:    "File updated"
+        fail:       "File update failed"
       destroy:
-        success: "File deleted"
+        success:    "File deleted"
 
     admins:
       admin:
-        role: "Administrator"
-        edit: "Edit"
+        role:       "Administrator"
+        edit:       "Edit"
     users:
       user:
-        role: "User"
-        edit: "Edit user"
+        role:       "User"
+        edit:       "Edit user"
       index:
-        header: "Users"
+        header:     "Users"
+        title:      "Name"
+        role:       "Role"
       edit:
-        header: "Edit user"
+        header:     "Edit user"
         first_name: "First name"
-        last_name: "Last name"
-        email: "E-mail"
-        role: "User role"
-        submit: "Save changes"
-        delete: "Delete user"
-        confirm: "Are you sure?"
+        last_name:  "Last name"
+        email:      "E-mail"
+        role:       "User role"
+        submit:     "Save changes"
+        delete:     "Delete user"
+        confirm:    "Are you sure?"
       update:
-        success: "User data successfully updated"
-        fail: "User data updating failed"
+        success:    "User data successfully updated"
+        fail:       "User data updating failed"
       destroy:
-        success: "User deleted."
+        success:    "User deleted."
 
     pages:
       index:
-        header: "Pages"
-        new: "New page"
+        header:   "Pages"
+        new:      "New page"
+        title:    "Title"
+        desc:     "Page slug"
       page:
-        edit: "Edit"
-        delete: "Delete"
+        show:     "Show"
+        edit:     "Edit"
+        delete:   "Delete"
       create:
-        success: "Page successfully created"
-        fail: "Page creation failed"
+        success:  "Page successfully created"
+        fail:     "Page creation failed"
       update:
-        success: "Page successfully updated"
-        fail: "Page updating failed"
+        success:  "Page successfully updated"
+        fail:     "Page updating failed"
       destroy:
-        success: "Page deleted"
+        success:  "Page deleted"
+    blocks:
+      index:
+        header:   "Blocks"
+        new:      "New block"
+        title:    "Title"
+        desc:     "Template name"
+      block:
+        show:     "Show"
+        edit:     "Edit"
+        delete:   "Delete"
+      create:
+        success:  "Block successfully created"
+        fail:     "Block creation failed"
+      update:
+        success:  "Block successfully updated"
+        fail:     "Block updating failed"
+      destroy:
+        success:  "Block deleted"
+
+  rte:
+    select:             'Select'
+    new:                'New '
+    save:               'Save'
+    apply:              'Apply'
+    close:              'Close'
+    delete:             'Delete'
+    empty:              'empty'
+    code:               'Code'
+    get_json:           'Get Json'
+    blocklist_header:   'Blocklist'
+    code_header:        'Cool code editor'
+    select_block:       'Select block'
+    main_settings:      'Main settings'
+    block_name:         'Block name'
+    id:                 'Id'
+    classes:            'Css classes'
+    template:           'Block template'
+    style:              'Style'
+    styles:             'Styles'
+    advanced:           'Advanced options'
+    tag:                'Block tag'
+    src:                'Source'
+    href:               'Link'
+    alt:                'Alternative text'
+    type:               'Type'
+    content:            'Content'
+    select_ff:          'Select from file'

@@ -1,6 +1,15 @@
-h1 #{t('.header')}
+div class="content p-2 pt-3"
+  .container-fluid
 
-hr
+    h1 #{t('.header')}
 
-ul class="list-group"
-  == render @users
+    hr
+
+    div.table-responsive
+      table class="table"
+        thead
+          tr
+            th = t('.title')
+            th = t('.role')
+        tbody
+          == render @users

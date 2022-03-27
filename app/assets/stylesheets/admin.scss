@@ -1,0 +1,18 @@
+.admin-page {
+  overflow-x: hidden;
+}
+
+.admin-page .content {
+  width: calc(100% - var(--sidebarWidth));
+  min-height: 100vh;
+}
+
+.admin-page .sidebar_front,
+.admin-page .sidebar_back {
+  width: var(--sidebarWidth) !important;
+}
+
+.admin-page .nav a,
+.admin-page .nav a:hover,
+.admin-page .nav a:focus,
+.admin-page .nav a:active { color: #fff; }

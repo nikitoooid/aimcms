@@ -7,7 +7,7 @@ module DocumentsHelper
   private
 
   def file_cover(document)
-    content_tag :div, nil, style: "background: center / cover no-repeat url('#{url_for(document.file)}');height: 105px"
+    content_tag :div, nil, style: "background: center / cover no-repeat url('#{url_for(document.file.variant(resize_to_limit: [110,nil]))}');height: 105px"
   end
 
   def file_icon(document)

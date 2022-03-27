@@ -21,4 +21,23 @@ class Document < ApplicationRecord
     self.extension == 'jpg' || self.extension == 'jpeg' || self.extension == 'gif' || self.extension == 'png' || self.extension == 'svg' || self.extension == 'bmp'
   end
 
+  def self.json_list
+    result = []
+
+    self.all.each do |doc|
+      result.push({
+        title: doc.title,
+        ext: doc.extension,
+        url: doc.permanent_url,
+        cover: (
+          Rails.application.routes.url_helpers.rails_blob_path(
+            doc.file.variant(resize_to_limit: [110,nil]), only_path: true
+          ) if doc.is_image?),
+        desc: doc.description
+      })
+    end
+
+    result.to_json
+  end
+
 end

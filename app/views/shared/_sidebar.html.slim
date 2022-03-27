@@ -1,4 +1,4 @@
-div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 300px; height: 100vh;"
+div class="sidebar_front d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="height: 100vh; position: fixed"
   a href="#{ root_path }" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none"
     
     span class="fs-4 pb-3" Admin panel
@@ -8,6 +8,7 @@ div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width
     ul class="nav nav-pills flex-column mb-auto"
       == sidebar_item t('home'), admin_root_path, 'house'
       == sidebar_item t('pages_title'), admin_pages_path, 'window'
+      == sidebar_item t('templates_title'), admin_blocks_path, 'braces'
       == sidebar_item t('files_title'), admin_documents_path, 'file-earmark'
       hr
       == sidebar_item t('users_title'), admin_users_path, 'people'
@@ -24,3 +25,5 @@ div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width
           hr class="dropdown-divider"
         li
           = button_to t('logout'), destroy_user_session_path, method: :delete, class: 'dropdown-item'
+
+div class="sidebar_back"

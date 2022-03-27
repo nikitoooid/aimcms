@@ -1,22 +1,25 @@
-div class="w-100 d-flex align-items-center justify-content-center" style="height:100%"
+.content
+  .container-fluid
 
-  = form_with model: [:admin, @document], local: true, class: 'p-3 upload-form' do |f|
-    
-    h1 #{t('.new')}
+    div class="w-100 d-flex align-items-center justify-content-center" style="height:100%"
 
-    div class="mb-3"
-      = f.label :file,
-        "#{t('upload')} #{t('file')}"
-      = f.file_field :file, class: "form-control w-100", required: true
+      = form_with model: [:admin, @document], local: true, class: 'p-3 upload-form' do |f|
+        
+        h1 #{t('.new')}
 
-    div class="mb-3"
-      = f.label :description,
-        t('.description'),
-        class: "form-label"
-      = f.text_area :description, class: "form-control"
+        div class="mb-3"
+          = f.label :file,
+            "#{t('upload')} #{t('file')}"
+          = f.file_field :file, class: "form-control w-100", required: true
 
-    div class="mb-3"
-      = f.submit t('.upload'), class: "btn btn-sm btn-primary w-100"
+        div class="mb-3"
+          = f.label :description,
+            t('.description'),
+            class: "form-label"
+          = f.text_area :description, class: "form-control"
 
-    div class="d-flex justify-content-center"
-      = link_to t('back'), admin_documents_path
+        div class="mb-3"
+          = f.submit t('.upload'), class: "btn btn-sm btn-primary w-100"
+
+        div class="d-flex justify-content-center"
+          = link_to t('back'), admin_documents_path
