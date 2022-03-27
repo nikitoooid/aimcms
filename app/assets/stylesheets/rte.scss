@@ -105,7 +105,8 @@
 }
 
 .rte_filemanager .sidebar {
-  width: 350px;
+  min-width: 300px;
+  max-width: 300px;
   border-left: 1px solid #ccc;
   padding: 1em;
 }

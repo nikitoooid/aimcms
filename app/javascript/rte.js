@@ -533,12 +533,12 @@ function fileManager(files, target) {
             block: 'div',
             classlist: 'sidebar',
             blocks: [
-              { block: 'h2', classlist: 'title' },
+              { block: 'h5', classlist: 'title', style: 'overflow:hidden' },
               { block: 'hr' },
               { block: 'p', classlist: 'desc' },
-              { block: 'p', classlist: 'url', style: 'color: #aaa' },
+              { block: 'p', classlist: 'url text-muted' },
               { block: 'hr' },
-              { block: 'div', classlist: 'btn-group btn-group-sm', blocks:[
+              { block: 'div', classlist: 'btn-group btn-group-sm w-100', blocks:[
                 { block: 'div', classlist: 'btn btn-primary', data: {action: 'fs_open'}, content: loc.select },
                 { block: 'div', classlist: 'btn btn-dark', data: {action: 'fs_close'}, content: loc.close }
               ]}
