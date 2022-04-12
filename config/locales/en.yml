@@ -159,7 +159,13 @@ en:
 
     settings:
       index:
-        header:   "Settings"
+        header:       "Settings"
+        site_name:    "Site name"
+        site_domain:  "Site domain name"
+        favicon:      "Favicon"
+        logo:         "Site logo"
+        head_tags:    "Before closing <head>"
+        body_tags:    "Before closing <body>"
       update:
         success:  "Settings successfully saved"
         fail:     "Settings updating failed"

@@ -1,7 +1,7 @@
 class Admin::SettingsController < Admin::MainController
 
   def index
-    @settings = Settings.first
+    @settings = Setting.first
   end
 
   def update
@@ -16,6 +16,6 @@ class Admin::SettingsController < Admin::MainController
   private
 
   def settings_params
-    params.require(:settings).permit([:title, :slug, :content])
+    params.require(:setting).permit([:site_name, :site_domain, :head_tags, :body_tags, :logo, :favicon])
   end
 end
