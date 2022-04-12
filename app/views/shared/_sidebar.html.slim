@@ -7,11 +7,12 @@ div class="sidebar_front d-flex flex-column flex-shrink-0 p-3 text-white bg-dark
   
     ul class="nav nav-pills flex-column mb-auto"
       == sidebar_item t('home'), admin_root_path, 'house'
-      == sidebar_item t('pages_title'), admin_pages_path, 'window'
-      == sidebar_item t('templates_title'), admin_blocks_path, 'braces'
-      == sidebar_item t('files_title'), admin_documents_path, 'file-earmark'
+      == sidebar_item t('admin.pages.index.header'), admin_pages_path, 'window'
+      == sidebar_item t('admin.templates.index.header'), admin_blocks_path, 'braces'
+      == sidebar_item t('admin.documents.index.header'), admin_documents_path, 'file-earmark'
       hr
-      == sidebar_item t('users_title'), admin_users_path, 'people'
+      == sidebar_item t('admin.users.index.header'), admin_users_path, 'people'
+      == sidebar_item t('admin.settings.index.header'), admin_settings_path, 'people'
     hr
   
     div class="dropdown"
