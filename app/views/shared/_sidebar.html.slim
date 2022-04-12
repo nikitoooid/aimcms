@@ -8,11 +8,11 @@ div class="sidebar_front d-flex flex-column flex-shrink-0 p-3 text-white bg-dark
     ul class="nav nav-pills flex-column mb-auto"
       == sidebar_item t('home'), admin_root_path, 'house'
       == sidebar_item t('admin.pages.index.header'), admin_pages_path, 'window'
-      == sidebar_item t('admin.templates.index.header'), admin_blocks_path, 'braces'
+      == sidebar_item t('admin.blocks.index.header'), admin_blocks_path, 'braces'
       == sidebar_item t('admin.documents.index.header'), admin_documents_path, 'file-earmark'
       hr
       == sidebar_item t('admin.users.index.header'), admin_users_path, 'people'
-      == sidebar_item t('admin.settings.index.header'), admin_settings_path, 'people'
+      == sidebar_item t('admin.settings.index.header'), admin_settings_path, 'gear-wide'
     hr
   
     div class="dropdown"
