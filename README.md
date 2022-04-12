@@ -18,8 +18,10 @@ Model: Document
 - Devise
 - Main#index (Admin)
 - Documents (Admin)
+- RTE
 
 * RU
 - Devise
 - Main#index (Admin)
 - Documents (Admin)
+- RTE

@@ -157,6 +157,13 @@ en:
       destroy:
         success:  "Block deleted"
 
+    settings:
+      index:
+        header:   "Settings"
+      update:
+        success:  "Settings successfully saved"
+        fail:     "Settings updating failed"
+
   rte:
     select:             'Select'
     new:                'New '

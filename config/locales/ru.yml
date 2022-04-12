@@ -157,6 +157,13 @@ ru:
       destroy:
         success:  "Шаблон удалён"
 
+    settings:
+      index:
+        header:   "Настройки"
+      update:
+        success:  "Настройки успешно сохранены"
+        fail:     "Ошибка при сохранении настроек"
+
   rte:
     select:             'Выбрать'
     new:                'Вставить '
