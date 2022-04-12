@@ -25,7 +25,7 @@ class User < ApplicationRecord
     if self.avatar.attached?
       Rails.application.routes.url_helpers.rails_blob_path(avatar_request, only_path: true)
     else
-      asset_path('user.png')
+      ActionController::Base.helpers.asset_path('user.png')
     end
   end
 end
