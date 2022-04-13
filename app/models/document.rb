@@ -18,7 +18,8 @@ class Document < ApplicationRecord
   end
 
   def is_image?
-    self.extension == 'jpg' || self.extension == 'jpeg' || self.extension == 'gif' || self.extension == 'png' || self.extension == 'svg' || self.extension == 'bmp'
+    self.extension == 'jpg' || self.extension == 'jpeg' || self.extension == 'gif' ||
+    self.extension == 'png' || self.extension == 'svg' || self.extension == 'bmp' || self.extension == 'ico'
   end
 
   def self.json_list
