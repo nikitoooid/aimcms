@@ -23,10 +23,6 @@ ru:
   home: "Главная"
   back: "Назад"
   file: "Файл"
-  files_title: "Файлы"
-  users_title: "Пользователи"
-  pages_title: "Страницы"
-  templates_title: "Шаблоны"
 
   new: "Новый"
   upload: "Загрузить"
@@ -156,6 +152,23 @@ ru:
         fail:     "Ошибка при обновлении шаблона"
       destroy:
         success:  "Шаблон удалён"
+
+    settings:
+      index:
+        header:       "Настройки"
+        site_name:    "Название сайта"
+        site_domain:  "Доменное имя сайта"
+        favicon:      "Favicon"
+        logo:         "Логотип сайта"
+        site_header:  "Шапка сайта"
+        site_sidebar: "Сайдбар сайта"
+        site_footer:  "Подвал сайта"
+        head_tags:    "Перед закрывающим тегом </head>"
+        body_tags:    "Перед закрывающим тегом </body>"
+        save:         "Сохранить изменения"
+      update:
+        success:  "Настройки успешно сохранены"
+        fail:     "Ошибка при сохранении настроек"
 
   rte:
     select:             'Выбрать'

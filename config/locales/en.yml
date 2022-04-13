@@ -23,10 +23,6 @@ en:
   home: "Home"
   back: "Back"
   file: "File"
-  files_title: "Files"
-  users_title: "Users"
-  pages_title: "Pages"
-  templates_title: "Templates"
 
   new: "New"
   upload: "Upload"
@@ -156,6 +152,23 @@ en:
         fail:     "Block updating failed"
       destroy:
         success:  "Block deleted"
+
+    settings:
+      index:
+        header:       "Settings"
+        site_name:    "Site name"
+        site_domain:  "Site domain name"
+        favicon:      "Favicon"
+        logo:         "Site logo"
+        site_header:  "Site header"
+        site_sidebar: "Site sidebar"
+        site_footer:  "Site footer"
+        head_tags:    "Before closing <head>"
+        body_tags:    "Before closing <body>"
+        save:         "Save changes"
+      update:
+        success:  "Settings successfully saved"
+        fail:     "Settings updating failed"
 
   rte:
     select:             'Select'

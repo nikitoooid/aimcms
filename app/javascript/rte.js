@@ -148,7 +148,14 @@ var rte_forms = [
           { block: 'option', value: 'span', content: 'span'},
           { block: 'option', value: 'small', content: 'small'},
           { block: 'option', value: 'strong', content: 'strong'},
-          { block: 'option', value: 'b', content: 'b'}
+          { block: 'option', value: 'b', content: 'b'},
+          { block: 'option', value: 'em', content: 'em'},
+          { block: 'option', value: 'sup', content: 'sup'},
+          { block: 'option', value: 'sub', content: 'sub'},
+          { block: 'option', value: 'del', content: 'del'},
+          { block: 'option', value: 'ins', content: 'ins'},
+          { block: 'option', value: 'cite', content: 'cite'},
+          { block: 'option', value: 'hr', content: 'hr'}
         ]
       },
       {
