@@ -1,30 +1,30 @@
 div class="sidebar_front d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="height: 100vh; position: fixed"
   a href="#{ root_path }" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none"
     
-    span class="fs-4 pb-3" Admin panel
+    span class="fs-4" = @setting.site_name
     
+  hr
+
+  ul class="nav nav-pills flex-column mb-auto"
+    == sidebar_item t('home'), admin_root_path, 'house'
+    == sidebar_item t('admin.pages.index.header'), admin_pages_path, 'window'
+    == sidebar_item t('admin.blocks.index.header'), admin_blocks_path, 'braces'
+    == sidebar_item t('admin.documents.index.header'), admin_documents_path, 'file-earmark'
     hr
-  
-    ul class="nav nav-pills flex-column mb-auto"
-      == sidebar_item t('home'), admin_root_path, 'house'
-      == sidebar_item t('admin.pages.index.header'), admin_pages_path, 'window'
-      == sidebar_item t('admin.blocks.index.header'), admin_blocks_path, 'braces'
-      == sidebar_item t('admin.documents.index.header'), admin_documents_path, 'file-earmark'
-      hr
-      == sidebar_item t('admin.users.index.header'), admin_users_path, 'people'
-      == sidebar_item t('admin.settings.index.header'), admin_settings_path, 'gear-wide'
-    hr
-  
-    div class="dropdown"
-      a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false"
-        img src="#{current_user.avatar_url([32,32])}" alt="avatar" class="rounded-circle me-2" width="32" height="32"
-        strong #{current_user.first_name} #{current_user.last_name}
-      ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser"
-        li
-          = link_to t('profile'), profile_path, class: 'dropdown-item'
-        li
-          hr class="dropdown-divider"
-        li
-          = button_to t('logout'), destroy_user_session_path, method: :delete, class: 'dropdown-item'
+    == sidebar_item t('admin.users.index.header'), admin_users_path, 'people'
+    == sidebar_item t('admin.settings.index.header'), admin_settings_path, 'gear-wide'
+  hr
+
+  div class="dropdown"
+    a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false"
+      img src="#{current_user.avatar_url([32,32])}" alt="avatar" class="rounded-circle me-2" width="32" height="32"
+      strong #{current_user.first_name} #{current_user.last_name}
+    ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser"
+      li
+        = link_to t('profile'), profile_path, class: 'dropdown-item'
+      li
+        hr class="dropdown-divider"
+      li
+        = button_to t('logout'), destroy_user_session_path, method: :delete, class: 'dropdown-item'
 
 div class="sidebar_back"

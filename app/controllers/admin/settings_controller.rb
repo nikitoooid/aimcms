@@ -1,6 +1,6 @@
 class Admin::SettingsController < Admin::MainController
 
-  before_action :get_settings
+  # before_action :get_settings
 
   def index
   end

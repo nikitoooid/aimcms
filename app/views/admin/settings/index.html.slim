@@ -14,6 +14,14 @@ div class="content p-2 pt-3"
         = f.text_field :site_domain, class: "form-control"
 
       .mb-3
+        = f.label :logo, "#{t('upload')} #{t('.logo')}", class: 'form-label'
+        = f.file_field :logo, class: "form-control"
+
+      .mb-3
+        = f.label :favicon, "#{t('upload')} #{t('.favicon')}", class: 'form-label'
+        = f.file_field :logo, class: "form-control"
+
+      .mb-3
         = f.label :head_tags, t('.head_tags'), class: 'form-label'
         = f.text_area :head_tags, class: "form-control"
 
