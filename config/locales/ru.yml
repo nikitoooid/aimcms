@@ -23,10 +23,6 @@ ru:
   home: "Главная"
   back: "Назад"
   file: "Файл"
-  files_title: "Файлы"
-  users_title: "Пользователи"
-  pages_title: "Страницы"
-  templates_title: "Шаблоны"
 
   new: "Новый"
   upload: "Загрузить"

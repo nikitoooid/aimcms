@@ -1,11 +1,12 @@
 class Admin::SettingsController < Admin::MainController
 
+  before_action :get_settings
+
   def index
-    @settings = Setting.first
   end
 
   def update
-    if @page.update(settings_params)
+    if @setting.update(setting_params)
       redirect_to admin_settings_path, flash: { success: t('.success') }
     else
       flash[:danger] = t('.fail')
@@ -15,7 +16,11 @@ class Admin::SettingsController < Admin::MainController
 
   private
 
-  def settings_params
-    params.require(:setting).permit([:site_name, :site_domain, :head_tags, :body_tags, :logo, :favicon])
+  def get_settings
+    @setting = Setting.first
+  end
+
+  def setting_params
+    params.require(:setting).permit(:site_name, :site_domain, :head_tags, :body_tags, :logo, :favicon)
   end
 end

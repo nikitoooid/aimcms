@@ -1,0 +1,25 @@
+div class="content p-2 pt-3"
+  .container-fluid
+    h1 = t('.header')
+    hr
+
+    = form_with model: [:admin, @setting] do |f|
+      
+      .mb-3
+        = f.label :site_name, t('.site_name'), class: 'form-label'
+        = f.text_field :site_name, class: "form-control"
+
+      .mb-3
+        = f.label :site_domain, t('.site_domain'), class: 'form-label'
+        = f.text_field :site_domain, class: "form-control"
+
+      .mb-3
+        = f.label :head_tags, t('.head_tags'), class: 'form-label'
+        = f.text_area :head_tags, class: "form-control"
+
+      .mb-3
+        = f.label :body_tags, t('.body_tags'), class: 'form-label'
+        = f.text_area :body_tags, class: "form-control"
+
+      .mb-3
+        = f.submit 'submit', class: 'btn btn-sm btn-primary'
