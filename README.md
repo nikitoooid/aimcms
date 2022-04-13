@@ -14,6 +14,9 @@
 * Add basic keywords to settings
 * Add <head> helpers
 * Add before </body> helpers
+* Add user sidebar
+* Add user navbar
+* Add user footer
 ### Pages
 * Add page cover (og image)
 * Add page description
