@@ -169,6 +169,20 @@ en:
       update:
         success:  "Settings successfully saved"
         fail:     "Settings updating failed"
+    styles:
+      index:
+        header:   "Custom styles"
+      block:
+        open:     "Open"
+        delete:   "Delete"
+      create:
+        success:  "Style sucessfully created"
+        fail:     "Style creating failed"
+      update:
+        success:  "Style sucessfully updated"
+        fail:     "Style updating failed"
+      destroy:
+        success:  "Style delted"
 
   rte:
     select:             'Select'
