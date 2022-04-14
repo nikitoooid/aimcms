@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     resources :pages
     resources :blocks
     resources :settings, only: [:index, :update]
+    resources :styles, only: [:index, :new, :create, :edit, :update, :destroy]
     
   end
 
