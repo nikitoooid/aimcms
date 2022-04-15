@@ -172,6 +172,10 @@ ru:
     styles:
       index:
         header:   "Пользовательские стили"
+        new:      "Новая таблица стилей"
+      style:
+        open:     "Открыть"
+        delete:   "Удалить"
       block:
         open:     "Открыть"
         delete:   "Удалить"
