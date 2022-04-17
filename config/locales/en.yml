@@ -172,7 +172,7 @@ en:
     styles:
       index:
         header:   "Custom styles"
-        new:      "New custom stylesheet"
+        new:      "New stylesheet"
       style:
         open:     "Open"
         delete:   "Delete"
