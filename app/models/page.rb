@@ -1,6 +1,8 @@
 class Page < ApplicationRecord
   include ActionView::Helpers::TagHelper
 
+  has_and_belongs_to_many :styles
+
   def html_content
     blocks = ActiveSupport::JSON.decode(self.content)['blocks']
     result = []
