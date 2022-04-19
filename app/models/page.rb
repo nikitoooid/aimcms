@@ -1,6 +1,8 @@
 class Page < ApplicationRecord
   include ActionView::Helpers::TagHelper
 
+  has_and_belongs_to_many :styles
+
   def html_content
     blocks = ActiveSupport::JSON.decode(self.content)['blocks']
     result = []
@@ -8,6 +10,13 @@ class Page < ApplicationRecord
     blocks.each { |block| result.push create_block(block) }
 
     result.join.to_s.html_safe
+  end
+
+  def style_content
+    content = []
+    self.styles.each { |style| content.push(style.content) }
+
+    content_tag(:style, content.join(' ').html_safe) if content.any?
   end
 
   private

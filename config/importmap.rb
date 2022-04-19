@@ -9,4 +9,5 @@ pin_all_from "app/javascript/controllers", under: "controllers"
 pin "popper", to: 'popper.js', preload: true
 pin "bootstrap", to: 'bootstrap.min.js', preload: true
 pin "rte", preload: true
+pin "codeeditor", preload: true
 # pin_all_from "app/javascript/utilities", under: "utilities"
