@@ -57,19 +57,19 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_19_140925) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "page_style", id: false, force: :cascade do |t|
-    t.bigint "page_id"
-    t.bigint "style_id"
-    t.index ["page_id"], name: "index_page_style_on_page_id"
-    t.index ["style_id"], name: "index_page_style_on_style_id"
-  end
-
   create_table "pages", force: :cascade do |t|
     t.string "title"
     t.string "slug"
     t.json "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "pages_styles", id: false, force: :cascade do |t|
+    t.bigint "page_id"
+    t.bigint "style_id"
+    t.index ["page_id"], name: "index_pages_styles_on_page_id"
+    t.index ["style_id"], name: "index_pages_styles_on_style_id"
   end
 
   create_table "settings", force: :cascade do |t|

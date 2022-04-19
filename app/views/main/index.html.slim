@@ -1,4 +1,5 @@
 - if @page.nil?
   h1 No page found
 - else
+  = @page.style_content
   = @page.html_content

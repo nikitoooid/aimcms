@@ -12,6 +12,13 @@ class Page < ApplicationRecord
     result.join.to_s.html_safe
   end
 
+  def style_content
+    content = []
+    self.styles.each { |style| content.push(style.content) }
+
+    content_tag(:style, content.join(' ').html_safe) if content.any?
+  end
+
   private
 
   def create_block(b)
