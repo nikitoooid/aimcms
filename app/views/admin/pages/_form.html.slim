@@ -4,6 +4,8 @@ javascript:
   
   var block_templates = #{Block.json_list.html_safe}
 
+= @page.style_content
+
 .content
   div class="rte_body" style="height: 100%"
     div class="offcanvas offcanvas-end rte_sidebar" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
