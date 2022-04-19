@@ -267,24 +267,25 @@ var rte_actions = {
   'blocklist': function () { blockListModal.toggle(); renderPage() },
   //---------------------------
   'cde_apply': cdeApply,
-  'cde_open' : cdeOpen,
+  // 'cde_open' : cdeOpen,
   'cde_open_in' : cdeOpenIn,
   'cde_get_json' : cdeGetJson,
+  'cde_close' : cdeClose,
   //---------------------------
   'fs' : fs,
   'fs_open' : fs_openFile,
-  'fs_close' : fs_closeWindow
+  'fs_close' : fs_closeWindow,
+  //---------------------------
+  'redirectClick': redirectClick
 }
        
 var blockListModal
-var codeEditorModal
 var sidebarOffCanvas
 
 var paramsbuffer = {}   // буфер параметров формы
 var blockbuffer         // буфер для копирования блока
 var newblockbuffer = block_templates.blocks[0] || {block: 'div', title: 'advanced block', template_name: 'advanced'}      // буфер нового блока
 
-var codeEditor
 // ----------------------------------------
 
 function generateRte() {
@@ -396,70 +397,6 @@ function generateRte() {
               ]
             }
           ]
-        },
-        {
-          "block":"div",
-          "classlist":"modal fade rte_codeeditor",
-          "data":{"rte_content":""},
-          "blocks":[
-            {
-              "block":"div",
-              "classlist":"modal-dialog modal-fullscreen modal-dialog-scrollable",
-              "blocks":[
-                {
-                  "block":"div",
-                  "classlist":"modal-content",
-                  "blocks":[
-                    {
-                      "block":"div",
-                      "classlist":"modal-header",
-                      "blocks":[
-                        {
-                          "block":"h2",
-                          "classlist":"modal-title",
-                          "content": loc.code_header,
-                        },
-                        {
-                          "block":"button",
-                          "classlist":"btn-close",
-                          "type":"button",
-                          "data":{"bsDismiss":"modal"}
-                        }
-                      ]
-                    },
-                    {
-                      "block":"div",
-                      "classlist":"modal-header",
-                      "blocks":[
-                        {
-                          "block":"div",
-                          "blocks":[
-                            {
-                              "block":"div",
-                              "classlist":"btn btn-sm btn-primary me-2",
-                              "content": loc.apply,
-                              "data":{"action":"cde_apply"}
-                            },
-                            {
-                              "block":"div",
-                              "classlist":"btn btn-sm btn-dark",
-                              "content": loc.get_json,
-                              "data":{"action":"cde_get_json"}
-                            }
-                          ]
-                        }
-                      ]
-                    },
-                    {
-                      "block":"div",
-                      "id":"editor",
-                      "classlist":"modal-body"
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
         }
       ]},false))
   }
@@ -480,28 +417,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (control) {
     generateRte()
-
     disableStandartCombinations()
 
     blockListModal = new bootstrap.Modal(document.querySelector('.rte_blocklist'))
-    codeEditorModal = new bootstrap.Modal(document.querySelector('.rte_codeeditor'))
     sidebarOffCanvas = new bootstrap.Offcanvas(document.querySelector('.rte_sidebar'))
     
     renderPage()
 
-    // CDE
-    codeEditor = ace.edit("editor")
-    ace.config.set("basePath", "https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.14")
-    codeEditor.setTheme("ace/theme/monokai");
-    codeEditor.getSession().setMode("ace/mode/html");
-    codeEditor.setBehavioursEnabled(true);
-    codeEditor.getSession().setTabSize(2);
-    
-    // codeEditor.setOption("enableBasicAutocompletion", true)
-    codeEditor.setOption("enableLiveAutocompletion", true)
-    codeEditor.setOption("enableSnippets", true)
-
-    buttonsHandler()
+    buttonsHandler(rte_actions)
+    otherHandler()
   }
 })
 
@@ -625,32 +549,90 @@ function fs_closeWindow() {
 }
 
 // ------------------------------------------------- CODE EDITOR
+function cdeEditor(params={}){
+  let editor_id = params.hasOwnProperty('editor_id') ? params.editor_id : 'editor'
+  let buttons = [
+    { block: 'div', classlist: 'btn me-2 btn-sm btn-primary', content: loc.apply, data: { action: 'cde_apply' } },
+    { block: 'div', classlist: 'btn me-2 btn-sm btn-dark', content: loc.get_json, data: { action: 'cde_get_json' } },
+    { block: 'div', classlist: 'btn me-2 btn-sm btn-secondary', content: loc.close, data: { action: 'cde_close' } },
+  ]
 
-function cdeApply(){
-  let tmp = paramsbuffer.target
-  paramsbuffer = rawConvert(toNode(codeEditor.getValue()))
-  paramsbuffer.target = tmp
-
-  codeEditorModal.hide()
-  codeEditor.setValue("")
-  formSave()
+  let cde = {
+    "block":"div",
+    "classlist":"rte_codeeditor fade-in",
+    style: 'position:absolute;height:100vh;width:100%;left:0;top:0;z-index:9999',
+    "data":{"rte_content":""},
+    "blocks":[
+      {
+        "block":"div",
+        "classlist":"modal-dialog modal-fullscreen modal-dialog-scrollable",
+        "blocks":[
+          {
+            "block":"div",
+            "classlist":"modal-content",
+            "blocks":[
+              {
+                "block":"div",
+                "classlist":"modal-header",
+                "blocks":[
+                  {
+                    "block":"div",
+                    blocks: params.hasOwnProperty('buttons') ? params.buttons : buttons
+                  }
+                ]
+              },
+              {
+                "block":"div",
+                "id": editor_id,
+                "classlist":"modal-body"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+  
+  document.querySelector('.content').appendChild(createBlock(cde))
+  cdeConfig(editor_id, params.lang, params.value)
 }
 
-function cdeOpen() {
-  codeEditor.setValue("")
-  codeEditorModal.show()
+function cdeConfig(editor_id, lang, value=null) {
+  let editor = ace.edit(editor_id)
+  let editor_window = document.querySelector('.rte_codeeditor')
+  ace.config.set("basePath", "https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.14")
+  editor.setTheme("ace/theme/monokai")
+  editor.getSession().setMode(`ace/mode/${lang ? lang : 'html'}`)
+  editor.setBehavioursEnabled(true)
+  editor.getSession().setTabSize(2)
+  editor.setOption("enableLiveAutocompletion", true)
+  editor.setOption("enableSnippets", true)
+  editor.on('change', function(){
+    editor_window.dataset.value = editor.getValue()
+  })
+  if (value) editor.setValue(value)
 }
-
 function cdeOpenIn() {
   let tmp = document.createElement('div')
-  
   tmp.appendChild(createBlock(paramsbuffer, false))
-  codeEditor.setValue(tmp.innerHTML)
-  codeEditorModal.show()
+  cdeEditor( { value: tmp.innerHTML } )
 }
+function cdeApply(){
+  let editor_window = document.querySelector('.rte_codeeditor')
+  let tmp = paramsbuffer.target
+  paramsbuffer = rawConvert(toNode(editor_window.dataset.value))
+  paramsbuffer.target = tmp
 
+  cdeClose()
+  formSave()
+}
 function cdeGetJson() {
-  alert(JSON.stringify(rawConvert(toNode(codeEditor.getValue()))))
+  let editor_window = document.querySelector('.rte_codeeditor')
+  alert(JSON.stringify(rawConvert(toNode(editor_window.dataset.value))))
+}
+function cdeClose() {
+  let control = document.querySelector('.rte_codeeditor')
+  if(control) control.remove()
 }
 
 // конвертация элемента в json
@@ -704,18 +686,20 @@ function toNode(htmlString) {
 
 // -------------------------------------------------
 
-function buttonsHandler() {
+function buttonsHandler(actions) {
 
   document.addEventListener('click', function(e){
     // слушаем функциональные кнопки
     if (e.target.classList.contains('btn'))
       if (e.target.dataset.hasOwnProperty('action'))
-        if (rte_actions.hasOwnProperty(e.target.dataset.action))
-          rte_actions[e.target.dataset.action](e.target)
+        if (actions.hasOwnProperty(e.target.dataset.action))
+          actions[e.target.dataset.action](e.target)
     // снимаем маркировку блоков
     if (e.target.classList.contains('modal-body') && e.target.parentNode.parentNode.parentNode.classList.contains('rte_blocklist')) markBlock()
   })
+}
 
+function otherHandler(){
   // слушаем блоки
   document.querySelector('.rte_body').addEventListener('click', function (e) {
     e.preventDefault()
@@ -1225,4 +1209,9 @@ function disableStandartCombinations() {
 function ControlKeyCombo(event, key2) {
   if (event.ctrlKey && (event.code == key2)) return true
   return false
+}
+
+function redirectClick(el) {
+  let target = document.querySelector(el.dataset.target)
+  if (target) target.click()
 }
