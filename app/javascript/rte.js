@@ -263,7 +263,8 @@ var rte_actions = {
   'newblock': newBlock,
   'apply': formSave,
   'save': savePage,
-  'delete' : function() { sidebarOffCanvas.hide(); removeBlock() },
+  // 'delete' : function() { sidebarOffCanvas.hide(); removeBlock() },
+  'delete' : function() { removeBlock() },
   'blocklist': function () { blockListModal.toggle(); renderPage() },
   //---------------------------
   'cde_apply': cdeApply,
@@ -280,7 +281,7 @@ var rte_actions = {
 }
        
 var blockListModal
-var sidebarOffCanvas
+// var sidebarOffCanvas
 
 var paramsbuffer = {}   // буфер параметров формы
 var blockbuffer         // буфер для копирования блока
@@ -420,7 +421,7 @@ document.addEventListener("DOMContentLoaded", function () {
     disableStandartCombinations()
 
     blockListModal = new bootstrap.Modal(document.querySelector('.rte_blocklist'))
-    sidebarOffCanvas = new bootstrap.Offcanvas(document.querySelector('.rte_sidebar'))
+    // sidebarOffCanvas = new bootstrap.Offcanvas(document.querySelector('.rte_sidebar'))
     
     renderPage()
 
@@ -734,7 +735,7 @@ function otherHandler(){
       }
       // DEL
       if (event.code == 'Delete') {
-        sidebarOffCanvas.hide()
+        // sidebarOffCanvas.hide()
         removeBlock()
       }
     }
@@ -779,8 +780,9 @@ function markBlock(block_name=null) {
     document.querySelector('.rteblock[data-block_name="' + block_name + '"]').classList.add('active')
     document.querySelector('.blocklist_wrapper [data-target="' + block_name + '"]').classList.add('active')
     getSidebar(page.blocks.getBlock('block_name', block_name, 'blocks'), rte_forms)
-    sidebarOffCanvas.show()
-  } else sidebarOffCanvas.hide()
+    // sidebarOffCanvas.show()
+  }
+  // else sidebarOffCanvas.hide()
   
 }
 // формирует строку (row) с шаблонами блоков
