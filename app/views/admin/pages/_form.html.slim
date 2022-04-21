@@ -9,25 +9,47 @@ javascript:
 .content
   div class="rte_body" style="height: 100%"
     div class="offcanvas offcanvas-end rte_sidebar" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
-      div class="offcanvas-header"
-        div class="wrapper w-100"
-        
-          input type="text" class="form-control mb-2" id="rte_title" value="#{@page.title unless @page.title.nil?}"
-          input type="text" class="form-control mb-2" id="rte_path" value="#{@page.slug unless @page.slug.nil?}"
-          div class="btn btn-sm btn-primary rte_button w-100 mb-2" data-action="save" = t('rte.save')
-          button type="button" class="btn btn-sm btn-outline-secondary w-100" data-bs-dismiss="offcanvas" = t('rte.close')
+      
+      .offcanvas-body
 
-      div class="offcanvas-header"
-        div class="" role="group"
-          div class="btn btn-sm btn-primary rte_button me-2 mb-2" data-action="apply" = t('rte.apply')
-          div class="btn btn-sm btn-outline-dark rte_button me-2 mb-2" data-action="blocklist" = t('rte.blocklist_header')
-          div class="btn btn-sm btn-outline-danger mb-2" data-action="delete" = t('rte.delete')
+        ul class="nav nav-tabs" id="myTab" role="tablist"
+          li class="nav-item"
+            button class="nav-link active" data-bs-toggle="tab" data-bs-target="#rte_page_tab" Home
+          li class="nav-item"
+            button class="nav-link" data-bs-toggle="tab" data-bs-target="#rte_block_tab" Profile
         
+        div class="tab-content pt-3" id="myTabContent"
+          div class="tab-pane fade show active" id="rte_page_tab"
+            div class="wrapper w-100 mb-3"
+              input type="text" class="form-control mb-2" id="rte_title" value="#{@page.title unless @page.title.nil?}"
+              input type="text" class="form-control mb-2" id="rte_path" value="#{@page.slug unless @page.slug.nil?}"
+              div class="btn btn-sm btn-primary rte_button w-100 mb-2" data-action="save" = t('rte.save')
+              button type="button" class="btn btn-sm btn-outline-secondary w-100" data-bs-dismiss="offcanvas" = t('rte.close')
+            div class="" role="group"
+              div class="btn btn-sm btn-primary rte_button me-2 mb-2" data-action="apply" = t('rte.apply')
+              div class="btn btn-sm btn-outline-dark rte_button me-2 mb-2" data-action="blocklist" = t('rte.blocklist_header')
+              div class="btn btn-sm btn-outline-danger mb-2" data-action="delete" = t('rte.delete')
+              div class="btn btn-sm btn-dark mb-2" data-action="cde_open_in" = t('rte.code')
+          div class="tab-pane fade" id="rte_block_tab"
+              div class="accordion accordion-flush sidebar_wrapper"
+      / div class="offcanvas-header"
+      /   div class="wrapper w-100"
         
-          div class="btn btn-sm btn-dark mb-2" data-action="cde_open_in" = t('rte.code')
+      /     input type="text" class="form-control mb-2" id="rte_title" value="#{@page.title unless @page.title.nil?}"
+      /     input type="text" class="form-control mb-2" id="rte_path" value="#{@page.slug unless @page.slug.nil?}"
+      /     div class="btn btn-sm btn-primary rte_button w-100 mb-2" data-action="save" = t('rte.save')
+      /     button type="button" class="btn btn-sm btn-outline-secondary w-100" data-bs-dismiss="offcanvas" = t('rte.close')
+
+      / div class="offcanvas-header"
+      /   div class="" role="group"
+      /     div class="btn btn-sm btn-primary rte_button me-2 mb-2" data-action="apply" = t('rte.apply')
+      /     div class="btn btn-sm btn-outline-dark rte_button me-2 mb-2" data-action="blocklist" = t('rte.blocklist_header')
+      /     div class="btn btn-sm btn-outline-danger mb-2" data-action="delete" = t('rte.delete')
+        
+      /     div class="btn btn-sm btn-dark mb-2" data-action="cde_open_in" = t('rte.code')
 
       // TOOLS (LIVE UPDATE)
-      div class="offcanvas-body accordion accordion-flush sidebar_wrapper"
+      / div class="offcanvas-body accordion accordion-flush sidebar_wrapper"
 
 div style="visibility: collapse"
   = form_with model: [:admin, @page] do |f|
