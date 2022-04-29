@@ -138,6 +138,7 @@ var rte_forms = [
         classlist: 'form-select form-select-sm',
         data: { target: 'block' },
         blocks:[
+          { block: 'option', content: loc.select},
           { block: 'option', value: 'p', content: 'p'},
           { block: 'option', value: 'h1', content: 'h1'},
           { block: 'option', value: 'h2', content: 'h2'},
@@ -263,12 +264,9 @@ var rte_actions = {
   'newblock': newBlock,
   'apply': formSave,
   'save': savePage,
-  // 'delete' : function() { sidebarOffCanvas.hide(); removeBlock() },
   'delete' : function() { removeBlock() },
-  'blocklist': function () { blockListModal.toggle(); renderPage() },
   //---------------------------
   'cde_apply': cdeApply,
-  // 'cde_open' : cdeOpen,
   'cde_open_in' : cdeOpenIn,
   'cde_get_json' : cdeGetJson,
   'cde_close' : cdeClose,
@@ -279,9 +277,6 @@ var rte_actions = {
   //---------------------------
   'redirectClick': redirectClick
 }
-       
-var blockListModal
-// var sidebarOffCanvas
 
 var paramsbuffer = {}   // буфер параметров формы
 var blockbuffer         // буфер для копирования блока
@@ -295,110 +290,6 @@ function generateRte() {
   if(control) {
     control.appendChild(createBlock({ block: 'div', blocks: [
         { block: 'div', classlist: 'rte_control' },
-        // sidebar must be in partial because there may be form
-        {
-          "block":"div",
-          "classlist":"modal fade rte_blocklist",
-          "blocks":[
-            {
-              "block":"div",
-              "classlist":"modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable",
-              "blocks":[
-                {
-                  "block":"div",
-                  "classlist":"modal-content",
-                  "blocks":[
-                    {
-                      "block":"div",
-                      "classlist":"modal-header",
-                      "blocks":[
-                        {
-                          "block":"h2",
-                          "id":"exampleModalLabel",
-                          "classlist":"modal-title",
-                          "content": loc.blocklist_header
-                        },
-                        {
-                          "block":"button",
-                          "classlist":"btn-close",
-                          "type":"button",
-                          "data":{"bsDismiss":"modal"}
-                        }
-                      ]
-                    },
-                    {
-                      "block":"div",
-                      "classlist":"modal-body",
-                      "blocks":[
-                        {
-                          "block":"div",
-                          "classlist":"blocklist_wrapper",
-                        }
-                      ]
-                    },
-                    {
-                      "block":"div",
-                      "id":"rte_bt",
-                      "classlist":"collapse modal-footer",
-                      "style":"max-height: 40vh; overflow-y: scroll; width: 100%;",
-                      "blocks":[
-                        {
-                          "block":"div",
-                          "classlist":"container rte_bt",
-                        }
-                      ]
-                    },
-                    {
-                      "block":"div",
-                      "classlist":"modal-footer",
-                      "blocks":[
-                        {
-                          "block":"div",
-                          "classlist":"btn-group",
-                          "blocks":[
-                            {
-                              "block":"button",
-                              "classlist":"btn btn-sm btn-primary rte_button",
-                              "content": loc.new,
-                              "type":"button",
-                              "data":{"action":"newblock"},
-                              "blocks":[
-                                {
-                                  "block":"span",
-                                  "classlist":"new_preview badge bg-dark"
-                                }
-                              ]
-                            },
-                            {
-                              "block":"button",
-                              "classlist":"btn btn-sm btn-secondary",
-                              "content": loc.select_block,
-                              "type":"button",
-                              "data":{"bsToggle":"collapse","bsTarget":"#rte_bt"}
-                            }
-                          ]
-                        },
-                        {
-                          "block":"div",
-                          "classlist":"btn btn-sm btn-danger rte_button",
-                          "content": loc.delete,
-                          "data":{"action":"delete"}
-                        },
-                        {
-                          "block":"button",
-                          "classlist":"btn btn-sm btn-secondary",
-                          "content": loc.close,
-                          "type":"button",
-                          "data":{"bsDismiss":"modal"}
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        }
       ]},false))
   }
 }
@@ -419,9 +310,6 @@ document.addEventListener("DOMContentLoaded", function () {
   if (control) {
     generateRte()
     disableStandartCombinations()
-
-    blockListModal = new bootstrap.Modal(document.querySelector('.rte_blocklist'))
-    // sidebarOffCanvas = new bootstrap.Offcanvas(document.querySelector('.rte_sidebar'))
     
     renderPage()
 
@@ -429,6 +317,59 @@ document.addEventListener("DOMContentLoaded", function () {
     otherHandler()
   }
 })
+
+function buttonsHandler(actions) {
+
+  document.addEventListener('click', function(e){
+    // слушаем функциональные кнопки
+    if (e.target.classList.contains('btn'))
+      if (e.target.dataset.hasOwnProperty('action'))
+        if (actions.hasOwnProperty(e.target.dataset.action))
+          actions[e.target.dataset.action](e.target)
+    // снимаем маркировку блоков
+    // if (e.target.classList.contains('blocklist_wrapper')) markBlock()
+    if (e.target.classList.contains('rte_control')) markBlock()
+  })
+}
+function otherHandler(){
+  // слушаем блоки
+  listenBlocks(['.content', '#rte_blocklist_tab'])
+
+  document.addEventListener('keydown', function (event) {
+    // Ctrl+S
+    if (ControlKeyCombo(event, 'KeyS')) {
+      formSave()
+    }
+
+    if (document.activeElement.classList.contains('rte_sidebar') || document.activeElement.tagName == 'BODY') {
+      // Ctrl+C
+      if (ControlKeyCombo(event, 'KeyC')) copyBlock()
+      // Crtrl+V
+      if (ControlKeyCombo(event, 'KeyV')) {
+        if (blockbuffer) {
+          insertBlock(blockbuffer)
+          renderPage()
+        }
+      }
+      // Ctrl+X
+      if (ControlKeyCombo(event, 'KeyX')) {
+        copyBlock()
+        if (blockbuffer) removeBlock()
+      }
+      // DEL
+      if (event.code == 'Delete') removeBlock()
+    }
+  })
+}
+function listenBlocks(area_selectors) {
+  area_selectors.forEach(s => {
+    document.querySelector(s).addEventListener('click', function (e) {
+      e.preventDefault()
+      if (e.target.classList.contains('rteblock')) markBlock(e.target.dataset.block_name)
+      if (e.target.classList.contains('rte_bi')) markBlock(e.target.dataset.target)
+    })
+  })
+}
 
 // ------------------------------------------------- FILEMANAGER
 
@@ -439,7 +380,6 @@ function fs(el) {
     fileManager(data, el.dataset.target)
   })
 }
-
 function fileManager(files, target) {
   let fswin = {
     block: 'div',
@@ -486,7 +426,6 @@ function fileManager(files, target) {
   let content = document.querySelector('.rte_filemanager .content .row')
   files.forEach( file => { content.appendChild(createFile(file)) })
 }
-
 function createFile(file){
   let preview = { block: 'div', blocks: [{ block: 'i', classlist: file.ext == 'dir' ? 'bi-folder' : `bi-filetype-${file.ext}` }] }
   console.log(file)
@@ -530,13 +469,12 @@ function createFile(file){
 
   return element
 }
-
 function fs_openFile() {
   let result_url = document.querySelector('.rte_filemanager .rte_file.active').dataset['url']
   let result_target = document.querySelector('.rte_filemanager').dataset['target']
   fs_closeWindow()
 
-  let f = document.querySelector(`.rte_sidebar .sidebar_wrapper [data-target='${result_target}']`)
+  let f = document.querySelector(`.rte_block_settings [data-target='${result_target}']`)
   if(f && result_target != 'target') {
     f.value = result_url
     paramsbuffer[result_target] = result_url
@@ -544,7 +482,6 @@ function fs_openFile() {
 
   formSave()
 }
-
 function fs_closeWindow() {
   document.querySelector('.rte_filemanager').remove()
 }
@@ -687,68 +624,10 @@ function toNode(htmlString) {
 
 // -------------------------------------------------
 
-function buttonsHandler(actions) {
-
-  document.addEventListener('click', function(e){
-    // слушаем функциональные кнопки
-    if (e.target.classList.contains('btn'))
-      if (e.target.dataset.hasOwnProperty('action'))
-        if (actions.hasOwnProperty(e.target.dataset.action))
-          actions[e.target.dataset.action](e.target)
-    // снимаем маркировку блоков
-    if (e.target.classList.contains('modal-body') && e.target.parentNode.parentNode.parentNode.classList.contains('rte_blocklist')) markBlock()
-  })
-}
-
-function otherHandler(){
-  // слушаем блоки
-  document.querySelector('.rte_body').addEventListener('click', function (e) {
-    e.preventDefault()
-    if (e.target.classList.contains('rteblock')) markBlock(e.target.dataset.block_name)
-    if (e.target.classList.contains('rte_bi')) markBlock(e.target.dataset.target)
-  })
-
-  let blModal = document.querySelector('.rte_blocklist')
-  blModal.addEventListener('show.bs.modal', function () { document.querySelector('[data-action="blocklist"]').classList.add('active') })
-  blModal.addEventListener('hide.bs.modal', function () { document.querySelector('[data-action="blocklist"]').classList.remove('active') })
-
-  document.addEventListener('keydown', function (event) {
-    // Ctrl+S
-    if (ControlKeyCombo(event, 'KeyS')) {
-      formSave()
-    }
-
-    if (document.activeElement.classList.contains('modal-open') || document.activeElement.tagName == 'BODY') {
-      // Ctrl+C
-      if (ControlKeyCombo(event, 'KeyC')) copyBlock()
-      // Crtrl+V
-      if (ControlKeyCombo(event, 'KeyV')) {
-        if (blockbuffer) {
-          insertBlock(blockbuffer)
-          renderPage()
-        }
-      }
-      // Ctrl+X
-      if (ControlKeyCombo(event, 'KeyX')) {
-        copyBlock()
-        if (blockbuffer) removeBlock()
-      }
-      // DEL
-      if (event.code == 'Delete') {
-        // sidebarOffCanvas.hide()
-        removeBlock()
-      }
-    }
-
-    // Ctrl+B
-    if (ControlKeyCombo(event, 'KeyB')) { blockListModal.toggle() }
-  })
-}
-
-// -------------------------------------------------
-
-
 function renderPage() {
+  // кэшируем выбранный блок
+  let ab = activeBlockName()
+
   let control = document.querySelector('.rte_control')
   // рисуем страницу
   control.innerHTML = ''
@@ -758,13 +637,17 @@ function renderPage() {
   let bl = document.querySelector('.blocklist_wrapper')
   bl.innerHTML = ''
   bl.appendChild(getBlocklist(page.blocks))
-  let pv = document.querySelector('.rte_blocklist .new_preview')
+  let pv = document.querySelector('.rte_new_preview')
   pv.textContent = newblockbuffer.title
 
-  // формируем список блоков для блоклиста
+  // формируем список блоков для шаблонлиста
   let tl = document.querySelector('.rte_bt')
   tl.innerHTML = ''
   tl.appendChild(getTemplateList(block_templates.blocks))
+
+  // если до рендера был выбран блок - помечаем его
+  let tb = document.querySelector(`[data-block_name="${ab}"]`)
+  if (tb) tb.click()
 }
 
 // маркирует указанный блок
@@ -777,12 +660,15 @@ function markBlock(block_name=null) {
   
   // маркируем в блоклисте
   if (block_name) {
-    document.querySelector('.rteblock[data-block_name="' + block_name + '"]').classList.add('active')
-    document.querySelector('.blocklist_wrapper [data-target="' + block_name + '"]').classList.add('active')
-    getSidebar(page.blocks.getBlock('block_name', block_name, 'blocks'), rte_forms)
-    // sidebarOffCanvas.show()
+    
+    let b = document.querySelector('.rteblock[data-block_name="' + block_name + '"]')
+    if(b) {
+      b.classList.add('active')
+      document.querySelector('.blocklist_wrapper [data-target="' + block_name + '"]').classList.add('active')
+    }
+
+    getBlockSettings(page.blocks.getBlock('block_name', block_name, 'blocks'), rte_forms)
   }
-  // else sidebarOffCanvas.hide()
   
 }
 // формирует строку (row) с шаблонами блоков
@@ -795,7 +681,7 @@ function getTemplateList(blocks) {
     let element = createBlock({
       block :'li',
       classlist : 'list-group-item',
-      data : { target: b.block_name, bsToggle:"collapse", bsTarget:"#rte_bt" },
+      data : { target: b.block_name },
       content: `<span class="badge bg-dark p-1">${b.title}</span>`
     }, false)
 
@@ -841,8 +727,8 @@ function getRtePage(blocks) {
   return result
 }
 // формирует контент для сайдбара
-function getSidebar(block, blocklib = rte_forms) {
-  let form = document.querySelector('.rte_sidebar .sidebar_wrapper')
+function getBlockSettings(block, blocklib = rte_forms) {
+  let form = document.querySelector('.rte_block_settings')
   form.innerHTML = ''
   if (!block) return
   
@@ -864,11 +750,11 @@ function getSidebar(block, blocklib = rte_forms) {
     if (e.target.dataset.target) paramsbuffer[e.target.dataset.target] = e.target.value
     else console.log('This field has no target!')
   })
+  form.addEventListener('change', formSave)
 }
 // формирует форму
 function getForm(template, block) {
   // очищаем буфер параметров
-  // for (k in paramsbuffer) delete paramsbuffer[k]
   paramsbuffer = {}
 
   paramsbuffer.block = block.block
@@ -899,7 +785,7 @@ function getForm(template, block) {
       let container = {
         'block': 'div',
         'id': `rte_${ group.title.replace(/\s+/g, '') }`,
-        'classlist': 'accordion-collapse collapse',
+        'classlist': 'accordion-collapse collapse pb-3',
         'blocks':[]
       }
       // наполнение контейнера полями группы
@@ -986,8 +872,8 @@ function createBlock(b, forRte = true) {
   }
 
   return element
-
 }
+
 // создает поле формы (json) !!! доработать механику создания блока !!!
 function createFormField(args, block){
 
@@ -1002,10 +888,9 @@ function createFormField(args, block){
   if (args.hasOwnProperty('label')) field.blocks.push({'block':'label','classlist':'form-label','content':args.label})
   if (args.hasOwnProperty('input')) {
 
-    // paramsbuffer[args.target] = null
-
     let element = { 'block': args.input, 'classlist': 'form-control form-control-sm', 'data':{'target':args.target}}
     if (args.hasOwnProperty('type')) element.type = args.type
+    if (args.hasOwnProperty('data')) element.data = Object.assign({}, element.data, args.data)
     if (block.hasOwnProperty(args.target)) {
       paramsbuffer[args.target] = block[args.target]
       element.value = block[args.target]
@@ -1062,7 +947,6 @@ function insertBlock(block, params={}) {
 // скопировать активный блок
 function copyBlock(){
   let block_name = activeBlockName()
-
   if(!block_name) return
 
   let block = page.blocks.getBlock('block_name',block_name,'blocks')
@@ -1073,7 +957,7 @@ function copyBlock(){
 // имя активного блока
 function activeBlockName(){
   let control = document.querySelector('.rte_bi.active')
-  if(!control) return
+  if(!control) return null
 
   return control.dataset.target
 }
@@ -1136,7 +1020,8 @@ function formSave(){
 // -------- очень системные ----------------------------------
 
 // поиск блока по значению ключа (включая вложенные в массив sk)
-Array.prototype.getBlock = function ( k, v, sk = null) {
+Array.prototype.getBlock = function ( k, v=null, sk = null) {
+  if(!v) return v
 
   let result = this.find(e => e[k] == v)
   if(result) return result
