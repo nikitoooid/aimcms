@@ -1020,6 +1020,9 @@ function formSave(){
 
 // редиректит ввод
 function initRedirectInput() {
+  // обратное заполнение (единоразово)
+  reverseRedirectInput()
+  // редирект ввода
   document.addEventListener('input', function(e){
     let target = document.querySelector(e.target.dataset.redirectinput)
     if (target) redirectInput(e.target, target)
@@ -1027,6 +1030,15 @@ function initRedirectInput() {
 }
 function redirectInput(input_from, input_to) {
   if (input_from && input_to) input_to.value = input_from.value
+}
+function reverseRedirectInput() {
+  let ri = document.querySelectorAll('[data-redirectinput]')
+  if (!ri || !ri.length) return
+
+  ri.forEach(r => {
+    let target = document.querySelector(r.dataset.redirectinput)
+    if (target) redirectInput(target, r)
+  })
 }
 
 // -------- очень системные ----------------------------------
