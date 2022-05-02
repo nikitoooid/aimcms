@@ -292,6 +292,8 @@ function generateRte() {
         { block: 'div', classlist: 'rte_control' },
       ]},false))
   }
+
+  renderPage()
 }
 
 // ----------------------------------------
@@ -310,8 +312,6 @@ document.addEventListener("DOMContentLoaded", function () {
   if (control) {
     generateRte()
     disableStandartCombinations()
-    
-    renderPage()
 
     buttonsHandler(rte_actions)
     otherHandler()
@@ -338,9 +338,7 @@ function otherHandler(){
 
   document.addEventListener('keydown', function (event) {
     // Ctrl+S
-    if (ControlKeyCombo(event, 'KeyS')) {
-      formSave()
-    }
+    if (ControlKeyCombo(event, 'KeyS')) formSave()
 
     if (document.activeElement.classList.contains('rte_sidebar') || document.activeElement.tagName == 'BODY') {
       // Ctrl+C
@@ -650,7 +648,6 @@ function renderPage() {
   let tb = document.querySelector(`[data-block_name="${ab}"]`)
   if (tb) tb.click()
 }
-
 // маркирует указанный блок
 function markBlock(block_name=null) {
   // снимаем маркировки
@@ -993,7 +990,6 @@ function nameDuplicateProtected(block) {
 function formSave(){
   let block = page.blocks.getBlock('block_name', paramsbuffer.target, 'blocks')
 
-  
   if (block) {
     for (var k in paramsbuffer) {
       if (k != 'target' && k != undefined) block[k] = paramsbuffer[k]
@@ -1004,9 +1000,6 @@ function formSave(){
   // сохраняем страницу в форму
   let res_cont = document.querySelector('textarea.result_content')
   if (res_cont) res_cont.value = JSON.stringify(page)
-
-  // res_cont = document.querySelector('input.result_template')
-  // if (res_cont && document.querySelector('#rte_template')) res_cont.value = document.querySelector('#rte_template').value
 
   renderPage()
 }
