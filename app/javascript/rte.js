@@ -1005,15 +1005,8 @@ function formSave(){
   let res_cont = document.querySelector('textarea.result_content')
   if (res_cont) res_cont.value = JSON.stringify(page)
 
-  // res_cont = document.querySelector('input.result_title')
-  // if (res_cont) res_cont.value = document.querySelector('#rte_title').value
-
-  res_cont = document.querySelector('input.result_template')
-  if (res_cont && document.querySelector('#rte_template')) res_cont.value = document.querySelector('#rte_template').value
-
-  // res_cont = document.querySelector('input.result_path')
-  // if (res_cont && document.querySelector('#rte_path')) res_cont.value = document.querySelector('#rte_path').value
-
+  // res_cont = document.querySelector('input.result_template')
+  // if (res_cont && document.querySelector('#rte_template')) res_cont.value = document.querySelector('#rte_template').value
 
   renderPage()
 }
@@ -1029,7 +1022,10 @@ function initRedirectInput() {
   })
 }
 function redirectInput(input_from, input_to) {
-  if (input_from && input_to) input_to.value = input_from.value
+  if (input_from && input_to) {
+    if(input_to.tagName == 'SELECT') input_to.innerHTML = input_from.innerHTML
+    else input_to.value = input_from.value
+  }
 }
 function reverseRedirectInput() {
   let ri = document.querySelectorAll('[data-redirectinput]')
@@ -1037,6 +1033,7 @@ function reverseRedirectInput() {
 
   ri.forEach(r => {
     let target = document.querySelector(r.dataset.redirectinput)
+    
     if (target) redirectInput(target, r)
   })
 }

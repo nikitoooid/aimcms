@@ -1,11 +1,3 @@
-.rte_template_item {
-  height: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-}
-
 .rte_control {
   width: 100%;
   min-height: 100vh;
@@ -31,31 +23,10 @@
   scrollbar-width: none;
 }
 
-.rte_blocklist{
-  z-index: 1045 !important;
-}
-
-.rte_blocklist.show{
-  visibility: visible;
-}
-
-.rte_badge{
-  display: inline-block;
-  padding: 5px;
-  width: 100%;
-  background: #ccd2d8 !important;
-  border-radius: 5px;
-  font-size: 1.5rem
-}
-
-.rte_blocklist .list-group-item, .rte_block_item,
-.rteblock, .rte_template_item, .rte_file {
+.rteblock, .rte_file, .rte_bi,
+.rte_bt li {
   cursor: pointer;
 }
-
-.rte_block_item:not(.active):hover { background: #e0e0e0; }
-
-.sidebar.collapsed { height: fit-content; width: fit-content; }
 
 /* ------------------------------------------------------ */
 

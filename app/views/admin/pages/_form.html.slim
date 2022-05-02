@@ -32,10 +32,7 @@ div
             div class="form-floating mb-2"
               input type="text" class="form-control" data-redirectinput=".result_path" id="rte_path"
               label for="rte_path" Slug
-            select class="form-select mb-2"
-              option Select CSS
-              option value="1" Test CSS
-              option value="2" Test CSS 2
+            select class="form-select mb-2" data-redirectinput=".result_styles"
           div class="" role="group"
             div class="btn btn-sm btn-outline-danger me-2 mb-2" data-action="delete" = t('rte.delete')
             div class="btn btn-sm btn-dark mb-2" data-action="cde_open_in" = t('rte.code')
@@ -57,6 +54,7 @@ div style="visibility: collapse"
   = form_with model: [:admin, @page] do |f|
     = f.text_field :title, class: "result_title"
     = f.text_field :slug, class: "result_path"
+    = f.select :style_ids, options_from_collection_for_select(Style.all, :id, :title), {prompt: 'Select styles', multiple: true}, {class: "result_styles"}
     = f.text_area :content, class: 'result_content'
     = f.submit 'submit', class: 'rte_submit'
 
