@@ -315,6 +315,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     buttonsHandler(rte_actions)
     otherHandler()
+    initRedirectInput()
   }
 })
 
@@ -1004,17 +1005,28 @@ function formSave(){
   let res_cont = document.querySelector('textarea.result_content')
   if (res_cont) res_cont.value = JSON.stringify(page)
 
-  res_cont = document.querySelector('input.result_title')
-  if (res_cont) res_cont.value = document.querySelector('#rte_title').value
+  // res_cont = document.querySelector('input.result_title')
+  // if (res_cont) res_cont.value = document.querySelector('#rte_title').value
 
   res_cont = document.querySelector('input.result_template')
   if (res_cont && document.querySelector('#rte_template')) res_cont.value = document.querySelector('#rte_template').value
 
-  res_cont = document.querySelector('input.result_path')
-  if (res_cont && document.querySelector('#rte_path')) res_cont.value = document.querySelector('#rte_path').value
+  // res_cont = document.querySelector('input.result_path')
+  // if (res_cont && document.querySelector('#rte_path')) res_cont.value = document.querySelector('#rte_path').value
 
 
   renderPage()
+}
+
+// редиректит ввод
+function initRedirectInput() {
+  document.addEventListener('input', function(e){
+    let target = document.querySelector(e.target.dataset.redirectinput)
+    if (target) redirectInput(e.target, target)
+  })
+}
+function redirectInput(input_from, input_to) {
+  if (input_from && input_to) input_to.value = input_from.value
 }
 
 // -------- очень системные ----------------------------------
