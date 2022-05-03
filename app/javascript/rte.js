@@ -273,9 +273,7 @@ var rte_actions = {
   //---------------------------
   'fs' : fs,
   'fs_open' : fs_openFile,
-  'fs_close' : fs_closeWindow,
-  //---------------------------
-  'redirectClick': redirectClick
+  'fs_close' : fs_closeWindow
 }
 
 var paramsbuffer = {}   // буфер параметров формы
@@ -300,7 +298,6 @@ function generateRte() {
 
 function savePage() {
   formSave()
-
   document.querySelector('.rte_submit').click()
 }
 
@@ -308,7 +305,6 @@ function savePage() {
 
 document.addEventListener("DOMContentLoaded", function () {
   var control = document.querySelector('.rte_body')
-
   if (control) {
     generateRte()
     disableStandartCombinations()
@@ -328,8 +324,10 @@ function buttonsHandler(actions) {
         if (actions.hasOwnProperty(e.target.dataset.action))
           actions[e.target.dataset.action](e.target)
     // снимаем маркировку блоков
-    // if (e.target.classList.contains('blocklist_wrapper')) markBlock()
     if (e.target.classList.contains('rte_control')) markBlock()
+
+    // redirectClick
+    redirectClick(e.target.dataset.redirectclick)
   })
 }
 function otherHandler(){
@@ -486,9 +484,15 @@ function fs_closeWindow() {
 }
 
 // ------------------------------------------------- CODE EDITOR
+// PARAMS
+// editor_id
+// header [] - массив блоков, которые будут вставлены в шапку редактора
+// insert - селектор блока, в который будет вставлен редактор (по умолчанию .content)
+// lang - язык программирования
+// value - значение, которое будет в теле редактора при создании
 function cdeEditor(params={}){
   let editor_id = params.hasOwnProperty('editor_id') ? params.editor_id : 'editor'
-  let buttons = [
+  let header = [
     { block: 'div', classlist: 'btn me-2 btn-sm btn-primary', content: loc.apply, data: { action: 'cde_apply' } },
     { block: 'div', classlist: 'btn me-2 btn-sm btn-dark', content: loc.get_json, data: { action: 'cde_get_json' } },
     { block: 'div', classlist: 'btn me-2 btn-sm btn-secondary', content: loc.close, data: { action: 'cde_close' } },
@@ -514,7 +518,7 @@ function cdeEditor(params={}){
                 "blocks":[
                   {
                     "block":"div",
-                    blocks: params.hasOwnProperty('buttons') ? params.buttons : buttons
+                    blocks: params.header ? params.header : header
                   }
                 ]
               },
@@ -529,8 +533,8 @@ function cdeEditor(params={}){
       }
     ]
   }
-  
-  document.querySelector('.content').appendChild(createBlock(cde))
+    
+  document.querySelector(params.insert || '.content').appendChild(createBlock(cde, false))
   cdeConfig(editor_id, params.lang, params.value)
 }
 
@@ -658,7 +662,6 @@ function markBlock(block_name=null) {
   
   // маркируем в блоклисте
   if (block_name) {
-    
     let b = document.querySelector('.rteblock[data-block_name="' + block_name + '"]')
     if(b) {
       b.classList.add('active')
@@ -667,6 +670,7 @@ function markBlock(block_name=null) {
 
     getBlockSettings(page.blocks.getBlock('block_name', block_name, 'blocks'), rte_forms)
   }
+  else document.querySelector('.rte_block_settings').innerHTML = ''
   
 }
 // формирует строку (row) с шаблонами блоков
@@ -732,13 +736,9 @@ function getBlockSettings(block, blocklib = rte_forms) {
   
   let template = {}
   // получаем шаблон
-  if (block.hasOwnProperty('template_name')){
-    template = blocklib.getBlock('template_name', block.template_name)
-  }
+  if (block.hasOwnProperty('template_name')) template = blocklib.getBlock('template_name', block.template_name)
   // если нет шаблона - берем стандартный шаблон
-  else {
-    template = blocklib.getBlock('template_name', 'default')
-  }
+  else template = blocklib.getBlock('template_name', 'default')
   // наполняем
   form.appendChild(getForm(template, block))
 
@@ -760,7 +760,9 @@ function getForm(template, block) {
   
   if (block.blocks) paramsbuffer.blocks = block.blocks
 
-  let result = {'block' : 'div', 'blocks':[]}
+  let result = {'block' : 'div', 'blocks':[
+    { block: 'div', classlist: 'btn btn-sm btn-dark w-100 mb-2', data: {action: 'cde_open_in'}, content: loc.code}
+  ]}
 
   // для каждой группы полей создаем аккордион
   template.forms.forEach( group => {
@@ -1004,33 +1006,6 @@ function formSave(){
   renderPage()
 }
 
-// редиректит ввод
-function initRedirectInput() {
-  // обратное заполнение (единоразово)
-  reverseRedirectInput()
-  // редирект ввода
-  document.addEventListener('input', function(e){
-    let target = document.querySelector(e.target.dataset.redirectinput)
-    if (target) redirectInput(e.target, target)
-  })
-}
-function redirectInput(input_from, input_to) {
-  if (input_from && input_to) {
-    if(input_to.tagName == 'SELECT') input_to.innerHTML = input_from.innerHTML
-    else input_to.value = input_from.value
-  }
-}
-function reverseRedirectInput() {
-  let ri = document.querySelectorAll('[data-redirectinput]')
-  if (!ri || !ri.length) return
-
-  ri.forEach(r => {
-    let target = document.querySelector(r.dataset.redirectinput)
-    
-    if (target) redirectInput(target, r)
-  })
-}
-
 // -------- очень системные ----------------------------------
 
 // поиск блока по значению ключа (включая вложенные в массив sk)
@@ -1112,7 +1087,35 @@ function ControlKeyCombo(event, key2) {
   return false
 }
 
-function redirectClick(el) {
-  let target = document.querySelector(el.dataset.target)
-  if (target) target.click()
+// редиректит ввод
+function initRedirectInput() {
+  // обратное заполнение (единоразово)
+  reverseRedirectInput()
+  // редирект ввода
+  document.addEventListener('input', function(e){
+    let target = document.querySelector(e.target.dataset.redirectinput)
+    if (target) redirectInput(e.target, target)
+  })
+}
+function redirectInput(input_from, input_to) {
+  if (input_from && input_to) {
+    if(input_to.tagName == 'SELECT') input_to.innerHTML = input_from.innerHTML
+    else input_to.value = input_from.value
+  }
+}
+function reverseRedirectInput() {
+  let ri = document.querySelectorAll('[data-redirectinput]')
+  if (!ri || !ri.length) return
+
+  ri.forEach(r => {
+    let target = document.querySelector(r.dataset.redirectinput)
+    
+    if (target) redirectInput(target, r)
+  })
+}
+function redirectClick(selector) {
+  let tg = document.querySelector(selector)
+  if (!tg) return
+
+  tg.click()
 }

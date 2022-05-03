@@ -11,19 +11,17 @@ div class="content"
 
 div
   div class="rte_sidebar offcanvas show offcanvas-end" style="visibility:visible" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
-    
     .offcanvas-body
-      ul class="nav nav-tabs" id="myTab" role="tablist"
+      ul class="nav nav-tabs" role="tablist"
         li class="nav-item"
           button class="nav-link active" data-bs-toggle="tab" data-bs-target="#rte_page_tab" Page
         li class="nav-item"
           button class="nav-link" data-bs-toggle="tab" data-bs-target="#rte_block_tab" Block
         li class="nav-item"
-          button class="nav-link" data-bs-toggle="tab" data-bs-target="#rte_templates_tab" Templates
-        li class="nav-item"
-          button class="nav-link" data-bs-toggle="tab" data-bs-target="#rte_blocklist_tab" Blocklist
+          button class="nav-link" data-bs-toggle="tab" data-bs-target="#rte_struct_tab" Structure
+        
 
-      div class="tab-content pt-3" id="myTabContent"
+      div class="tab-content pt-3"
         div class="tab-pane fade show active" id="rte_page_tab"
           div class="wrapper w-100 mb-3"
             div class="form-floating mb-2"
@@ -32,28 +30,36 @@ div
             div class="form-floating mb-2"
               input type="text" class="form-control" data-redirectinput=".result_path" id="rte_path"
               label for="rte_path" Slug
-            select class="form-select mb-2" data-redirectinput=".result_styles"
+            select class="form-select mb-2" data-redirectinput=".result_styles" multiple="true"
           div class="" role="group"
             div class="btn btn-sm btn-outline-danger me-2 mb-2" data-action="delete" = t('rte.delete')
             div class="btn btn-sm btn-dark mb-2" data-action="cde_open_in" = t('rte.code')
         div class="tab-pane fade" id="rte_block_tab"
           div class="accordion accordion-flush rte_block_settings"
-        div class="tab-pane fade" id="rte_templates_tab"
-          div class="btn btn-sm btn-primary w-100 mb-3 rte_button" data-action="newblock"
+        div class="tab-pane fade" id="rte_struct_tab"
+          ul class="nav nav-tabs mb-2" role="tablist"
+            li class="nav-item"
+              button class="nav-link active" data-bs-toggle="tab" data-bs-target="#rte_blocklist_tab" Blocklist
+            li class="nav-item"
+              button class="nav-link" data-bs-toggle="tab" data-bs-target="#rte_templates_tab" Templates
+          div class="btn btn-sm btn-primary w-100 mb-2 rte_button" data-action="newblock"
             span class="rte_new_preview badge bg-dark"
-          div class="rte_bt"
-        div class="tab-pane fade" id="rte_blocklist_tab"
-          div class="blocklist_wrapper"
+          div class="tab-content"
+            div class="tab-pane fade show active" id="rte_blocklist_tab"
+              div class="blocklist_wrapper"
+            div class="tab-pane fade" id="rte_templates_tab"
+              div class="rte_bt"
 
     div class="offcanvas-footer p-3"
       div class="btn btn-sm btn-primary rte_button w-100 mb-2" data-action="save" = t('rte.save')
 
   div style="width: 350px"
 
+
 div style="visibility: collapse"
   = form_with model: [:admin, @page] do |f|
-    = f.text_field :title, class: "result_title"
-    = f.text_field :slug, class: "result_path"
+    = f.text_field :title, class: "result_title", data: {label: 'Page title'}
+    = f.text_field :slug, class: "result_path", data: {label: 'Page slug'}
     = f.select :style_ids, options_from_collection_for_select(Style.all, :id, :title), {prompt: 'Select styles', multiple: true}, {class: "result_styles"}
     = f.text_area :content, class: 'result_content'
     = f.submit 'submit', class: 'rte_submit'

@@ -196,7 +196,7 @@ ru:
     close:              'Закрыть'
     delete:             'Удалить'
     empty:              'пустой блок'
-    code:               'Code'
+    code:               'Открыть в CodeEditor'
     get_json:           'Получить Json'
     blocklist_header:   'Список блоков'
     code_header:        'Редактор CODE'

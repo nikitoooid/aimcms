@@ -196,7 +196,7 @@ en:
     close:              'Close'
     delete:             'Delete'
     empty:              'empty'
-    code:               'Code'
+    code:               'Open in CodeEditor'
     get_json:           'Get Json'
     blocklist_header:   'Blocklist'
     code_header:        'Cool code editor'
