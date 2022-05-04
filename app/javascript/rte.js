@@ -283,15 +283,77 @@ var newblockbuffer = block_templates.blocks[0] || {block: 'div', title: 'advance
 // ----------------------------------------
 
 function generateRte() {
+  // создание рабочего поля
   let control = document.querySelector('.rte_body')
-
   if(control) {
     control.appendChild(createBlock({ block: 'div', blocks: [
         { block: 'div', classlist: 'rte_control' },
       ]},false))
   }
+  // создание панели инструментов
 
+  // создание полей настройки страницы
+  generateFields()
+
+  // отрисовка страницы
   renderPage()
+}
+
+function generateFields(paste_selector = '#rte_page_tab', form_selector = '.rte_result_form') {
+  
+  let form = document.querySelector(form_selector)
+  let paste_in = document.querySelector(paste_selector)
+  if (!form || !paste_in) return
+
+  let copyform = form.cloneNode(true)
+  console.log(copyform)
+  paste_in.prepend(prepareFields( copyform, {
+    prefix: 'rte_',
+    exclude_types: ['submit', 'hidden'],
+    exclude_class: ['result_content'],
+    container: {block: 'div', class: 'wrapper w-100 mb-3'}
+  }))
+}
+
+// params:
+// prefix: 'rte_'
+// container: {block: 'div', class: 'wrapper w-100 mb-3'}
+// exclude_types: ['submit', 'hidden']
+// exclude_class: ['result_content']
+// (X) additional_classes: [ {selector: 'input[type="text"]', class: 'form-control'} ]
+function prepareFields(el, params) {
+  if (!el.tagName) return
+
+  let result
+
+  // проверка объекта на соответствие exclude_types
+  let c = true
+  if (params.exclude_types) params.exclude_types.forEach(et => { if(el.type == et) c = false })
+  if (params.exclude_class) params.exclude_class.forEach(ec => { if(el.classList.contains(ec)) c = false })
+  if (!c) return
+
+  // если форма - меняем на контейнер
+  if(el.tagName == 'FORM') {
+    result = document.createElement(params.container.block)
+    if (params.container.id)    result.id = params.container.id
+    if (params.container.class) result.className = params.container.class
+  } else result = document.createElement(el.tagName.toLowerCase())
+
+  if(el.id) result.id = `${params.prefix ? params.prefix : 'rte_'}${el.id}`
+  if(el.className) result.className = el.className
+  if(el.type) result.setAttribute('type', el.type)
+  if(el.htmlFor) result.htmlFor = `${params.prefix ? params.prefix : 'rte_'}${el.htmlFor}`
+  if(!el.childElementCount && el.textContent) result.textContent = el.textContent
+
+  if (el.id && (el.tagName == 'INPUT' || el.tagName == 'TEXTAREA' || el.tagName == 'SELECT'))
+    result.dataset.redirectinput = `#${el.id}`
+
+  if (el.childElementCount && el.tagName != 'SELECT') el.childNodes.forEach(n => {
+    let subresult = prepareFields(n, params)
+    if (subresult) result.appendChild(subresult)
+  })
+
+  return result
 }
 
 // ----------------------------------------
@@ -325,9 +387,6 @@ function buttonsHandler(actions) {
           actions[e.target.dataset.action](e.target)
     // снимаем маркировку блоков
     if (e.target.classList.contains('rte_control')) markBlock()
-
-    // redirectClick
-    redirectClick(e.target.dataset.redirectclick)
   })
 }
 function otherHandler(){
@@ -1096,11 +1155,17 @@ function initRedirectInput() {
     let target = document.querySelector(e.target.dataset.redirectinput)
     if (target) redirectInput(e.target, target)
   })
+  // редирект клика
+  document.addEventListener('click', function(e){
+    if (!e.target.classList.contains('btn')) return
+    let target = document.querySelector(e.target.dataset.redirectinput)
+    if (target) target.click()
+  })
 }
 function redirectInput(input_from, input_to) {
   if (input_from && input_to) {
     if(input_to.tagName == 'SELECT') input_to.innerHTML = input_from.innerHTML
-    else input_to.value = input_from.value
+    input_to.value = input_from.value
   }
 }
 function reverseRedirectInput() {
@@ -1112,10 +1177,4 @@ function reverseRedirectInput() {
     
     if (target) redirectInput(target, r)
   })
-}
-function redirectClick(selector) {
-  let tg = document.querySelector(selector)
-  if (!tg) return
-
-  tg.click()
 }
