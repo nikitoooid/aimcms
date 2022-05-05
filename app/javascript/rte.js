@@ -1,5 +1,5 @@
 // forms library
-var rte_forms = [
+const rte_forms = [
   // default
   {
     template_name: 'default',
@@ -260,7 +260,7 @@ var rte_forms = [
 ]
 
 // actions library (class btn + data-action)
-var rte_actions = {
+const rte_actions = {
   'newblock': newBlock,
   'apply': formSave,
   'save': savePage,
@@ -285,7 +285,6 @@ var newblockbuffer = {block: 'div', title: 'advanced block', template_name: 'adv
 function generateRte(control) {
   
   if(control.classList.contains('rte_editor')) {
-    console.log('rte_editor scenario')
 
     // создаем рабочую область
     control.appendChild(createBlock({
@@ -380,7 +379,6 @@ function generateRte(control) {
     // отрисовка страницы
     renderPage()
   } else if (control.classList.contains('cde_editor')) {
-    console.log('cde_editor scenario')
 
     let result_field = document.querySelector('.result_content')
     
@@ -390,8 +388,8 @@ function generateRte(control) {
       value: result_field.value,
       lang: control.dataset.lang,
       header: [{block: 'ul', classlist: 'nav align-items-center', blocks: [
-        {block: 'li', classlist: 'nav-item', blocks:[
-          {block: 'input', type:'text', classlist: 'h3 me-5', data:{redirectinput:'.result_title'}}
+        {block: 'li', classlist: 'nav-item w-25 me-2', blocks:[
+          {block: 'input', type:'text', classlist: 'form-control form-control-sm bg-dark text-light', data:{redirectinput:'.result_title'}}
         ]},
         {block: 'li', classlist: 'nav-item', blocks:[
           {block: 'div', classlist: 'btn btn-sm btn-primary', content: loc.save, data:{redirectinput:'.rte_submit'}}
@@ -472,14 +470,6 @@ function savePage() {
 document.addEventListener("DOMContentLoaded", function () {
   var control = document.querySelector('.rte')
   if (control) generateRte(control)
-  // if (control) {
-  //   generateRte()
-  //   disableStandartCombinations()
-
-  //   buttonsHandler(rte_actions)
-  //   otherHandler()
-  //   initRedirectInput()
-  // }
 })
 
 function buttonsHandler(actions) {
@@ -589,7 +579,7 @@ function fileManager(files, target) {
 }
 function createFile(file){
   let preview = { block: 'div', blocks: [{ block: 'i', classlist: file.ext == 'dir' ? 'bi-folder' : `bi-filetype-${file.ext}` }] }
-  console.log(file)
+  
   if ( file.ext == 'jpg' || file.ext == 'jpeg' || file.ext == 'png' || file.ext == 'svg' || file.ext == 'bmp' ) {
     preview.style = "background: url('" + file.cover + "') no-repeat center; background-size: cover"
     preview.blocks[0].style = 'color: transparent'
@@ -655,7 +645,6 @@ function fs_closeWindow() {
 // lang - язык программирования
 // value - значение, которое будет в теле редактора при создании
 function cdeEditor(params={}){
-  console.log('OPEN CDE')
   let editor_id = params.editor_id ? params.editor_id : 'editor'
   let header = [
     { block: 'div', classlist: 'btn me-2 btn-sm btn-primary', content: loc.apply, data: { action: 'cde_apply' } },
@@ -692,21 +681,13 @@ function cdeEditor(params={}){
       }
     ]
   }
-    
-  
-  // document.querySelector(params.insert || '.content').appendChild(createBlock(cde, false))
-  
-  // let editor_window = document.querySelector('.cdewrapper')
-  // let editor_window = document.querySelector('.rte_codeeditor')
-  // if (!editor_window) return
 
   cdeConfig(editor_id, {
     container: params.insert || '.content',
     custom_editor: cde,
     lang: params.lang,
     value: params.value,
-    header: params.header ? params.header : header,
-    // output: editor_window.dataset
+    header: params.header ? params.header : header
   })
 }
 
@@ -719,10 +700,10 @@ function cdeEditor(params={}){
 // header: [{},{}]
 // header_selector: '.cdeheader'
 function cdeConfig(editor_id, params) {
-  console.log('CDE start')
+  
   let container = document.querySelector(params.container)
   if (!container) return
-  console.log('container found')
+  
   // создаем тело редактора
   let cde = params.custom_editor ? params.custom_editor : {
     block: 'div', classlist: 'cdewrapper', blocks: [
@@ -731,8 +712,7 @@ function cdeConfig(editor_id, params) {
     ]
   }
   container.appendChild(createBlock(cde, false))
-  console.log('Appended cde:')
-  console.log(createBlock(cde, false))
+
   // создаем шапку
   let control = container.querySelector(params.header_selector ? params.header_selector : '.cdeheader')
   if (control && params.header) control.appendChild(createBlock({
@@ -746,7 +726,6 @@ function cdeConfig(editor_id, params) {
   let editor = ace.edit(editor_id)
   let output = params.output ? params.output : control.dataset
 
-  // let editor_window = document.querySelector('.rte_codeeditor')
   ace.config.set("basePath", "https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.14")
   editor.setTheme("ace/theme/monokai")
   editor.getSession().setMode(`ace/mode/${params.lang ? params.lang : 'html'}`)
@@ -755,10 +734,7 @@ function cdeConfig(editor_id, params) {
   editor.setOption("enableLiveAutocompletion", true)
   editor.setOption("enableSnippets", true)
   
-  editor.on('change', function(){
-    output.value = editor.getValue()
-    // editor_window.dataset.value = editor.getValue()
-  })
+  editor.on('change', function(){ output.value = editor.getValue() })
   
   if (params.value) editor.setValue(params.value)
 }
@@ -769,7 +745,6 @@ function cdeOpenIn() {
 }
 function cdeApply(){
   let editor_window = document.querySelector('.cdebody')
-  // let editor_window = document.querySelector('.rte_codeeditor')
   let tmp = paramsbuffer.target
   paramsbuffer = rawConvert(toNode(editor_window.dataset.value))
   paramsbuffer.target = tmp
@@ -779,12 +754,10 @@ function cdeApply(){
 }
 function cdeGetJson() {
   let editor_window = document.querySelector('.cdebody')
-  // let editor_window = document.querySelector('.rte_codeeditor')
   alert(JSON.stringify(rawConvert(toNode(editor_window.dataset.value))))
 }
 function cdeClose() {
   let control = document.querySelector('.cdewrapper')
-  // let control = document.querySelector('.rte_codeeditor')
   if(control) control.remove()
 }
 
