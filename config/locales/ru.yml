@@ -121,8 +121,7 @@ ru:
         header:   "Страницы"
         new:      "Создать страницу"
         title:    "Название"
-        desc:     "Slug страницы"
-        css:      "Дополнительные стили"
+        slug:     "Slug страницы"
       page:
         show:     "Посмотреть"
         edit:     "Редактировать"
@@ -135,6 +134,18 @@ ru:
         fail:     "Ошибка при обновлении страницы"
       destroy:
         success:  "Страница удалена"
+      form:
+        title:    "Название страницы"
+        slug:     "Slug страницы"
+        css:      "Дополнительные стили"
+        css_s:    "Выберите стили"
+        og:       "Данные OpenGraph"
+        desc:     "Мета описание"
+        og_title: "og title"
+        og_type:  "og type"
+        og_image: "og image url"
+        og_url:   "og url"
+        og_desc:  "og description"
     blocks:
       index:
         header:   "Шаблоны"

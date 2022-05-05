@@ -121,8 +121,7 @@ en:
         header:   "Pages"
         new:      "New page"
         title:    "Title"
-        desc:     "Page slug"
-        css:      "Additional styles"
+        slug:     "Page slug"
       page:
         show:     "Show"
         edit:     "Edit"
@@ -135,6 +134,18 @@ en:
         fail:     "Page updating failed"
       destroy:
         success:  "Page deleted"
+      form:
+        title:    "Page title"
+        slug:     ""
+        css:      "Additional styles"
+        css_s:    "Select style"
+        og:       "OpenGraph data"
+        desc:     "Description"
+        og_title: "og title"
+        og_type:  "og type"
+        og_image: "og image url"
+        og_url:   "og url"
+        og_desc:  "og description"
     blocks:
       index:
         header:   "Blocks"
