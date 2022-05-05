@@ -48,7 +48,10 @@ class Admin::PagesController < Admin::MainController
   end
 
   def page_params
-    params.require(:page).permit([:title, :slug, :style_ids, :content])
+    params.require(:page).permit([
+      :title, :slug, :style_ids, :content, :description,
+      :og_title, :og_type, :og_image, :og_url, :og_description
+    ])
   end
 
   def rescue_with_page_not_found
