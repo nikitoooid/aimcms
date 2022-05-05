@@ -122,6 +122,7 @@ en:
         new:      "New page"
         title:    "Title"
         desc:     "Page slug"
+        css:      "Additional styles"
       page:
         show:     "Show"
         edit:     "Edit"

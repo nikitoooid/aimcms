@@ -30,20 +30,6 @@
 
 /* ------------------------------------------------------ */
 
-.rte_codeeditor .modal-header {
-  background: #141617;
-  color: white;
-  border-bottom: 1px solid #1f2324;
-}
-
-/* ------------------------------------------------------ */
-
-.rte_codeeditor .modal-header .btn-close {
-  background-color: #fff;
-}
-
-/* ------------------------------------------------------ */
-
 .rte_filemanager {
   height: 90vh;
   width: 90%;
@@ -121,4 +107,30 @@
 .rte_file.active .fwr,
 .rte_file:hover .fwr{
   border: 1px solid #1f2324;
+}
+
+
+.cde_editor {
+  margin: 0 !important;
+  padding: 0 !important;
+  height: 100vh;
+  width: 100%;
+}
+.cdewrapper {
+  height: 100vh;
+  width: 100%;
+}
+.cdewrapper .cdeheader {
+  // height: 100px;
+  padding: 1.5rem;
+  background: #141617;
+  color: white;
+  border-bottom: 1px solid #1f2324;
+}
+.cdewrapper .cdebody {
+  // height: calc(100% - 100px);
+  height: 100%;
+}
+.cdewrapper .cdeheader .btn-close {
+  background-color: #fff;
 }

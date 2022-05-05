@@ -6,19 +6,19 @@ javascript:
 
 = @page.style_content
 
-div class="content rte_editor"
+div class="content rte rte_editor"
 
 
 div style="visibility: collapse"
   = form_with model: [:admin, @page], class: 'rte_result_form' do |f|
     div class="mb-2"
-      = f.label :title, 'Page title test label'
+      = f.label :title, t('admin.pages.index.title')
       = f.text_field :title, class: "result_title form-control"
     div class="mb-2"
-      = f.label :slug, 'Page slug test label'
+      = f.label :slug, t('admin.pages.index.slug')
       = f.text_field :slug, class: "result_path form-control"
     div class="mb-2"
-      = f.label :style_ids, 'Additional CSS'
+      = f.label :style_ids, t('admin.pages.index.css')
       = f.select :style_ids, options_from_collection_for_select(Style.all, :id, :title), {prompt: 'Select styles', multiple: false}, {class: "result_styles form-select mb-2"}
     = f.text_area :content, class: 'result_content'
     = f.submit 'submit', class: 'rte_submit'

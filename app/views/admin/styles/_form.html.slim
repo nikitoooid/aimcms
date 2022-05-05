@@ -1,12 +1,7 @@
-/ div style="height:100%"
-/   div class='p-1 bg-dark'
-/     ul class="nav align-items-center"
-/       li class="nav-item"
-/         input type='text' class="h3 me-5" style="background: transparent; color: white; border: none" data-target=".result_title"
-/       li.nav-item
-/         div class='btn btn-sm btn-primary' data-action="redirectClick" data-target=".rte_submit" = t('.save')
+javascript:
+  var loc = #{rte_localization}
 
-/   div id="editor" style="width: 100%; min-height: 100%" data-mode="css"
+div class="rte cde_editor" data-lang="css"
 
 div style="visibility: collapse; height: 0"
   = form_with model: [:admin, @style] do |f|
@@ -16,4 +11,4 @@ div style="visibility: collapse; height: 0"
 
 <script src="https://pagecdn.io/lib/ace/1.4.13/ace.min.js" crossorigin="anonymous" integrity="sha256-GjtAsBCI/KPlEYQf0I8yNimcThRoWMnk7Vpi+dUt+GY=" ></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.14/ext-language_tools.min.js" integrity="sha512-S7Whi8oQAQu/MK6AhBWufIJIyOvqORj+/1YDM9MaHeRalsZjzyYS7Usk4fsh+6J77PUhuk5v/BxaMDXRdWd1KA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-= javascript_import_module_tag "codeeditor"
+= javascript_import_module_tag "rte"
