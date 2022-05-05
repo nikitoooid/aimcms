@@ -18,11 +18,11 @@
 * Add user navbar
 * Add user footer
 ### Pages
-* Add page cover (og image)
+* Add page og image
+* Add page og data
 * Add page description
 * Add page keywords
 ### RTE
-* Separate page and block settings
 * Add template groups
 * Add filetype sorting to filemanager
 * Add file uploading to filemanager

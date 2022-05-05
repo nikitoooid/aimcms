@@ -122,6 +122,7 @@ ru:
         new:      "Создать страницу"
         title:    "Название"
         desc:     "Slug страницы"
+        css:      "Дополнительные стили"
       page:
         show:     "Посмотреть"
         edit:     "Редактировать"
@@ -189,6 +190,9 @@ ru:
         success:  "Стиль удалён"
 
   rte:
+    page_settings:      'Страница'
+    block_settings:     'Блок'
+    structure:          'Структура'
     select:             'Выбрать'
     new:                'Вставить '
     save:               'Сохранить'
@@ -196,11 +200,11 @@ ru:
     close:              'Закрыть'
     delete:             'Удалить'
     empty:              'пустой блок'
-    code:               'Code'
+    code:               'Открыть в CodeEditor'
     get_json:           'Получить Json'
-    blocklist_header:   'Список блоков'
+    blocklist:          'Список блоков'
     code_header:        'Редактор CODE'
-    select_block:       'Выбрать шаблон'
+    templates:          'Шаблоны'
     main_settings:      'Основные параметры'
     block_name:         'Имя блока'
     id:                 'Id блока'

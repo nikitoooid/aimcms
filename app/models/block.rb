@@ -25,7 +25,7 @@ class Block < ApplicationRecord
       result[:blocks].push(block.prepare_template)
     end
     
-    result[:blocks].push({block: 'div', title: 'Advanced block', template_name: 'advanced'})
+    result[:blocks].push({block: 'div', title: 'Advanced block', block_name: 'mg_adv', template_name: 'advanced'})
     result.to_json
   end
 

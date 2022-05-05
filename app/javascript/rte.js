@@ -1,5 +1,5 @@
 // forms library
-var rte_forms = [
+const rte_forms = [
   // default
   {
     template_name: 'default',
@@ -138,6 +138,7 @@ var rte_forms = [
         classlist: 'form-select form-select-sm',
         data: { target: 'block' },
         blocks:[
+          { block: 'option', content: loc.select},
           { block: 'option', value: 'p', content: 'p'},
           { block: 'option', value: 'h1', content: 'h1'},
           { block: 'option', value: 'h2', content: 'h2'},
@@ -259,251 +260,267 @@ var rte_forms = [
 ]
 
 // actions library (class btn + data-action)
-var rte_actions = {
+const rte_actions = {
   'newblock': newBlock,
   'apply': formSave,
   'save': savePage,
-  'delete' : function() { sidebarOffCanvas.hide(); removeBlock() },
-  'blocklist': function () { blockListModal.toggle(); renderPage() },
+  'delete' : function() { removeBlock() },
   //---------------------------
   'cde_apply': cdeApply,
-  'cde_open' : cdeOpen,
   'cde_open_in' : cdeOpenIn,
   'cde_get_json' : cdeGetJson,
+  'cde_close' : cdeClose,
   //---------------------------
   'fs' : fs,
   'fs_open' : fs_openFile,
   'fs_close' : fs_closeWindow
 }
-       
-var blockListModal
-var codeEditorModal
-var sidebarOffCanvas
 
 var paramsbuffer = {}   // буфер параметров формы
 var blockbuffer         // буфер для копирования блока
-var newblockbuffer = block_templates.blocks[0] || {block: 'div', title: 'advanced block', template_name: 'advanced'}      // буфер нового блока
+var newblockbuffer = {block: 'div', title: 'advanced block', template_name: 'advanced'}      // буфер нового блока
 
-var codeEditor
 // ----------------------------------------
 
-function generateRte() {
-  let control = document.querySelector('.rte_body')
+function generateRte(control) {
+  
+  if(control.classList.contains('rte_editor')) {
 
-  if(control) {
-    control.appendChild(createBlock({ block: 'div', blocks: [
+    // создаем рабочую область
+    control.appendChild(createBlock({
+      block: 'div', classlist: 'rte_body',
+      style: 'height: 100%', blocks: [
+      { block: 'div', blocks: [
         { block: 'div', classlist: 'rte_control' },
-        // sidebar must be in partial because there may be form
+      ]},
+    ]},false))
+
+    // создаем панель инструментов
+    control.after(createBlock({
+      block: 'div', blocks: [
         {
-          "block":"div",
-          "classlist":"modal fade rte_blocklist",
-          "blocks":[
-            {
-              "block":"div",
-              "classlist":"modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable",
-              "blocks":[
-                {
-                  "block":"div",
-                  "classlist":"modal-content",
-                  "blocks":[
-                    {
-                      "block":"div",
-                      "classlist":"modal-header",
-                      "blocks":[
-                        {
-                          "block":"h2",
-                          "id":"exampleModalLabel",
-                          "classlist":"modal-title",
-                          "content": loc.blocklist_header
-                        },
-                        {
-                          "block":"button",
-                          "classlist":"btn-close",
-                          "type":"button",
-                          "data":{"bsDismiss":"modal"}
-                        }
-                      ]
-                    },
-                    {
-                      "block":"div",
-                      "classlist":"modal-body",
-                      "blocks":[
-                        {
-                          "block":"div",
-                          "classlist":"blocklist_wrapper",
-                        }
-                      ]
-                    },
-                    {
-                      "block":"div",
-                      "id":"rte_bt",
-                      "classlist":"collapse modal-footer",
-                      "style":"max-height: 40vh; overflow-y: scroll; width: 100%;",
-                      "blocks":[
-                        {
-                          "block":"div",
-                          "classlist":"container rte_bt",
-                        }
-                      ]
-                    },
-                    {
-                      "block":"div",
-                      "classlist":"modal-footer",
-                      "blocks":[
-                        {
-                          "block":"div",
-                          "classlist":"btn-group",
-                          "blocks":[
-                            {
-                              "block":"button",
-                              "classlist":"btn btn-sm btn-primary rte_button",
-                              "content": loc.new,
-                              "type":"button",
-                              "data":{"action":"newblock"},
-                              "blocks":[
-                                {
-                                  "block":"span",
-                                  "classlist":"new_preview badge bg-dark"
-                                }
-                              ]
-                            },
-                            {
-                              "block":"button",
-                              "classlist":"btn btn-sm btn-secondary",
-                              "content": loc.select_block,
-                              "type":"button",
-                              "data":{"bsToggle":"collapse","bsTarget":"#rte_bt"}
-                            }
-                          ]
-                        },
-                        {
-                          "block":"div",
-                          "classlist":"btn btn-sm btn-danger rte_button",
-                          "content": loc.delete,
-                          "data":{"action":"delete"}
-                        },
-                        {
-                          "block":"button",
-                          "classlist":"btn btn-sm btn-secondary",
-                          "content": loc.close,
-                          "type":"button",
-                          "data":{"bsDismiss":"modal"}
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ]
-            }
+          block: 'div', classlist: 'rte_sidebar offcanvas show offcanvas-end',
+          style: 'visibility:visible', attributes: {
+            'data-bs-scroll':'true',
+            'data-bs-backdrop':'false',
+            'role':'tablist'
+          },
+          blocks:[
+            {block: 'div', classlist: 'offcanvas-body', blocks:[
+              {block: 'ul', classlist: 'nav nav-tabs', blocks:[
+                {block: 'li', classlist: 'nav-item', blocks:[
+                  {block: 'button', classlist: 'nav-link active', content: loc.page_settings,
+                    attributes: {'data-bs-toggle':'tab', 'data-bs-target':'#rte_page_tab'}
+                  }
+                ]},
+                {block: 'li', classlist: 'nav-item', blocks:[
+                  {block: 'button', classlist: 'nav-link', content: loc.block_settings,
+                    attributes: {'data-bs-toggle':'tab', 'data-bs-target':'#rte_block_tab'}
+                  }
+                ]},
+                {block: 'li', classlist: 'nav-item', blocks:[
+                  {block: 'button', classlist: 'nav-link', content: loc.structure,
+                    attributes: {'data-bs-toggle':'tab', 'data-bs-target':'#rte_struct_tab'}
+                  }
+                ]}
+              ]},
+              {block: 'div', classlist: 'tab-content pt-3', blocks:[
+                {block: 'div', classlist: 'tab-pane fade show active', id: 'rte_page_tab'},
+                {block: 'div', classlist: 'tab-pane fade', id: 'rte_block_tab', blocks:[
+                  {block: 'div', classlist: 'accordion accordion-flush rte_block_settings'}
+                ]},
+                {block: 'div', classlist: 'tab-pane fade', id: 'rte_struct_tab', blocks:[
+                  {block: 'ul', classlist: 'nav nav-tabs mb-2', blocks:[
+                    {block: 'li', classlist: 'nav-item', blocks:[
+                      {block: 'button', classlist: 'nav-link active', content: loc.blocklist,
+                        attributes: {'data-bs-toggle':'tab', 'data-bs-target':'#rte_blocklist_tab'}
+                      }
+                    ]},
+                    {block: 'li', classlist: 'nav-item', blocks:[
+                      {block: 'button', classlist: 'nav-link', content: loc.templates,
+                        attributes: {'data-bs-toggle':'tab', 'data-bs-target':'#rte_templates_tab'}
+                      }
+                    ]}
+                  ]},
+                  {block:'div', classlist:'btn btn-sm btn-primary w-100 mb-2 rte_button',data:{action:'newblock'}, blocks:[
+                    {block: 'span', classlist: 'rte_new_preview badge bg-dark'}
+                  ]},
+                  {block: 'div', classlist: 'tab-content', blocks:[
+                    {block:'div',classlist:'tab-pane fade show active',id:'rte_blocklist_tab',blocks:[
+                      {block:'div', classlist:'blocklist_wrapper'}
+                    ]},
+                    {block:'div',classlist:'tab-pane fade',id:'rte_templates_tab',blocks:[
+                      {block:'div', classlist:'rte_bt'}
+                    ]}
+                  ]}
+                ]}
+              ]},
+            ]},
+            {block: 'div', classlist: 'offcanvas-footer p-3', blocks:[
+              { block: 'div', classlist: 'btn btn-sm btn-primary rte_button w-100 mb-2',
+                data:{action:'save'}, content: loc.save
+              }
+            ]}
           ]
         },
-        {
-          "block":"div",
-          "classlist":"modal fade rte_codeeditor",
-          "data":{"rte_content":""},
-          "blocks":[
-            {
-              "block":"div",
-              "classlist":"modal-dialog modal-fullscreen modal-dialog-scrollable",
-              "blocks":[
-                {
-                  "block":"div",
-                  "classlist":"modal-content",
-                  "blocks":[
-                    {
-                      "block":"div",
-                      "classlist":"modal-header",
-                      "blocks":[
-                        {
-                          "block":"h2",
-                          "classlist":"modal-title",
-                          "content": loc.code_header,
-                        },
-                        {
-                          "block":"button",
-                          "classlist":"btn-close",
-                          "type":"button",
-                          "data":{"bsDismiss":"modal"}
-                        }
-                      ]
-                    },
-                    {
-                      "block":"div",
-                      "classlist":"modal-header",
-                      "blocks":[
-                        {
-                          "block":"div",
-                          "blocks":[
-                            {
-                              "block":"div",
-                              "classlist":"btn btn-sm btn-primary me-2",
-                              "content": loc.apply,
-                              "data":{"action":"cde_apply"}
-                            },
-                            {
-                              "block":"div",
-                              "classlist":"btn btn-sm btn-dark",
-                              "content": loc.get_json,
-                              "data":{"action":"cde_get_json"}
-                            }
-                          ]
-                        }
-                      ]
-                    },
-                    {
-                      "block":"div",
-                      "id":"editor",
-                      "classlist":"modal-body"
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        }
-      ]},false))
+        { block: 'div', style: 'width: 350px' }
+      ]
+    },false))
+
+    // создание полей настройки страницы
+    generateFields()
+
+    // остальные инициализации
+    disableStandartCombinations()
+    buttonsHandler(rte_actions)
+    otherHandler()
+    initRedirectInput()
+    
+    // отрисовка страницы
+    renderPage()
+  } else if (control.classList.contains('cde_editor')) {
+
+    let result_field = document.querySelector('.result_content')
+    
+    cdeConfig('editor', {
+      container: '.cde_editor',
+      output: result_field,
+      value: result_field.value,
+      lang: control.dataset.lang,
+      header: [{block: 'ul', classlist: 'nav align-items-center', blocks: [
+        {block: 'li', classlist: 'nav-item w-25 me-2', blocks:[
+          {block: 'input', type:'text', classlist: 'form-control form-control-sm bg-dark text-light', data:{redirectinput:'.result_title'}}
+        ]},
+        {block: 'li', classlist: 'nav-item', blocks:[
+          {block: 'div', classlist: 'btn btn-sm btn-primary', content: loc.save, data:{redirectinput:'.rte_submit'}}
+        ]}
+      ]}]
+    })
+    
+    // остальные инициализации
+    initRedirectInput()
   }
+  
+}
+
+function generateFields(paste_selector = '#rte_page_tab', form_selector = '.rte_result_form') {
+  
+  let form = document.querySelector(form_selector)
+  let paste_in = document.querySelector(paste_selector)
+  if (!form || !paste_in) return
+  
+  paste_in.prepend(prepareFields( form, {
+    prefix: 'rte_',
+    exclude_types: ['submit', 'hidden'],
+    exclude_class: ['result_content'],
+    container: {block: 'div', class: 'wrapper w-100 mb-3'}
+  }))
+}
+
+// params:
+// prefix: 'rte_'
+// container: {block: 'div', class: 'wrapper w-100 mb-3'}
+// exclude_types: ['submit', 'hidden']
+// exclude_class: ['result_content']
+// (X) additional_classes: [ {selector: 'input[type="text"]', class: 'form-control'} ]
+function prepareFields(el, params) {
+  if (!el.tagName) return
+
+  let result
+
+  // проверка объекта на соответствие exclude_types
+  let c = true
+  if (params.exclude_types) params.exclude_types.forEach(et => { if(el.type == et) c = false })
+  if (params.exclude_class) params.exclude_class.forEach(ec => { if(el.classList.contains(ec)) c = false })
+  if (!c) return
+
+  // если форма - меняем на контейнер
+  if(el.tagName == 'FORM') {
+    result = document.createElement(params.container.block)
+    if (params.container.id)    result.id = params.container.id
+    if (params.container.class) result.className = params.container.class
+  } else result = document.createElement(el.tagName.toLowerCase())
+
+  if(el.id) result.id = `${params.prefix ? params.prefix : 'rte_'}${el.id}`
+  if(el.className) result.className = el.className
+  if(el.type) result.setAttribute('type', el.type)
+  if(el.htmlFor) result.htmlFor = `${params.prefix ? params.prefix : 'rte_'}${el.htmlFor}`
+  if(!el.childElementCount && el.textContent) result.textContent = el.textContent
+
+  if (el.id && (el.tagName == 'INPUT' || el.tagName == 'TEXTAREA' || el.tagName == 'SELECT'))
+    result.dataset.redirectinput = `#${el.id}`
+
+  if (el.childElementCount && el.tagName != 'SELECT') el.childNodes.forEach(n => {
+    let subresult = prepareFields(n, params)
+    if (subresult) result.appendChild(subresult)
+  })
+
+  return result
 }
 
 // ----------------------------------------
 
 function savePage() {
   formSave()
-
   document.querySelector('.rte_submit').click()
 }
 
 // ----------------------------------------
 
 document.addEventListener("DOMContentLoaded", function () {
-  var control = document.querySelector('.rte_body')
-
-  if (control) {
-    generateRte()
-
-    disableStandartCombinations()
-
-    blockListModal = new bootstrap.Modal(document.querySelector('.rte_blocklist'))
-    codeEditorModal = new bootstrap.Modal(document.querySelector('.rte_codeeditor'))
-    sidebarOffCanvas = new bootstrap.Offcanvas(document.querySelector('.rte_sidebar'))
-    
-    renderPage()
-
-    // CDE
-    codeEditor = ace.edit("editor")
-    ace.config.set("basePath", "https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.14")
-    codeEditor.setTheme("ace/theme/monokai");
-    codeEditor.getSession().setMode("ace/mode/html");
-    codeEditor.setBehavioursEnabled(true);
-    codeEditor.getSession().setTabSize(2);
-    
-    // codeEditor.setOption("enableBasicAutocompletion", true)
-    codeEditor.setOption("enableLiveAutocompletion", true)
-    codeEditor.setOption("enableSnippets", true)
-
-    buttonsHandler()
-  }
+  var control = document.querySelector('.rte')
+  if (control) generateRte(control)
 })
+
+function buttonsHandler(actions) {
+
+  document.addEventListener('click', function(e){
+    // слушаем функциональные кнопки
+    if (e.target.classList.contains('btn'))
+      if (e.target.dataset.hasOwnProperty('action'))
+        if (actions.hasOwnProperty(e.target.dataset.action))
+          actions[e.target.dataset.action](e.target)
+    // снимаем маркировку блоков
+    if (e.target.classList.contains('rte_control')) markBlock()
+  })
+}
+function otherHandler(){
+  // слушаем блоки
+  listenBlocks(['.content', '#rte_blocklist_tab'])
+
+  document.addEventListener('keydown', function (event) {
+    // Ctrl+S
+    if (ControlKeyCombo(event, 'KeyS')) formSave()
+
+    if (document.activeElement.classList.contains('rte_sidebar') || document.activeElement.tagName == 'BODY') {
+      // Ctrl+C
+      if (ControlKeyCombo(event, 'KeyC')) copyBlock()
+      // Crtrl+V
+      if (ControlKeyCombo(event, 'KeyV')) {
+        if (blockbuffer) {
+          insertBlock(blockbuffer)
+          renderPage()
+        }
+      }
+      // Ctrl+X
+      if (ControlKeyCombo(event, 'KeyX')) {
+        copyBlock()
+        if (blockbuffer) removeBlock()
+      }
+      // DEL
+      if (event.code == 'Delete') removeBlock()
+    }
+  })
+}
+function listenBlocks(area_selectors) {
+  area_selectors.forEach(s => {
+    document.querySelector(s).addEventListener('click', function (e) {
+      e.preventDefault()
+      if (e.target.classList.contains('rteblock')) markBlock(e.target.dataset.block_name)
+      if (e.target.classList.contains('rte_bi')) markBlock(e.target.dataset.target)
+    })
+  })
+}
 
 // ------------------------------------------------- FILEMANAGER
 
@@ -514,7 +531,6 @@ function fs(el) {
     fileManager(data, el.dataset.target)
   })
 }
-
 function fileManager(files, target) {
   let fswin = {
     block: 'div',
@@ -561,10 +577,9 @@ function fileManager(files, target) {
   let content = document.querySelector('.rte_filemanager .content .row')
   files.forEach( file => { content.appendChild(createFile(file)) })
 }
-
 function createFile(file){
   let preview = { block: 'div', blocks: [{ block: 'i', classlist: file.ext == 'dir' ? 'bi-folder' : `bi-filetype-${file.ext}` }] }
-  console.log(file)
+  
   if ( file.ext == 'jpg' || file.ext == 'jpeg' || file.ext == 'png' || file.ext == 'svg' || file.ext == 'bmp' ) {
     preview.style = "background: url('" + file.cover + "') no-repeat center; background-size: cover"
     preview.blocks[0].style = 'color: transparent'
@@ -605,13 +620,12 @@ function createFile(file){
 
   return element
 }
-
 function fs_openFile() {
   let result_url = document.querySelector('.rte_filemanager .rte_file.active').dataset['url']
   let result_target = document.querySelector('.rte_filemanager').dataset['target']
   fs_closeWindow()
 
-  let f = document.querySelector(`.rte_sidebar .sidebar_wrapper [data-target='${result_target}']`)
+  let f = document.querySelector(`.rte_block_settings [data-target='${result_target}']`)
   if(f && result_target != 'target') {
     f.value = result_url
     paramsbuffer[result_target] = result_url
@@ -619,38 +633,132 @@ function fs_openFile() {
 
   formSave()
 }
-
 function fs_closeWindow() {
   document.querySelector('.rte_filemanager').remove()
 }
 
 // ------------------------------------------------- CODE EDITOR
+// PARAMS
+// editor_id
+// header [] - массив блоков, которые будут вставлены в шапку редактора
+// insert - селектор блока, в который будет вставлен редактор (по умолчанию .content)
+// lang - язык программирования
+// value - значение, которое будет в теле редактора при создании
+function cdeEditor(params={}){
+  let editor_id = params.editor_id ? params.editor_id : 'editor'
+  let header = [
+    { block: 'div', classlist: 'btn me-2 btn-sm btn-primary', content: loc.apply, data: { action: 'cde_apply' } },
+    { block: 'div', classlist: 'btn me-2 btn-sm btn-dark', content: loc.get_json, data: { action: 'cde_get_json' } },
+    { block: 'div', classlist: 'btn me-2 btn-sm btn-secondary', content: loc.close, data: { action: 'cde_close' } },
+  ]
 
-function cdeApply(){
-  let tmp = paramsbuffer.target
-  paramsbuffer = rawConvert(toNode(codeEditor.getValue()))
-  paramsbuffer.target = tmp
+  let cde = {
+    "block":"div",
+    "classlist":"cdewrapper fade-in",
+    style: 'position:absolute;height:100vh;width:100%;left:0;top:0;z-index:9999',
+    "data":{"rte_content":""},
+    "blocks":[
+      {
+        "block":"div",
+        "classlist":"modal-dialog modal-fullscreen modal-dialog-scrollable",
+        "blocks":[
+          {
+            "block":"div",
+            "classlist":"modal-content",
+            "blocks":[
+              {
+                "block":"div",
+                "classlist":"modal-header cdeheader"
+              },
+              {
+                "block":"div",
+                "id": editor_id,
+                "classlist":"modal-body cdebody"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
 
-  codeEditorModal.hide()
-  codeEditor.setValue("")
-  formSave()
+  cdeConfig(editor_id, {
+    container: params.insert || '.content',
+    custom_editor: cde,
+    lang: params.lang,
+    value: params.value,
+    header: params.header ? params.header : header
+  })
 }
 
-function cdeOpen() {
-  codeEditor.setValue("")
-  codeEditorModal.show()
-}
+// params:
+// container: '.cde_editor' (*)
+// custom_editor: {}
+// lang: 'html'
+// value: '<div></div>'
+// output: Object значение внесется в Object.value (по умолч в '.cdewrapper'.dataset)
+// header: [{},{}]
+// header_selector: '.cdeheader'
+function cdeConfig(editor_id, params) {
+  
+  let container = document.querySelector(params.container)
+  if (!container) return
+  
+  // создаем тело редактора
+  let cde = params.custom_editor ? params.custom_editor : {
+    block: 'div', classlist: 'cdewrapper', blocks: [
+      {block: 'nav', classlist: 'cdeheader'},
+      {block: 'div', id: editor_id, classlist: 'cdebody'}
+    ]
+  }
+  container.appendChild(createBlock(cde, false))
 
+  // создаем шапку
+  let control = container.querySelector(params.header_selector ? params.header_selector : '.cdeheader')
+  if (control && params.header) control.appendChild(createBlock({
+    block: 'div', blocks: params.header
+  }, false))
+  
+  // находим тело редактора
+  control = container.querySelector(`#${editor_id}`)
+  if(!control) return
+
+  let editor = ace.edit(editor_id)
+  let output = params.output ? params.output : control.dataset
+
+  ace.config.set("basePath", "https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.14")
+  editor.setTheme("ace/theme/monokai")
+  editor.getSession().setMode(`ace/mode/${params.lang ? params.lang : 'html'}`)
+  editor.setBehavioursEnabled(true)
+  editor.getSession().setTabSize(2)
+  editor.setOption("enableLiveAutocompletion", true)
+  editor.setOption("enableSnippets", true)
+  
+  editor.on('change', function(){ output.value = editor.getValue() })
+  
+  if (params.value) editor.setValue(params.value)
+}
 function cdeOpenIn() {
   let tmp = document.createElement('div')
-  
   tmp.appendChild(createBlock(paramsbuffer, false))
-  codeEditor.setValue(tmp.innerHTML)
-  codeEditorModal.show()
+  cdeEditor( { value: tmp.innerHTML } )
 }
+function cdeApply(){
+  let editor_window = document.querySelector('.cdebody')
+  let tmp = paramsbuffer.target
+  paramsbuffer = rawConvert(toNode(editor_window.dataset.value))
+  paramsbuffer.target = tmp
 
+  cdeClose()
+  formSave()
+}
 function cdeGetJson() {
-  alert(JSON.stringify(rawConvert(toNode(codeEditor.getValue()))))
+  let editor_window = document.querySelector('.cdebody')
+  alert(JSON.stringify(rawConvert(toNode(editor_window.dataset.value))))
+}
+function cdeClose() {
+  let control = document.querySelector('.cdewrapper')
+  if(control) control.remove()
 }
 
 // конвертация элемента в json
@@ -704,66 +812,10 @@ function toNode(htmlString) {
 
 // -------------------------------------------------
 
-function buttonsHandler() {
-
-  document.addEventListener('click', function(e){
-    // слушаем функциональные кнопки
-    if (e.target.classList.contains('btn'))
-      if (e.target.dataset.hasOwnProperty('action'))
-        if (rte_actions.hasOwnProperty(e.target.dataset.action))
-          rte_actions[e.target.dataset.action](e.target)
-    // снимаем маркировку блоков
-    if (e.target.classList.contains('modal-body') && e.target.parentNode.parentNode.parentNode.classList.contains('rte_blocklist')) markBlock()
-  })
-
-  // слушаем блоки
-  document.querySelector('.rte_body').addEventListener('click', function (e) {
-    e.preventDefault()
-    if (e.target.classList.contains('rteblock')) markBlock(e.target.dataset.block_name)
-    if (e.target.classList.contains('rte_bi')) markBlock(e.target.dataset.target)
-  })
-
-  let blModal = document.querySelector('.rte_blocklist')
-  blModal.addEventListener('show.bs.modal', function () { document.querySelector('[data-action="blocklist"]').classList.add('active') })
-  blModal.addEventListener('hide.bs.modal', function () { document.querySelector('[data-action="blocklist"]').classList.remove('active') })
-
-  document.addEventListener('keydown', function (event) {
-    // Ctrl+S
-    if (ControlKeyCombo(event, 'KeyS')) {
-      formSave()
-    }
-
-    if (document.activeElement.classList.contains('modal-open') || document.activeElement.tagName == 'BODY') {
-      // Ctrl+C
-      if (ControlKeyCombo(event, 'KeyC')) copyBlock()
-      // Crtrl+V
-      if (ControlKeyCombo(event, 'KeyV')) {
-        if (blockbuffer) {
-          insertBlock(blockbuffer)
-          renderPage()
-        }
-      }
-      // Ctrl+X
-      if (ControlKeyCombo(event, 'KeyX')) {
-        copyBlock()
-        if (blockbuffer) removeBlock()
-      }
-      // DEL
-      if (event.code == 'Delete') {
-        sidebarOffCanvas.hide()
-        removeBlock()
-      }
-    }
-
-    // Ctrl+B
-    if (ControlKeyCombo(event, 'KeyB')) { blockListModal.toggle() }
-  })
-}
-
-// -------------------------------------------------
-
-
 function renderPage() {
+  // кэшируем выбранный блок
+  let ab = activeBlockName()
+
   let control = document.querySelector('.rte_control')
   // рисуем страницу
   control.innerHTML = ''
@@ -773,15 +825,18 @@ function renderPage() {
   let bl = document.querySelector('.blocklist_wrapper')
   bl.innerHTML = ''
   bl.appendChild(getBlocklist(page.blocks))
-  let pv = document.querySelector('.rte_blocklist .new_preview')
+  let pv = document.querySelector('.rte_new_preview')
   pv.textContent = newblockbuffer.title
 
-  // формируем список блоков для блоклиста
+  // формируем список блоков для шаблонлиста
   let tl = document.querySelector('.rte_bt')
   tl.innerHTML = ''
   tl.appendChild(getTemplateList(block_templates.blocks))
-}
 
+  // если до рендера был выбран блок - помечаем его
+  let tb = document.querySelector(`[data-block_name="${ab}"]`)
+  if (tb) tb.click()
+}
 // маркирует указанный блок
 function markBlock(block_name=null) {
   // снимаем маркировки
@@ -792,11 +847,15 @@ function markBlock(block_name=null) {
   
   // маркируем в блоклисте
   if (block_name) {
-    document.querySelector('.rteblock[data-block_name="' + block_name + '"]').classList.add('active')
-    document.querySelector('.blocklist_wrapper [data-target="' + block_name + '"]').classList.add('active')
-    getSidebar(page.blocks.getBlock('block_name', block_name, 'blocks'), rte_forms)
-    sidebarOffCanvas.show()
-  } else sidebarOffCanvas.hide()
+    let b = document.querySelector('.rteblock[data-block_name="' + block_name + '"]')
+    if(b) {
+      b.classList.add('active')
+      document.querySelector('.blocklist_wrapper [data-target="' + block_name + '"]').classList.add('active')
+    }
+
+    getBlockSettings(page.blocks.getBlock('block_name', block_name, 'blocks'), rte_forms)
+  }
+  else document.querySelector('.rte_block_settings').innerHTML = ''
   
 }
 // формирует строку (row) с шаблонами блоков
@@ -809,7 +868,7 @@ function getTemplateList(blocks) {
     let element = createBlock({
       block :'li',
       classlist : 'list-group-item',
-      data : { target: b.block_name, bsToggle:"collapse", bsTarget:"#rte_bt" },
+      data : { target: b.block_name },
       content: `<span class="badge bg-dark p-1">${b.title}</span>`
     }, false)
 
@@ -855,20 +914,16 @@ function getRtePage(blocks) {
   return result
 }
 // формирует контент для сайдбара
-function getSidebar(block, blocklib = rte_forms) {
-  let form = document.querySelector('.rte_sidebar .sidebar_wrapper')
+function getBlockSettings(block, blocklib = rte_forms) {
+  let form = document.querySelector('.rte_block_settings')
   form.innerHTML = ''
   if (!block) return
   
   let template = {}
   // получаем шаблон
-  if (block.hasOwnProperty('template_name')){
-    template = blocklib.getBlock('template_name', block.template_name)
-  }
+  if (block.hasOwnProperty('template_name')) template = blocklib.getBlock('template_name', block.template_name)
   // если нет шаблона - берем стандартный шаблон
-  else {
-    template = blocklib.getBlock('template_name', 'default')
-  }
+  else template = blocklib.getBlock('template_name', 'default')
   // наполняем
   form.appendChild(getForm(template, block))
 
@@ -878,11 +933,11 @@ function getSidebar(block, blocklib = rte_forms) {
     if (e.target.dataset.target) paramsbuffer[e.target.dataset.target] = e.target.value
     else console.log('This field has no target!')
   })
+  form.addEventListener('change', formSave)
 }
 // формирует форму
 function getForm(template, block) {
   // очищаем буфер параметров
-  // for (k in paramsbuffer) delete paramsbuffer[k]
   paramsbuffer = {}
 
   paramsbuffer.block = block.block
@@ -890,7 +945,9 @@ function getForm(template, block) {
   
   if (block.blocks) paramsbuffer.blocks = block.blocks
 
-  let result = {'block' : 'div', 'blocks':[]}
+  let result = {'block' : 'div', 'blocks':[
+    { block: 'div', classlist: 'btn btn-sm btn-dark w-100 mb-2', data: {action: 'cde_open_in'}, content: loc.code}
+  ]}
 
   // для каждой группы полей создаем аккордион
   template.forms.forEach( group => {
@@ -913,7 +970,7 @@ function getForm(template, block) {
       let container = {
         'block': 'div',
         'id': `rte_${ group.title.replace(/\s+/g, '') }`,
-        'classlist': 'accordion-collapse collapse',
+        'classlist': 'accordion-collapse collapse pb-3',
         'blocks':[]
       }
       // наполнение контейнера полями группы
@@ -1000,8 +1057,8 @@ function createBlock(b, forRte = true) {
   }
 
   return element
-
 }
+
 // создает поле формы (json) !!! доработать механику создания блока !!!
 function createFormField(args, block){
 
@@ -1016,10 +1073,9 @@ function createFormField(args, block){
   if (args.hasOwnProperty('label')) field.blocks.push({'block':'label','classlist':'form-label','content':args.label})
   if (args.hasOwnProperty('input')) {
 
-    // paramsbuffer[args.target] = null
-
     let element = { 'block': args.input, 'classlist': 'form-control form-control-sm', 'data':{'target':args.target}}
     if (args.hasOwnProperty('type')) element.type = args.type
+    if (args.hasOwnProperty('data')) element.data = Object.assign({}, element.data, args.data)
     if (block.hasOwnProperty(args.target)) {
       paramsbuffer[args.target] = block[args.target]
       element.value = block[args.target]
@@ -1076,7 +1132,6 @@ function insertBlock(block, params={}) {
 // скопировать активный блок
 function copyBlock(){
   let block_name = activeBlockName()
-
   if(!block_name) return
 
   let block = page.blocks.getBlock('block_name',block_name,'blocks')
@@ -1087,7 +1142,7 @@ function copyBlock(){
 // имя активного блока
 function activeBlockName(){
   let control = document.querySelector('.rte_bi.active')
-  if(!control) return
+  if(!control) return null
 
   return control.dataset.target
 }
@@ -1122,7 +1177,6 @@ function nameDuplicateProtected(block) {
 function formSave(){
   let block = page.blocks.getBlock('block_name', paramsbuffer.target, 'blocks')
 
-  
   if (block) {
     for (var k in paramsbuffer) {
       if (k != 'target' && k != undefined) block[k] = paramsbuffer[k]
@@ -1134,23 +1188,14 @@ function formSave(){
   let res_cont = document.querySelector('textarea.result_content')
   if (res_cont) res_cont.value = JSON.stringify(page)
 
-  res_cont = document.querySelector('input.result_title')
-  if (res_cont) res_cont.value = document.querySelector('#rte_title').value
-
-  res_cont = document.querySelector('input.result_template')
-  if (res_cont && document.querySelector('#rte_template')) res_cont.value = document.querySelector('#rte_template').value
-
-  res_cont = document.querySelector('input.result_path')
-  if (res_cont && document.querySelector('#rte_path')) res_cont.value = document.querySelector('#rte_path').value
-
-
   renderPage()
 }
 
 // -------- очень системные ----------------------------------
 
 // поиск блока по значению ключа (включая вложенные в массив sk)
-Array.prototype.getBlock = function ( k, v, sk = null) {
+Array.prototype.getBlock = function ( k, v=null, sk = null) {
+  if(!v) return v
 
   let result = this.find(e => e[k] == v)
   if(result) return result
@@ -1225,4 +1270,37 @@ function disableStandartCombinations() {
 function ControlKeyCombo(event, key2) {
   if (event.ctrlKey && (event.code == key2)) return true
   return false
+}
+
+// редиректит ввод
+function initRedirectInput() {
+  // обратное заполнение (единоразово)
+  reverseRedirectInput()
+  // редирект ввода
+  document.addEventListener('input', function(e){
+    let target = document.querySelector(e.target.dataset.redirectinput)
+    if (target) redirectInput(e.target, target)
+  })
+  // редирект клика
+  document.addEventListener('click', function(e){
+    if (!e.target.classList.contains('btn')) return
+    let target = document.querySelector(e.target.dataset.redirectinput)
+    if (target) target.click()
+  })
+}
+function redirectInput(input_from, input_to) {
+  if (input_from && input_to) {
+    if(input_to.tagName == 'SELECT') input_to.innerHTML = input_from.innerHTML
+    input_to.value = input_from.value
+  }
+}
+function reverseRedirectInput() {
+  let ri = document.querySelectorAll('[data-redirectinput]')
+  if (!ri || !ri.length) return
+
+  ri.forEach(r => {
+    let target = document.querySelector(r.dataset.redirectinput)
+    
+    if (target) redirectInput(target, r)
+  })
 }
