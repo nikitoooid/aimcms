@@ -189,6 +189,9 @@ en:
         success:  "Style delted"
 
   rte:
+    page_settings:      'Page'
+    block_settings:     'Block'
+    structure:          'Structure'
     select:             'Select'
     new:                'New '
     save:               'Save'
@@ -198,9 +201,9 @@ en:
     empty:              'empty'
     code:               'Open in CodeEditor'
     get_json:           'Get Json'
-    blocklist_header:   'Blocklist'
+    blocklist:          'Blocklist'
     code_header:        'Cool code editor'
-    select_block:       'Select block'
+    templates:          'Templates'
     main_settings:      'Main settings'
     block_name:         'Block name'
     id:                 'Id'

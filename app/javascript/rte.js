@@ -284,16 +284,94 @@ var newblockbuffer = block_templates.blocks[0] || {block: 'div', title: 'advance
 
 function generateRte() {
   // создание рабочего поля
-  let control = document.querySelector('.rte_body')
-  if(control) {
-    control.appendChild(createBlock({ block: 'div', blocks: [
+  let control = document.querySelector('.content')
+  if(control.classList.contains('rte_editor')) {
+    // создаем рабочую область
+    control.appendChild(createBlock({
+      block: 'div', classlist: 'rte_body',
+      style: 'height: 100%', blocks: [
+      { block: 'div', blocks: [
         { block: 'div', classlist: 'rte_control' },
-      ]},false))
-  }
-  // создание панели инструментов
+      ]},
+    ]},false))
 
-  // создание полей настройки страницы
-  generateFields()
+    // создаем панель инструментов
+    control.after(createBlock({
+      block: 'div', blocks: [
+        {
+          block: 'div', classlist: 'rte_sidebar offcanvas show offcanvas-end',
+          style: 'visibility:visible', attributes: {
+            'data-bs-scroll':'true',
+            'data-bs-backdrop':'false',
+            'role':'tablist'
+          },
+          blocks:[
+            {block: 'div', classlist: 'offcanvas-body', blocks:[
+              {block: 'ul', classlist: 'nav nav-tabs', blocks:[
+                {block: 'li', classlist: 'nav-item', blocks:[
+                  {block: 'button', classlist: 'nav-link active', content: loc.page_settings,
+                    attributes: {'data-bs-toggle':'tab', 'data-bs-target':'#rte_page_tab'}
+                  }
+                ]},
+                {block: 'li', classlist: 'nav-item', blocks:[
+                  {block: 'button', classlist: 'nav-link', content: loc.block_settings,
+                    attributes: {'data-bs-toggle':'tab', 'data-bs-target':'#rte_block_tab'}
+                  }
+                ]},
+                {block: 'li', classlist: 'nav-item', blocks:[
+                  {block: 'button', classlist: 'nav-link', content: loc.structure,
+                    attributes: {'data-bs-toggle':'tab', 'data-bs-target':'#rte_struct_tab'}
+                  }
+                ]}
+              ]},
+              {block: 'div', classlist: 'tab-content pt-3', blocks:[
+                {block: 'div', classlist: 'tab-pane fade show active', id: 'rte_page_tab'},
+                {block: 'div', classlist: 'tab-pane fade', id: 'rte_block_tab', blocks:[
+                  {block: 'div', classlist: 'accordion accordion-flush rte_block_settings'}
+                ]},
+                {block: 'div', classlist: 'tab-pane fade', id: 'rte_struct_tab', blocks:[
+                  {block: 'ul', classlist: 'nav nav-tabs mb-2', blocks:[
+                    {block: 'li', classlist: 'nav-item', blocks:[
+                      {block: 'button', classlist: 'nav-link active', content: loc.blocklist,
+                        attributes: {'data-bs-toggle':'tab', 'data-bs-target':'#rte_blocklist_tab'}
+                      }
+                    ]},
+                    {block: 'li', classlist: 'nav-item', blocks:[
+                      {block: 'button', classlist: 'nav-link', content: loc.templates,
+                        attributes: {'data-bs-toggle':'tab', 'data-bs-target':'#rte_templates_tab'}
+                      }
+                    ]}
+                  ]},
+                  {block:'div', classlist:'btn btn-sm btn-primary w-100 mb-2 rte_button',data:{action:'newblock'}, blocks:[
+                    {block: 'span', classlist: 'rte_new_preview badge bg-dark'}
+                  ]},
+                  {block: 'div', classlist: 'tab-content', blocks:[
+                    {block:'div',classlist:'tab-pane fade show active',id:'rte_blocklist_tab',blocks:[
+                      {block:'div', classlist:'blocklist_wrapper'}
+                    ]},
+                    {block:'div',classlist:'tab-pane fade',id:'rte_templates_tab',blocks:[
+                      {block:'div', classlist:'rte_bt'}
+                    ]}
+                  ]}
+                ]}
+              ]},
+            ]},
+            {block: 'div', classlist: 'offcanvas-footer p-3', blocks:[
+              { block: 'div', classlist: 'btn btn-sm btn-primary rte_button w-100 mb-2',
+                data:{action:'save', content: loc.save}
+              }
+            ]}
+          ]
+        },
+        { block: 'div', style: 'width: 350px' }
+      ]
+    },false))
+
+    // создание полей настройки страницы
+    generateFields()
+  } else if (control.classList.contains('cde_editor')) {
+
+  }
 
   // отрисовка страницы
   renderPage()
@@ -304,10 +382,8 @@ function generateFields(paste_selector = '#rte_page_tab', form_selector = '.rte_
   let form = document.querySelector(form_selector)
   let paste_in = document.querySelector(paste_selector)
   if (!form || !paste_in) return
-
-  let copyform = form.cloneNode(true)
-  console.log(copyform)
-  paste_in.prepend(prepareFields( copyform, {
+  
+  paste_in.prepend(prepareFields( form, {
     prefix: 'rte_',
     exclude_types: ['submit', 'hidden'],
     exclude_class: ['result_content'],
@@ -366,7 +442,7 @@ function savePage() {
 // ----------------------------------------
 
 document.addEventListener("DOMContentLoaded", function () {
-  var control = document.querySelector('.rte_body')
+  var control = document.querySelector('.rte_editor')
   if (control) {
     generateRte()
     disableStandartCombinations()
