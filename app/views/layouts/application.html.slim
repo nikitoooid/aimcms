@@ -3,10 +3,8 @@ html
   head
     title = content_for?(:title) ? yield(:title) : @setting.site_name
 
-    / = yield :meta_og if content_for?(:meta_og)
     = yield :page_meta if content_for?(:page_meta)
-
-    meta name="robots" content="#{'index'},#{'follow'}"
+    = yield :meta_robots if content_for?(:meta_robots)
 
     meta name="viewport" content="width=device-width,initial-scale=1"
     == csrf_meta_tags

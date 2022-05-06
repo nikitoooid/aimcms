@@ -31,6 +31,10 @@ module ApplicationHelper
     result.join("\n").html_safe
   end
 
+  def meta_robots(resource)
+    tag :meta, name: 'robots', content:"#{resource.index ? 'index' : 'noindex'},#{resource.follow ? 'follow' : 'nofollow'}"
+  end
+
   private
 
   def bootstrap_icon(icon_name)
