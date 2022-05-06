@@ -1,7 +1,9 @@
 doctype html
 html
   head
-    title Aimcms
+    title = @setting.site_name
+    meta name="robots" content="noindex,nofollow"
+    
     meta name="viewport" content="width=device-width,initial-scale=1"
     == csrf_meta_tags
     == csp_meta_tag

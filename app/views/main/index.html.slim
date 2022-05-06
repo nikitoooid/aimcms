@@ -1,5 +1,6 @@
 - if @page.nil?
   h1 No page found
 - else
+  - content_for :title, @page.title
   = @page.style_content
   = @page.html_content
