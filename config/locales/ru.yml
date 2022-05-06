@@ -138,7 +138,6 @@ ru:
         slug:     "Slug страницы"
         css:      "Дополнительные стили"
         css_s:    "Выберите стили"
-        og:       "Данные OpenGraph"
         desc:     "Мета описание"
         og_title: "og title"
         og_type:  "og type"

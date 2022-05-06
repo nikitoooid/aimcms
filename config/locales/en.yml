@@ -138,7 +138,6 @@ en:
         slug:     ""
         css:      "Additional styles"
         css_s:    "Select style"
-        og:       "OpenGraph data"
         desc:     "Description"
         og_title: "og title"
         og_type:  "og type"

@@ -19,7 +19,6 @@ div style="visibility: collapse"
       = f.label :style_ids, t('.css'), class: "mb-1"
       = f.select :style_ids, options_from_collection_for_select(Style.all, :id, :title), {prompt: t('.css_s'), multiple: false}, {class: "result_styles form-select mb-2"}
     hr class="mb-2"
-    h4 class="mb-2" = t('.og')
     div class="mb-2"
       = f.label :description, t('.desc')
       = f.text_area :description, class: "form-control"
