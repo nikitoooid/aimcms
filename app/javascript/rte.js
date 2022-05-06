@@ -439,7 +439,7 @@ function prepareFields(el, params) {
     result = document.createElement(params.container.block)
     if (params.container.id)    result.id = params.container.id
     if (params.container.class) result.className = params.container.class
-  } else result = document.createElement(el.tagName.toLowerCase())
+  } else result = el.cloneNode(false)
 
   if(el.id) result.id = `${params.prefix ? params.prefix : 'rte_'}${el.id}`
   if(el.className) result.className = el.className
@@ -625,7 +625,7 @@ function fs_openFile() {
   let result_target = document.querySelector('.rte_filemanager').dataset['target']
   fs_closeWindow()
 
-  let f = document.querySelector(`.rte_block_settings [data-target='${result_target}']`)
+  let f = document.querySelector(`.rte_sidebar [data-target='${result_target}']`)
   if(f && result_target != 'target') {
     f.value = result_url
     paramsbuffer[result_target] = result_url
@@ -892,7 +892,8 @@ function getBlocklist(blocks) {
       'block':'li',
       'classlist':'list-group-item rte_bi',
       'data':{'target': b.block_name},
-      'content':`<span class="badge bg-dark">${b.block}</span><span class="ms-1 badge bg-secondary">${b.block_name}</span>  ${(b.content ? b.content.slice(0, 35) : b.title) || loc.empty}`,
+      // 'content':`<span class="badge bg-dark">${b.block}</span><span class="ms-1 badge bg-secondary">${b.block_name}</span>  ${(b.content ? b.content.slice(0, 35) : b.title) || loc.empty}`,
+      'content':`<span class="badge bg-dark">${b.block}</span>  ${(b.content ? b.content.slice(0, 30) : b.title) || loc.empty}`,
     }, false)
     
     if (b.hasOwnProperty('blocks')) element.appendChild(getBlocklist(b.blocks))
@@ -957,10 +958,9 @@ function getForm(template, block) {
       let item = { 'block': 'div', 'classlist':'accordion-item','blocks':[
         { 
           'block': 'h2',
-          'classlist': 'accordion-button accordion-header collapsed',
-          
-          'content': group.title,
-          'attributes': {
+          'classlist': 'accordion-header accordion-button collapsed',
+          content: group.title,
+          attributes: {
             'data-bs-toggle': "collapse",
             'data-bs-target':`#rte_${ group.title.replace(/\s+/g, '') }`
           }
@@ -1156,6 +1156,7 @@ function removeBlock(block_name=null) {
   else console.log('Target not found')
 
   renderPage()
+  markBlock()
 }
 
 // перегенерировать блоку имя, если таой блок есть на странице
@@ -1281,6 +1282,10 @@ function initRedirectInput() {
     let target = document.querySelector(e.target.dataset.redirectinput)
     if (target) redirectInput(e.target, target)
   })
+  document.addEventListener('change', function(e){
+    let target = document.querySelector(e.target.dataset.redirectinput)
+    if (target) redirectInput(e.target, target)
+  })
   // редирект клика
   document.addEventListener('click', function(e){
     if (!e.target.classList.contains('btn')) return
@@ -1291,6 +1296,7 @@ function initRedirectInput() {
 function redirectInput(input_from, input_to) {
   if (input_from && input_to) {
     if(input_to.tagName == 'SELECT') input_to.innerHTML = input_from.innerHTML
+    if(input_to.type == 'checkbox' || input_to.type == 'radio') input_to.checked = input_from.checked
     input_to.value = input_from.value
   }
 }

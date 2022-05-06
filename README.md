@@ -10,18 +10,15 @@
 
 ## TODO
 ### Settings
-* Add basic desription to settings
-* Add basic keywords to settings
+* (X) Add basic desription to settings
+* (X) Add basic keywords to settings
 * Add <head> helpers
 * Add before </body> helpers
 * Add user sidebar
 * Add user navbar
 * Add user footer
 ### Pages
-* Add page og image
-* Add page og data
-* Add page description
-* Add page keywords
+
 ### RTE
 * Add template groups
 * Add filetype sorting to filemanager

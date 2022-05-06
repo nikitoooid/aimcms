@@ -7,7 +7,7 @@ javascript:
 
 div class="content rte rte_editor"
 
-div style="visibility: collapse"
+div class="result_form"
   = form_with model: [:admin, @page], class: 'rte_result_form' do |f|
     div class="mb-2"
       = f.label :title, t('.title'), class: "mb-1"
@@ -17,7 +17,7 @@ div style="visibility: collapse"
       = f.text_field :slug, class: "result_path form-control"
     div class="mb-2"
       = f.label :style_ids, t('.css'), class: "mb-1"
-      = f.select :style_ids, options_from_collection_for_select(Style.all, :id, :title), {prompt: t('.css_s'), multiple: false}, {class: "result_styles form-select mb-2"}
+      = f.select :style_ids, options_from_collection_for_select(Style.all, :id, :title), {prompt: t('.css_s')}, {class: "result_styles form-select mb-2", multiple: true}
     hr class="mb-2"
     div class="mb-2"
       = f.label :description, t('.desc')
@@ -30,14 +30,15 @@ div style="visibility: collapse"
       = f.text_field :og_type, class: "form-control"
     div class="mb-2"
       = f.label :og_image, t('.og_image'), class: "mb-1"
-      = f.text_field :og_image, class: "form-control"
+      = f.text_field :og_image, class: "form-control", data: { target: 'ogimage'}
+      = content_tag :div, 'Select', class: 'btn btn-sm btn-primary mt-2 w-100', data: { action: 'fs', target: 'ogimage'}
     div class="mb-2"
       = f.label :og_url, t('.og_url'), class: "mb-1"
       = f.text_field :og_url, class: "form-control"
     div class="mb-2"
       = f.label :og_description, t('.og_desc'), class: "mb-1"
       = f.text_area :og_description, class: "form-control"
-    div class="mb-2"
+    div class=""
       div class="form-check mb-1"
         = f.check_box :index, class: 'form-check-input'
         = f.label :index, 'index page', class: 'form-check-label'

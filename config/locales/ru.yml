@@ -144,6 +144,8 @@ ru:
         og_image: "og image url"
         og_url:   "og url"
         og_desc:  "og description"
+        index:    "индексировать страницу"
+        follow:   "переходить по ссылкам"
     blocks:
       index:
         header:   "Шаблоны"

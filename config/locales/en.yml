@@ -144,6 +144,8 @@ en:
         og_image: "og image url"
         og_url:   "og url"
         og_desc:  "og description"
+        index:    "index"
+        follow:    "follow"
     blocks:
       index:
         header:   "Blocks"

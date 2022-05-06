@@ -2,6 +2,6 @@
 - content_for :page_meta, page_meta_tags(@page, meta: ['description'],
                 og: ['og:title', 'og:image', 'og:type', 'og:description', 'og:url'])
 - content_for :meta_robots, meta_robots(@page)
+- content_for :page_styles, @page.style_content if @page.styles.any?
 
-= @page.style_content
 = @page.html_content
