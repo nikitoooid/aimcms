@@ -75,7 +75,6 @@ en:
         description:  "File description"
         url:          "File url"
         size:         "File size:"
-        kb:           "kb"
         created:      "Created at:"
         updated:      "Updated at:"
         save:         "Save changes"
