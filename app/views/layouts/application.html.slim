@@ -1,15 +1,10 @@
 doctype html
 html
   head
-    / title = content_for?(:title) ? yield(:title) : 'Aimcms'
-    title = @page.title.empty? ? @setting.site_name : @page.title
+    title = content_for?(:title) ? yield(:title) : @setting.site_name
 
-    = "<meta property=\"og:title\" content=\"#{@page.og_title}\">".html_safe unless @page.og_title.empty?
-    = "<meta property=\"og:type\" content=\"#{@page.og_type}\">".html_safe unless @page.og_type.empty?
-    = "<meta property=\"og:image\" content=\"#{@page.og_image}\">".html_safe unless @page.og_image.empty?
-    = "<meta property=\"og:description\" content=\"#{@page.og_description}\">".html_safe unless @page.og_description.empty?
-    = "<meta property=\"og:url\" content=\"#{@page.og_url}\">".html_safe unless @page.og_url.empty?
-    = "<meta name=\"description\" content=\"#{@page.description}\">".html_safe unless @page.description.empty?
+    / = yield :meta_og if content_for?(:meta_og)
+    = yield :page_meta if content_for?(:page_meta)
 
     meta name="robots" content="#{'index'},#{'follow'}"
 

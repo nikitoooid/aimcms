@@ -12,11 +12,29 @@ module ApplicationHelper
     end
   end
 
+  def page_meta_tags(resource, params)
+    result = []
+    
+    if params[:meta]
+      params[:meta].each do |t|
+        result.push(tag :meta, name: t, content: resource[t]) unless resource[t].empty?
+      end
+    end
+
+    if params[:og]
+      params[:og].each do |t|
+        attribute = t.gsub(':','_')
+        result.push(tag :meta, property: t, content: resource[attribute]) unless resource[attribute].empty?
+      end
+    end
+
+    result.join("\n").html_safe
+  end
+
   private
 
   def bootstrap_icon(icon_name)
     return '' if icon_name.nil?
-
     content_tag :i, nil, class: "bi-#{icon_name}"
   end
 

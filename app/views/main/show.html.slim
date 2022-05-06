@@ -1,4 +1,6 @@
 - content_for :title, @page.title
+- content_for :page_meta, page_meta_tags(@page, meta: ['description'],
+                og: ['og:title', 'og:image', 'og:type', 'og:description', 'og:url'])
 
 = @page.style_content
 = @page.html_content
