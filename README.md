@@ -17,13 +17,18 @@
 * Add user sidebar
 * Add user navbar
 * Add user footer
-### Pages
-
 ### RTE
+* Add helper templates
 * Add template groups
 * Add filetype sorting to filemanager
 * Add file uploading to filemanager
-* Add helper templates
+### Documents
+* Add multi upload from admin/index
+* Remove :new view
+* Remove :description from Documents
+### Pages
+* Add selection of :header from Blocks
+* Add selection of :footer from Blocks
 
 ## Files
 Uses ActiveStorage
