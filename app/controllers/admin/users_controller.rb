@@ -7,7 +7,7 @@ class Admin::UsersController < Admin::MainController
   PERMITTED = [:first_name, :last_name, :email, :password, :password_confirmation, :avatar, :type].freeze
   
   def index
-    @users = User.all
+    @users = User.order(type: :asc, first_name: :asc)
   end
 
   def edit

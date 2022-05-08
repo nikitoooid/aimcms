@@ -5,7 +5,7 @@ class Admin::PagesController < Admin::MainController
   rescue_from ActiveRecord::RecordNotFound, with: :rescue_with_page_not_found
   
   def index
-    @pages = Page.all
+    @pages = Page.order(id: :asc)
   end
 
   def show

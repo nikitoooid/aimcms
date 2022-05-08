@@ -5,7 +5,7 @@ class Admin::BlocksController < Admin::MainController
   rescue_from ActiveRecord::RecordNotFound, with: :rescue_with_block_not_found
   
   def index
-    @blocks = Block.all
+    @blocks = Block.order(id: :asc)
   end
 
   def show

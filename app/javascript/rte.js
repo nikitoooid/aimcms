@@ -402,60 +402,13 @@ function generateRte(control) {
   }
   
 }
-
 function generateFields(paste_selector = '#rte_page_tab', form_selector = '.rte_result_form') {
   
   let form = document.querySelector(form_selector)
   let paste_in = document.querySelector(paste_selector)
   if (!form || !paste_in) return
   
-  paste_in.prepend(prepareFields( form, {
-    prefix: 'rte_',
-    exclude_types: ['submit', 'hidden'],
-    exclude_class: ['result_content'],
-    container: {block: 'div', class: 'wrapper w-100 mb-3'}
-  }))
-}
-
-// params:
-// prefix: 'rte_'
-// container: {block: 'div', class: 'wrapper w-100 mb-3'}
-// exclude_types: ['submit', 'hidden']
-// exclude_class: ['result_content']
-// (X) additional_classes: [ {selector: 'input[type="text"]', class: 'form-control'} ]
-function prepareFields(el, params) {
-  if (!el.tagName) return
-
-  let result
-
-  // проверка объекта на соответствие exclude_types
-  let c = true
-  if (params.exclude_types) params.exclude_types.forEach(et => { if(el.type == et) c = false })
-  if (params.exclude_class) params.exclude_class.forEach(ec => { if(el.classList.contains(ec)) c = false })
-  if (!c) return
-
-  // если форма - меняем на контейнер
-  if(el.tagName == 'FORM') {
-    result = document.createElement(params.container.block)
-    if (params.container.id)    result.id = params.container.id
-    if (params.container.class) result.className = params.container.class
-  } else result = el.cloneNode(false)
-
-  if(el.id) result.id = `${params.prefix ? params.prefix : 'rte_'}${el.id}`
-  if(el.className) result.className = el.className
-  if(el.type) result.setAttribute('type', el.type)
-  if(el.htmlFor) result.htmlFor = `${params.prefix ? params.prefix : 'rte_'}${el.htmlFor}`
-  if(!el.childElementCount && el.textContent) result.textContent = el.textContent
-
-  if (el.id && (el.tagName == 'INPUT' || el.tagName == 'TEXTAREA' || el.tagName == 'SELECT'))
-    result.dataset.redirectinput = `#${el.id}`
-
-  if (el.childElementCount && el.tagName != 'SELECT') el.childNodes.forEach(n => {
-    let subresult = prepareFields(n, params)
-    if (subresult) result.appendChild(subresult)
-  })
-
-  return result
+  paste_in.appendChild(form)
 }
 
 // ----------------------------------------
