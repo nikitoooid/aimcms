@@ -75,6 +75,7 @@ ru:
         description:  "Описание файла"
         url:          "Ссылка на файл"
         size:         "Размер файла:"
+        kb:           "кб"
         created:      "Создано:"
         updated:      "Изменено:"
         save:         "Сохранить изменения"
@@ -120,7 +121,8 @@ ru:
         header:   "Страницы"
         new:      "Создать страницу"
         title:    "Название"
-        slug:     "Slug страницы"
+        desc:     "Slug страницы"
+        css:      "Дополнительные стили"
       page:
         show:     "Посмотреть"
         edit:     "Редактировать"
@@ -133,19 +135,6 @@ ru:
         fail:     "Ошибка при обновлении страницы"
       destroy:
         success:  "Страница удалена"
-      form:
-        title:    "Название страницы"
-        slug:     "Slug страницы"
-        css:      "Дополнительные стили"
-        css_s:    "Выберите стили"
-        desc:     "Мета описание"
-        og_title: "og title"
-        og_type:  "og type"
-        og_image: "og image url"
-        og_url:   "og url"
-        og_desc:  "og description"
-        index:    "индексировать страницу"
-        follow:   "переходить по ссылкам"
     blocks:
       index:
         header:   "Шаблоны"

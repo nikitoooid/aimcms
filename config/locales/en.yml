@@ -75,6 +75,7 @@ en:
         description:  "File description"
         url:          "File url"
         size:         "File size:"
+        kb:           "kb"
         created:      "Created at:"
         updated:      "Updated at:"
         save:         "Save changes"
@@ -120,7 +121,8 @@ en:
         header:   "Pages"
         new:      "New page"
         title:    "Title"
-        slug:     "Page slug"
+        desc:     "Page slug"
+        css:      "Additional styles"
       page:
         show:     "Show"
         edit:     "Edit"
@@ -133,19 +135,6 @@ en:
         fail:     "Page updating failed"
       destroy:
         success:  "Page deleted"
-      form:
-        title:    "Page title"
-        slug:     ""
-        css:      "Additional styles"
-        css_s:    "Select style"
-        desc:     "Description"
-        og_title: "og title"
-        og_type:  "og type"
-        og_image: "og image url"
-        og_url:   "og url"
-        og_desc:  "og description"
-        index:    "index"
-        follow:    "follow"
     blocks:
       index:
         header:   "Blocks"
