@@ -35,11 +35,23 @@ module ApplicationHelper
     tag :meta, name: 'robots', content:"#{resource.index ? 'index' : 'noindex'},#{resource.follow ? 'follow' : 'nofollow'}"
   end
 
+  def meta_favicon
+    @setting.favicon.attached? ? custom_favicon : default_favicon
+  end
+
   private
 
   def bootstrap_icon(icon_name)
     return '' if icon_name.nil?
     content_tag :i, nil, class: "bi-#{icon_name}"
+  end
+
+  def custom_favicon
+    "<link rel=\"icon\" type=\"image/#{@setting.favicon.filename.extension}\" href=\"#{@setting.favicon_url}\">".html_safe
+  end
+
+  def default_favicon
+    '<link rel="icon" type="image/x-icon" href="/favicon.ico">'.html_safe
   end
 
 end

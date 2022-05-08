@@ -3,6 +3,8 @@ html
   head
     title = content_for?(:title) ? yield(:title) : @setting.site_name
 
+    = meta_favicon
+
     = yield :page_meta if content_for?(:page_meta)
     = yield :meta_robots if content_for?(:meta_robots)
 
