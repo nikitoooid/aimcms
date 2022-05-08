@@ -3,7 +3,7 @@ class Admin::StylesController < Admin::MainController
   before_action :set_style, only: [:edit, :update, :destroy]
   
   def index
-    @styles = Style.all
+    @styles = Style.order(id: :asc)
   end
 
   def new
