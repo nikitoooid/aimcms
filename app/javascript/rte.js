@@ -402,7 +402,6 @@ function generateRte(control) {
   }
   
 }
-
 function generateFields(paste_selector = '#rte_page_tab', form_selector = '.rte_result_form') {
   
   let form = document.querySelector(form_selector)
