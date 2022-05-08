@@ -29,7 +29,7 @@ class Document < ApplicationRecord
       result.push({
         title: doc.title,
         ext: doc.extension,
-        url: doc.permanent_url,
+        url: doc.permanent_path,
         cover: (
           Rails.application.routes.url_helpers.rails_blob_path(
             doc.file.variant(resize_to_limit: [110,nil]), only_path: true
