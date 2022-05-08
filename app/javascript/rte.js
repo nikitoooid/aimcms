@@ -262,24 +262,24 @@ const rte_forms = [
   // RTE helpers
   {
     template_name: 'rte_helper', forms: [
+      // rtype: helper (test helper)/attribute (model.attribute)
       {
-        label: 'Test rails helper',
+        label: 'Test rails helper (helper)',
         input: 'input',
         type: 'text',
-        target: 'data',
-        subtarget: 'helper'
+        target: 'helper'
       },
       {
-        label: 'Test rails model',
+        label: 'Test rails model (params.model)',
         input: 'input',
         type: 'text',
-        target: 'data',
+        target: 'params',
         subtarget: 'model'
       },
       {
-        label: 'Test rails inner json',
+        label: 'Test rails inner json (params.inner_json)',
         input: 'textarea',
-        target: 'data',
+        target: 'params',
         subtarget: 'inner_json'
       },
       {
