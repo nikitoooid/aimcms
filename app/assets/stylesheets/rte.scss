@@ -1,3 +1,9 @@
+.result_form {
+  visibility: collapse !important;
+  height:0 !important;
+  overflow: hidden !important;
+}
+
 .rte_control {
   width: 100%;
   min-height: 100vh;
