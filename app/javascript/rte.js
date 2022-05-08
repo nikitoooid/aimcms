@@ -2,8 +2,7 @@
 const rte_forms = [
   // default
   {
-    template_name: 'default',
-    forms: [
+    template_name: 'default', forms: [
       {
         'label': loc.id,
         'classlist': 'mb-3',
@@ -33,8 +32,7 @@ const rte_forms = [
   },
   // advanced
   {
-    'template_name' : 'advanced',
-    'forms' : [
+    'template_name' : 'advanced', 'forms' : [
       {
         'title' : loc.main_settings,
         'forms' : [
@@ -52,6 +50,13 @@ const rte_forms = [
             'input': 'input',
             'type': 'text',
             'target': 'template_name'
+          },
+          {
+            'label': 'RTE type',
+            'classlist': 'mb-3',
+            'input': 'input',
+            'type': 'text',
+            'target': 'rtype'
           },
           {
             'label': loc.id,
@@ -131,8 +136,7 @@ const rte_forms = [
   },
   // text
   {
-    template_name: 'text',
-    forms: [
+    template_name: 'text', forms: [
       {
         block: 'select',
         classlist: 'form-select form-select-sm',
@@ -189,8 +193,7 @@ const rte_forms = [
   },
   // container
   {
-    template_name: 'container',
-    forms: [
+    template_name: 'container', forms: [
       {
         block: 'select',
         classlist: 'form-select form-select-sm',
@@ -216,8 +219,7 @@ const rte_forms = [
   },
   // image
   {
-    'template_name' : 'image',
-    'forms' : [
+    'template_name' : 'image', 'forms' : [
       {
         'label': loc.styles,
         'classlist': 'mb-3',
@@ -254,6 +256,37 @@ const rte_forms = [
         'classlist': 'mb-3',
         'input': 'textarea',
         'target': 'classlist'
+      }
+    ]
+  },
+  // RTE helpers
+  {
+    template_name: 'rte_helper', forms: [
+      {
+        label: 'Test rails helper',
+        input: 'input',
+        type: 'text',
+        target: 'data',
+        subtarget: 'helper'
+      },
+      {
+        label: 'Test rails model',
+        input: 'input',
+        type: 'text',
+        target: 'data',
+        subtarget: 'model'
+      },
+      {
+        label: 'Test rails inner json',
+        input: 'textarea',
+        target: 'data',
+        subtarget: 'inner_json'
+      },
+      {
+        label: 'Test rails cycled inner json',
+        input: 'textarea',
+        target: 'data',
+        subtarget: 'c_inner_json'
       }
     ]
   }
@@ -884,7 +917,9 @@ function getBlockSettings(block, blocklib = rte_forms) {
 
   // слушаем
   form.addEventListener('input', function(e){
-    if (e.target.dataset.target) paramsbuffer[e.target.dataset.target] = e.target.value
+    let fd = e.target.dataset
+    if (fd.target && fd.subtarget) paramsbuffer[fd.target][fd.subtarget] = f.value
+    else if (fd.target) paramsbuffer[fd.target] = e.target.value
     else console.log('This field has no target!')
   })
   form.addEventListener('change', formSave)

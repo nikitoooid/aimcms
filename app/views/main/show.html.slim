@@ -4,4 +4,4 @@
 - content_for :meta_robots, meta_robots(@page)
 - content_for :page_styles, @page.style_content if @page.styles.any?
 
-= @page.html_content
+= html_content @page
