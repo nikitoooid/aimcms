@@ -17,13 +17,11 @@
 * Add user sidebar
 * Add user navbar
 * Add user footer
-### Pages
-
 ### RTE
+* Add helper templates
 * Add template groups
 * Add filetype sorting to filemanager
 * Add file uploading to filemanager
-* Add helper templates
 
 ## Files
 Uses ActiveStorage
