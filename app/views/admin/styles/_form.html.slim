@@ -5,7 +5,7 @@ div class="rte cde_editor" data-lang="css"
 
 div style="visibility: collapse; height: 0"
   = form_with model: [:admin, @style] do |f|
-    = f.text_field :title, class: "result_title"
+    = f.text_field :title, class: "result_title", required: true
     = f.text_area :content, class: 'result_content'
     = f.submit 'submit', class: 'rte_submit'  
 

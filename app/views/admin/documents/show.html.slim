@@ -5,7 +5,7 @@
 
       div class="w-100 d-flex align-items-center justify-content-center p-3"
         - if @document.is_image?
-          div style="height: 100%; width: 100%; background: url('#{@document.url}') no-repeat center; background-size: contain"
+          div style="height: 100%; width: 100%; background: url('#{@document.path}') no-repeat center; background-size: contain"
         - else 
           i class="bi-filetype-#{@document.extension}" style="font-size: 90px"
 
@@ -14,7 +14,7 @@
         = form_with model: [:admin, @document], local: true do |f|
           
           div class="mb-3"
-            = f.text_field :title, class: "form-control"
+            = f.text_field :title, class: "form-control", required: true
 
           div class="mb-3"
             = f.label :description, t('.description'), class: "form-label"
@@ -25,7 +25,7 @@
               p class="alert-heading" = t('.url')
               hr
               p class="mb-0"
-                code = @document.permanent_url
+                code = "#{request.base_url}#{@document.permanent_path}"
 
           hr
           p class="text-muted mb-0" #{t('.created')} #{@document.created_at.strftime("%d.%m.%Y %H:%M:%S")}

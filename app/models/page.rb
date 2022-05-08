@@ -2,6 +2,7 @@ class Page < ApplicationRecord
   include ActionView::Helpers::TagHelper
 
   has_and_belongs_to_many :styles
+  validates :title, presence: true
 
   def html_content
     blocks = ActiveSupport::JSON.decode(self.content)['blocks']
@@ -26,9 +27,7 @@ class Page < ApplicationRecord
 
     content.push b['content'] unless b['content'].nil?
 
-    unless b['blocks'].nil?
-      b['blocks'].each { |block| content.push create_block(block) }
-    end
+    b['blocks'].each { |block| content.push create_block(block) } unless b['blocks'].nil?
 
     content_tag(b['block'].to_sym, content.join.html_safe,
                 id: b['id'], class: b['classlist'], style: b['style'],
