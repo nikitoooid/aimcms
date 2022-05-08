@@ -17,6 +17,7 @@ en:
   remember_me: "Remember me"
   first_name: "First name"
   last_name: "Last name"
+  lang: "Language"
 
   admin_panel: "Admin panel"
 
@@ -91,7 +92,7 @@ en:
     admins:
       admin:
         role:       "Administrator"
-        edit:       "Edit"
+        edit:       "Edit user"
     users:
       user:
         role:       "User"
@@ -121,6 +122,8 @@ en:
         new:      "New page"
         title:    "Title"
         slug:     "Page slug"
+        created:  "Created at"
+        updated:  "Updated at"
       page:
         show:     "Show"
         edit:     "Edit"

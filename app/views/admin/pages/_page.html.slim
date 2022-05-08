@@ -1,6 +1,8 @@
 tr
   td = page.title
   td.text-muted = page.slug
+  td.text-muted = page.created_at.strftime("%d.%m.%Y %H:%M:%S")
+  td.text-muted = page.updated_at.strftime("%d.%m.%Y %H:%M:%S")
   td
     div class="d-flex justify-content-end"
       = link_to t('.show'), admin_page_path(page), class: 'btn btn-sm btn-dark me-2'

@@ -5,11 +5,11 @@ class Document < ApplicationRecord
     self.file.filename.extension
   end
 
-  def url
+  def path
     Rails.application.routes.url_helpers.rails_blob_path(self.file, only_path: true)
   end
 
-  def permanent_url
+  def permanent_path
     "/file/#{self.id}"
   end
 
