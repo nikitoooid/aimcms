@@ -273,20 +273,17 @@ const rte_forms = [
         label: 'Test rails model (params.model)',
         input: 'input',
         type: 'text',
-        target: 'params',
-        subtarget: 'model'
+        target: 'params.model'
       },
       {
         label: 'Test rails inner json (params.inner_json)',
         input: 'textarea',
-        target: 'params',
-        subtarget: 'inner_json'
+        target: 'params.inner_json'
       },
       {
         label: 'Test rails cycled inner json',
         input: 'textarea',
-        target: 'data',
-        subtarget: 'c_inner_json'
+        target: 'params.c_inner_json'
       }
     ]
   }
@@ -914,12 +911,28 @@ function getBlockSettings(block, blocklib = rte_forms) {
   // наполняем
   form.appendChild(getForm(template, block))
 
-
   // слушаем
   form.addEventListener('input', function(e){
     let fd = e.target.dataset
-    if (fd.target && fd.subtarget) paramsbuffer[fd.target][fd.subtarget] = f.value
-    else if (fd.target) paramsbuffer[fd.target] = e.target.value
+    if (fd.target) {
+      let targets = fd.target.split('.')
+      console.log('Targets:')
+      console.log(targets)
+
+      switch (targets.length) {
+        case 2:
+          if(!paramsbuffer[targets[0]]) paramsbuffer[targets[0]] = {}
+          paramsbuffer[targets[0]][targets[1]] = e.target.value
+          break
+        case 3:
+          if(!paramsbuffer[targets[0]]) paramsbuffer[targets[0]] = {}
+          if(!paramsbuffer[targets[1]]) paramsbuffer[targets[1]] = {}
+          paramsbuffer[targets[0]][targets[1]][targets[2]] = e.target.value
+          break
+        default:
+          paramsbuffer[targets[0]] = e.target.value
+      }
+    }
     else console.log('This field has no target!')
   })
   form.addEventListener('change', formSave)
@@ -1027,7 +1040,7 @@ function createBlock(b, forRte = true) {
   // hidden
   // value
   // size 
-  // wrap 
+  // wrap
 
   if (b.hasOwnProperty('data')) {
     for (let k in b.data) element.dataset[k] = b.data[k]
@@ -1037,8 +1050,19 @@ function createBlock(b, forRte = true) {
     for (let k in b.attributes) element.setAttribute(k, b.attributes[k])
   }
 
-  // наполняем блок дочерними блоками
-  if (b.hasOwnProperty('blocks')) {
+  // наполняем блок дочерними блоками (или маркируем как хэлпер)
+  if (b.rtype) {
+    if (b.rtype == 'helper') {
+      element.classList.add('rte_helper')
+      element.innerHTML = `<div><h4>HELPER</h4><p><b>${b.helper}</b></p></div>`
+      
+      console.log('params:')
+      console.log(b.params)
+    }
+    // if (b.rtype == 'attribute') element.classList.add('rte_attr')
+    
+  }
+  else if (b.hasOwnProperty('blocks')) {
     b.blocks.forEach( block => {
       element.appendChild(createBlock(block, forRte))
     })

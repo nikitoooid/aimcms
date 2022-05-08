@@ -1,3 +1,15 @@
+.rte_helper{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  min-height: 100px;
+  
+  border: 1px dashed #bbb;
+  background: #eee;
+}
+
+
 .rte_submit,
 .result_content {
   visibility: collapse !important;
