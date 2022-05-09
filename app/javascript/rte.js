@@ -914,26 +914,10 @@ function getBlockSettings(block, blocklib = rte_forms) {
   // слушаем
   form.addEventListener('input', function(e){
     let fd = e.target.dataset
-    if (fd.target) {
-      let targets = fd.target.split('.')
-      console.log('Targets:')
-      console.log(targets)
-
-      switch (targets.length) {
-        case 2:
-          if(!paramsbuffer[targets[0]]) paramsbuffer[targets[0]] = {}
-          paramsbuffer[targets[0]][targets[1]] = e.target.value
-          break
-        case 3:
-          if(!paramsbuffer[targets[0]]) paramsbuffer[targets[0]] = {}
-          if(!paramsbuffer[targets[1]]) paramsbuffer[targets[1]] = {}
-          paramsbuffer[targets[0]][targets[1]][targets[2]] = e.target.value
-          break
-        default:
-          paramsbuffer[targets[0]] = e.target.value
-      }
-    }
-    else console.log('This field has no target!')
+    if (fd.target)
+      multiTargetObjectParam(paramsbuffer, fd.target, e.target.value)
+    else
+      console.log('This field has no target!')
   })
   form.addEventListener('change', formSave)
 }
@@ -1055,9 +1039,6 @@ function createBlock(b, forRte = true) {
     if (b.rtype == 'helper') {
       element.classList.add('rte_helper')
       element.innerHTML = `<div><h4>HELPER</h4><p><b>${b.helper}</b></p></div>`
-      
-      console.log('params:')
-      console.log(b.params)
     }
     // if (b.rtype == 'attribute') element.classList.add('rte_attr')
     
@@ -1088,9 +1069,11 @@ function createFormField(args, block){
     let element = { 'block': args.input, 'classlist': 'form-control form-control-sm', 'data':{'target':args.target}}
     if (args.hasOwnProperty('type')) element.type = args.type
     if (args.hasOwnProperty('data')) element.data = Object.assign({}, element.data, args.data)
-    if (block.hasOwnProperty(args.target)) {
-      paramsbuffer[args.target] = block[args.target]
-      element.value = block[args.target]
+    
+    let blockArgsTarget = multiTargetObjectParam(block, args.target)
+    if (blockArgsTarget) {
+      multiTargetObjectParam( paramsbuffer, args.target, blockArgsTarget)
+      element.value = blockArgsTarget
     }
 
     field.blocks.push(element)
@@ -1098,6 +1081,19 @@ function createFormField(args, block){
   if (args.hasOwnProperty('description')) field.blocks.push({ 'block': 'div', 'classlist': 'form-text', 'content': args.description})
 
   return field
+}
+
+// возвращает вложенную переменную ( 'params.lol.kek' => block['params']['lol']['kek'])
+function multiTargetObjectParam(obj, target, value = null) {
+  let path = target.split('.')
+
+  for(var i = 0; i < path.length - 1; i++) {
+    if (!obj[path[i]]) obj[path[i]] = {}
+    obj = obj[path[i]]
+  }
+
+  if (value)  obj[path[path.length - 1]] = value
+  else return obj[path[path.length - 1]]
 }
 
 // создает новый блок
