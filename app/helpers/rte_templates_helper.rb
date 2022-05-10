@@ -3,11 +3,16 @@ module RteTemplatesHelper
   # from RTE can be called helper_name or helper_name(block)
 
   def rte_list(block)
-    return if block['blocks'].nil? || !block['blocks'].any?
+    return if block['blocks'].nil? || !block['blocks'].any? || block['params'].nil?
 
     model = ApplicationRecord.descendants.select { |m| m.name == block['params']['model'].capitalize}.first
-    model_objects = block['params']['order'].nil? ? model.all : model.order(block['params']['order'])
+    model_objects = []
     
+    if block['params']['find'].nil? || block['params']['find']['key'].nil? || block['params']['find']['value'].nil?
+      model_objects = block['params']['order'].nil? ? model.all : model.order(block['params']['order'])
+    else
+      model_objects = model.where(block['params']['find']['key'] => block['params']['find']['value']) unless block['params']['find']['key'].nil? && block['params']['find']['value'].nil?
+    end
     result = []
     
     model_objects.each do |model_object|

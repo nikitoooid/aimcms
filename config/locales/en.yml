@@ -239,3 +239,6 @@ en:
     attribute:          'Attribute name'
     model:              'Model name'
     title:              'Block title'
+    find_by:            'Find by'
+    key:                'Key'
+    value:              'Value'

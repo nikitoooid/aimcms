@@ -350,11 +350,31 @@ const rte_forms = [
         target: 'params.model',
         description: 'Not all helpers need this.'
       },
+      {label: loc.find_by},
+      {
+        block: 'div', classlist: 'input-group',
+        blocks: [
+          {
+            block: 'input',
+            type: 'text',
+            classlist: 'form-control',
+            placeholder: loc.key,
+            data: {target: 'params.find.key'}
+          },
+          {
+            block: 'input',
+            type: 'text',
+            classlist: 'form-control',
+            placeholder: loc.value,
+            data: {target: 'params.find.value'}
+          }
+        ]
+      },
       {
         label: 'Order',
         input: 'input',
         type: 'text',
-        target: 'block',
+        target: 'params.order',
         description: 'example: \'id DESC, title ASC\''
       },
       {block: 'hr'},
@@ -1053,9 +1073,9 @@ function getBlockSettings(block, blocklib = rte_forms) {
 // формирует форму
 function getForm(template, block) {
   // очищаем буфер параметров
-  paramsbuffer = {}
-
-  paramsbuffer.block = block.block
+  // paramsbuffer = {}
+  paramsbuffer = block
+  // paramsbuffer.block = block.block
   paramsbuffer.target = block.block_name
   
   if (block.blocks) paramsbuffer.blocks = block.blocks
@@ -1127,7 +1147,7 @@ function createBlock(b, forRte = true) {
   if (b.hasOwnProperty('value')) element.value = b.value
   if (b.hasOwnProperty('alt')) element.alt = b.alt
   if (b.hasOwnProperty('action')) element.action = b.action
-
+  if (b.hasOwnProperty('placeholder')) element.placeholder = b.placeholder
   // autofocus
   // selected
   // autoplay
@@ -1193,45 +1213,57 @@ function createBlock(b, forRte = true) {
 
 // создает поле формы (json) !!! доработать механику создания блока !!!
 function createFormField(args, block){
-
+  let field = {}
   // если поле - блок, создаем блок
   if(args.hasOwnProperty('block')) {
     // доработать тут
-    return args
-  }
-
-  let field = {'block' : 'div', 'classlist':'mt-3', 'blocks':[]}
-
-  if (args.hasOwnProperty('label')) field.blocks.push({'block':'label','classlist':'form-label','content':args.label})
-  if (args.hasOwnProperty('input')) {
-
-    let element = { 'block': args.input, 'classlist': 'form-control form-control-sm', 'data':{'target':args.target}}
-    if (args.hasOwnProperty('type')) element.type = args.type
-    if (args.hasOwnProperty('data')) element.data = Object.assign({}, element.data, args.data)
-    
-    let blockArgsTarget = multiTargetObjectParam(block, args.target)
-    if (blockArgsTarget) {
-      multiTargetObjectParam( paramsbuffer, args.target, blockArgsTarget)
-      element.value = blockArgsTarget
+    Object.assign(field, args) 
+    if (field.data && field.data.target) set_bat(field, block, field.data.target)
+    if (args.blocks) {
+      field.blocks = []
+      args.blocks.forEach(b => field.blocks.push(createFormField(b, block)))
     }
-
-    field.blocks.push(element)
   }
-  if (args.hasOwnProperty('description')) field.blocks.push({ 'block': 'div', 'classlist': 'form-text', 'content': args.description})
+  else {
+    field = {'block' : 'div', 'classlist':'mt-3', 'blocks':[]}
 
+    if (args.hasOwnProperty('label')) field.blocks.push({'block':'label','classlist':'form-label','content':args.label})
+    if (args.hasOwnProperty('input')) {
+
+      let element = { 'block': args.input, 'classlist': 'form-control form-control-sm', 'data':{'target':args.target}}
+      if (args.hasOwnProperty('type')) element.type = args.type
+      if (args.hasOwnProperty('data')) element.data = Object.assign({}, element.data, args.data)
+      
+      set_bat(element, block, args.target)
+      // let blockArgsTarget = multiTargetObjectParam(block, args.target)
+      // if (blockArgsTarget) element.value = blockArgsTarget
+      // if (blockArgsTarget) {
+        // multiTargetObjectParam( paramsbuffer, args.target, blockArgsTarget)
+        // element.value = blockArgsTarget
+      // }
+
+      field.blocks.push(element)
+    }
+    if (args.hasOwnProperty('description')) field.blocks.push({ 'block': 'div', 'classlist': 'form-text', 'content': args.description})
+  }
+  
   return field
+}
+
+function set_bat(element, block, target) {
+  let blockArgsTarget = multiTargetObjectParam(block, target)
+  if (blockArgsTarget) element.value = blockArgsTarget
 }
 
 // возвращает вложенную переменную ( 'params.lol.kek' => block['params']['lol']['kek'])
 function multiTargetObjectParam(obj, target, value = null) {
   let path = target.split('.')
-
+  
   for(var i = 0; i < path.length - 1; i++) {
     if (!obj[path[i]]) obj[path[i]] = {}
     obj = obj[path[i]]
   }
-
-  if (value)  obj[path[path.length - 1]] = value
+  if (value) obj[path[path.length - 1]] = value
   else return obj[path[path.length - 1]]
 }
 
@@ -1324,14 +1356,14 @@ function nameDuplicateProtected(block) {
 // сохранить форму
 function formSave(){
   let block = page.blocks.getBlock('block_name', paramsbuffer.target, 'blocks')
-
+  
   if (block) {
     for (var k in paramsbuffer) {
       if (k != 'target' && k != undefined) block[k] = paramsbuffer[k]
       if (paramsbuffer[k] == 'null' || paramsbuffer[k] == 'undefined' || paramsbuffer[k] == undefined || paramsbuffer[k] == null || paramsbuffer[k] == '' || k == 'undefined') delete block[k]
     }
   }
-
+  
   // сохраняем страницу в форму
   let res_cont = document.querySelector('textarea.result_content')
   if (res_cont) res_cont.value = JSON.stringify(page)

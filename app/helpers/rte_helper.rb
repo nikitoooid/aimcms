@@ -17,6 +17,8 @@ module RteHelper
 
   def create_block(b, model=nil)
     b = rte_attribute(b, model) if b['rtype'] == 'attribute'
+    return if b.nil?
+
     content = []
 
     content.push b['content'] unless b['content'].nil?
@@ -43,7 +45,7 @@ module RteHelper
   end
 
   def rte_attribute(block, model=nil)
-    return block if model.nil?
+    return if model.nil?
     
     block['block'] = 'span' if block['block'].nil?
     block['content'] = model[block['params']['attribute']] unless block['params'].nil? || block['params']['attribute'].nil?
