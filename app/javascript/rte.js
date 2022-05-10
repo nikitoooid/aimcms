@@ -259,31 +259,160 @@ const rte_forms = [
       }
     ]
   },
-  // RTE helpers
+  // ==== RTE helpers ====
+  // advanced
   {
-    template_name: 'rte_helper', forms: [
-      // rtype: helper (test helper)/attribute (model.attribute)
+    template_name: 'rte_advanced_helper', forms: [
       {
-        label: 'Test rails helper (helper)',
+        label: loc.block_name,
+        input: 'input',
+        type: 'text',
+        target: 'block_name'
+      },
+      {
+        label: loc.block_name,
+        input: 'input',
+        type: 'text',
+        target: 'title'
+      },
+      {block: 'hr'},
+      {
+        label: 'RTE type',
+        input: 'input',
+        type: 'text',
+        target: 'rtype',
+        description: 'Type of helper block: "helper"/"attribute"'
+      },
+      {
+        label: loc.helper,
         input: 'input',
         type: 'text',
         target: 'helper'
       },
       {
-        label: 'Test rails model (params.model)',
+        label: loc.model,
         input: 'input',
         type: 'text',
-        target: 'params.model'
+        target: 'params.model',
+        description: 'Not all helpers need this.'
       },
       {
-        label: 'Test rails inner json (params.inner_json)',
-        input: 'textarea',
-        target: 'params.inner_json'
+        label: loc.attribute,
+        input: 'input',
+        type: 'text',
+        target: 'params.attribute'
+      },
+      {block: 'hr'},
+      {
+        label: loc.template,
+        input: 'input',
+        type: 'text',
+        target: 'template_name'
+      },
+      {block: 'hr'},
+      {
+        label: loc.tag,
+        input: 'input',
+        type: 'text',
+        target: 'block'
       },
       {
-        label: 'Test rails cycled inner json',
+        label: loc.id,
+        input: 'input',
+        type: 'text',
+        target: 'id'
+      },
+      {
+        label: loc.classes,
         input: 'textarea',
-        target: 'params.c_inner_json'
+        target: 'classlist'
+      },
+      {
+        label: loc.styles,
+        input: 'textarea',
+        target: 'style'
+      }
+    ]
+  },
+  // helper
+  {
+    template_name: 'rte_helper', forms: [
+      {
+        label: loc.helper,
+        input: 'input',
+        type: 'text',
+        target: 'helper'
+      },
+      {
+        label: loc.model,
+        input: 'input',
+        type: 'text',
+        target: 'params.model',
+        description: 'Not all helpers need this.'
+      },
+      {
+        label: 'Order',
+        input: 'input',
+        type: 'text',
+        target: 'block',
+        description: 'example: \'id DESC, title ASC\''
+      },
+      {block: 'hr'},
+      {
+        label: loc.tag,
+        input: 'input',
+        type: 'text',
+        target: 'block'
+      },
+      {
+        label: loc.id,
+        input: 'input',
+        type: 'text',
+        target: 'id'
+      },
+      {
+        label: loc.classes,
+        input: 'textarea',
+        target: 'classlist'
+      },
+      {
+        label: loc.styles,
+        input: 'textarea',
+        target: 'style'
+      }
+    ]
+  },
+  // attribute
+  {
+    template_name: 'rte_attribute', forms: [
+      {
+        label: loc.attribute,
+        input: 'input',
+        type: 'text',
+        target: 'params.attribute'
+      },
+      {
+        label: loc.tag,
+        input: 'input',
+        type: 'text',
+        target: 'block'
+      },
+      {block: 'hr'},
+      {
+        label: loc.id,
+        input: 'input',
+        type: 'text',
+        target: 'id'
+      },
+      {
+        label: loc.classes,
+        input: 'textarea',
+        target: 'classlist'
+      },
+      {
+        label: loc.styles,
+        input: 'textarea',
+        target: 'style'
       }
     ]
   }
@@ -1034,16 +1163,26 @@ function createBlock(b, forRte = true) {
     for (let k in b.attributes) element.setAttribute(k, b.attributes[k])
   }
 
-  // наполняем блок дочерними блоками (или маркируем как хэлпер)
+  // маркируем хэлперы
   if (b.rtype) {
-    if (b.rtype == 'helper') {
-      element.classList.add('rte_helper')
-      element.innerHTML = `<div><h4>HELPER</h4><p><b>${b.helper}</b></p></div>`
+    switch (b.rtype) {
+      case 'helper':
+        element.classList.add('rte_helper')
+        element.prepend(createBlock({block: 'span', classlist: 'rte_helper_label', content: `${loc.helper}: ${b.helper}`}, false))
+        break
+      case 'attribute':
+        element.classList.add('rte_attribute')
+        element.innerHTML = `${loc.attribute}: ${b.params.attribute}`
     }
+    // if (b.rtype == 'helper') {
+      
+    // }
     // if (b.rtype == 'attribute') element.classList.add('rte_attr')
     
   }
-  else if (b.hasOwnProperty('blocks')) {
+
+  // наполняем блок дочерними блоками
+  if (b.hasOwnProperty('blocks')) {
     b.blocks.forEach( block => {
       element.appendChild(createBlock(block, forRte))
     })

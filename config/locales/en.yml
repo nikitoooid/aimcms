@@ -234,3 +234,8 @@ en:
     type:               'Type'
     content:            'Content'
     select_ff:          'Select from file'
+
+    helper:             'Helper name'
+    attribute:          'Attribute name'
+    model:              'Model name'
+    title:              'Block title'
