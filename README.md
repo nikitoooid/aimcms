@@ -10,15 +10,11 @@
 
 ## TODO
 ### Settings
-* (X) Add basic desription to settings
-* (X) Add basic keywords to settings
 * Add <head> helpers
 * Add before </body> helpers
-* Add user sidebar
-* Add user navbar
-* Add user footer
+* Add selection of :header from Blocks
+* Add selection of :footer from Blocks
 ### RTE
-* Add helper templates
 * Add template groups
 * Add filetype sorting to filemanager
 * Add file uploading to filemanager
@@ -26,9 +22,11 @@
 * Add multi upload from admin/index
 * Remove :new view
 * Remove :description from Documents
-### Pages
-* Add selection of :header from Blocks
-* Add selection of :footer from Blocks
+### Blocks
+* Remove :type from Blocks if it possible
+### RTE Helpers
+* Create single Object processing helper
+* Create helpers for Devise
 
 ## Files
 Uses ActiveStorage

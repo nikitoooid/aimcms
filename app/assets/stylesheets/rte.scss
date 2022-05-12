@@ -1,3 +1,28 @@
+.rte_helper{
+  padding-top: 30px;
+  border-radius: 5px;
+  min-height: 100px;
+  position: relative;
+  overflow: hidden;
+  border: 1px dashed #bbb;
+}
+.rte_helper_label {
+  background: #bbb;
+  color: #555;
+  font-size: 12px;
+  padding: 5px;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.rte_attribute{
+  border: 1px dashed #aaa;
+  background: #eee;
+  padding-left: 3px;
+  padding-right: 3px;
+}
+
+
 .rte_submit,
 .result_content {
   visibility: collapse !important;
