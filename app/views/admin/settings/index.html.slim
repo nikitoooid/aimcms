@@ -21,25 +21,19 @@ div class="content p-2 pt-3"
         = f.label :favicon, "#{t('upload')} #{t('.favicon')}", class: 'form-label'
         = f.file_field :favicon, class: "form-control"
 
-      / hr
+      hr
 
-      / .mb-3
-      /   = f.label :header, t('.site_header'), class: 'form-label'
-      /   = f.collection_select :header_id,
-      /                         Block.order(:title), :id, :title,
-      /                         {}, {class: "form-select"}
+      .mb-3
+        = f.label :header_id, t('.site_header'), class: 'form-label'
+        = f.collection_select :header_id,
+                              Block.order(:title), :id, :title,
+                              {include_blank: true}, {class: "form-select"}
 
-      / .mb-3
-      /   = f.label :sidebar, t('.site_sidebar'), class: 'form-label'
-      /   = f.collection_select :sidebar_id,
-      /                         Block.order(:title), :id, :title,
-      /                         {}, {class: "form-select"}
-
-      / .mb-3
-      /   = f.label :footer, t('.site_footer'), class: 'form-label'
-      /   = f.collection_select :footer_id,
-      /                         Block.order(:title), :id, :title,
-      /                         {}, {class: "form-select"}
+      .mb-3
+        = f.label :footer_id, t('.site_footer'), class: 'form-label'
+        = f.collection_select :footer_id,
+                              Block.order(:title), :id, :title,
+                              {include_blank: true}, {class: "form-select"}
 
       hr
 
