@@ -1,7 +1,5 @@
 class Admin::SettingsController < Admin::MainController
 
-  # before_action :get_settings
-
   def index
   end
 
@@ -16,11 +14,7 @@ class Admin::SettingsController < Admin::MainController
 
   private
 
-  def get_settings
-    @setting = Setting.first
-  end
-
   def setting_params
-    params.require(:setting).permit(:site_name, :site_domain, :header, :sidebar, :footer, :head_tags, :body_tags, :logo, :favicon)
+    params.require(:setting).permit(:site_name, :site_domain, :header_id, :footer_id, :head_tags, :body_tags, :logo, :favicon)
   end
 end
