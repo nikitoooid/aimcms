@@ -81,7 +81,6 @@ test:
 #
 production:
   <<: *default
-  database: aimcms
-  username: deploy
+  database: aimcms_production
+  # username: deploy
   # password: <%= ENV["AIMCMS_DATABASE_PASSWORD"] %>
-  password: whatafuck
