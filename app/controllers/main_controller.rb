@@ -5,7 +5,8 @@ class MainController < ApplicationController
   end
 
   def show
-    @page = Page.find_by(slug: params[:slug]) || Post.find_by(slug: params[:slug])
+    @page = Page.find_by(slug: params[:slug])
+    
     render :show
   end
 

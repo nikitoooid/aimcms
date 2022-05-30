@@ -20,6 +20,7 @@ Rails.application.routes.draw do
     
   end
 
+  get '/catalog/:slug', to: 'products#show'
   get '/:slug', to: 'main#show'
 
 end
