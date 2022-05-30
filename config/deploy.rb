@@ -4,10 +4,10 @@ lock "~> 3.17.0"
 set :application, "aimcms"
 set :repo_url, "git@github.com:nikitoooid/aimcms.git"
 
-set :branch, "main"
+# set :branch, "main"
 
 # Default branch is :master
-# ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
+ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
 # Default deploy_to directory is /var/www/my_app_name
 set :deploy_to, "/home/deploy/#{fetch :application}"
@@ -30,6 +30,10 @@ append :linked_dirs, 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bund
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
+set :default_env, {
+   PATH: '$HOME/usr/bin/:$PATH',
+   NODE_ENVIRONMENT: 'production'
+}
 
 # Default value for local_user is ENV['USER']
 # set :local_user, -> { `git config user.name`.chomp }
