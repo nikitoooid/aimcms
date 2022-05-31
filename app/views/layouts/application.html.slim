@@ -1,8 +1,7 @@
 doctype html
 html
   head
-    / title = content_for?(:title) ? yield(:title) : @setting.site_name
-    title = content_for?(:title) ? yield(:title) : "TEST"
+    title = content_for?(:title) ? yield(:title) : @setting.site_name
 
     = meta_favicon
 
