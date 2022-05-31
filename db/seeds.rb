@@ -2,6 +2,10 @@ User.delete_all
 Document.delete_all
 Page.delete_all
 Setting.delete_all
+Style.delete_all
+Product.delete_all
+Category.delete_all
+Block.delete_all
 ActiveStorage::Attachment.all.each { |attachment| attachment.purge }
 
 # create base settings
