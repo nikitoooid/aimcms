@@ -27,7 +27,64 @@ const rte_forms = [
         'classlist': 'mb-3',
         'input': 'textarea',
         'target': 'style'
-      }
+      },
+      {block: 'hr', classlist:'mb-3'},
+      {
+        'label': 'bs-target',
+        'classlist': 'mb-3',
+        'input': 'input',
+        'type': 'text',
+        'target': 'data.bs-target'
+      },
+      {
+        'label': 'bs-toggle',
+        'classlist': 'mb-3',
+        'input': 'input',
+        'type': 'text',
+        'target': 'data.bs-toggle'
+      },
+      {
+        'label': 'aria-controls',
+        'classlist': 'mb-3',
+        'input': 'input',
+        'type': 'text',
+        'target': 'attributes.aria-controls'
+      },
+      {
+        'label': 'aria-expanded',
+        'classlist': 'mb-3',
+        'input': 'input',
+        'type': 'text',
+        'target': 'attributes.aria-expanded'
+      },
+      {
+        'label': 'tabindex',
+        'classlist': 'mb-3',
+        'input': 'input',
+        'type': 'text',
+        'target': 'attributes.tabindex'
+      },
+      {
+        'label': 'aria-disabled',
+        'classlist': 'mb-3',
+        'input': 'input',
+        'type': 'text',
+        'target': 'attributes.aria-disabled'
+      },
+      {
+        'label': 'aria-label',
+        'classlist': 'mb-3',
+        'input': 'input',
+        'type': 'text',
+        'target': 'attributes.aria-label'
+      },
+      {
+        'label': 'aria-labelledby',
+        'classlist': 'mb-3',
+        'input': 'input',
+        'type': 'text',
+        'target': 'attributes.aria-labelledby'
+      },
     ]
   },
   // advanced
@@ -256,6 +313,36 @@ const rte_forms = [
         'classlist': 'mb-3',
         'input': 'textarea',
         'target': 'classlist'
+      }
+    ]
+  },
+  // link
+  {
+    'template_name' : 'link', 'forms' : [
+      {
+        'label': loc.href,
+        'classlist': 'mb-3',
+        'input': 'textarea',
+        'target': 'href'
+      },
+      {
+        'label': loc.id,
+        'classlist': 'mb-3',
+        'input': 'input',
+        'type': 'text',
+        'target': 'id'
+      },
+      {
+        'label': loc.classes,
+        'classlist': 'mb-3',
+        'input': 'textarea',
+        'target': 'classlist'
+      },
+      {
+        'label': loc.styles,
+        'classlist': 'mb-3',
+        'input': 'textarea',
+        'target': 'style'
       }
     ]
   },
