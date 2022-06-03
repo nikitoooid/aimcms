@@ -37,28 +37,28 @@ const rte_forms = [
             'classlist': 'mb-3',
             'input': 'input',
             'type': 'text',
-            'target': 'attributes.data-bs-target'
+            'target': 'data.bs-target'
           },
           {
             'label': 'bs-toggle',
             'classlist': 'mb-3',
             'input': 'input',
             'type': 'text',
-            'target': 'attributes.data-bs-toggle'
+            'target': 'data.data-bs-toggle'
           },
           {
             'label': 'aria-controls',
             'classlist': 'mb-3',
             'input': 'input',
             'type': 'text',
-            'target': 'attributes.aria-controls'
+            'target': 'attributes.aria.controls'
           },
           {
             'label': 'aria-expanded',
             'classlist': 'mb-3',
             'input': 'input',
             'type': 'text',
-            'target': 'attributes.aria-expanded'
+            'target': 'attributes.aria.expanded'
           },
           {
             'label': 'tabindex',
@@ -72,7 +72,14 @@ const rte_forms = [
             'classlist': 'mb-3',
             'input': 'input',
             'type': 'text',
-            'target': 'attributes.aria-disabled'
+            'target': 'attributes.aria.disabled'
+          },
+          {
+            'label': 'aria-hidden',
+            'classlist': 'mb-3',
+            'input': 'input',
+            'type': 'text',
+            'target': 'attributes.aria.hidden'
           },
           {block: 'hr', classlist:'mb-3'},
           {
@@ -80,14 +87,14 @@ const rte_forms = [
             'classlist': 'mb-3',
             'input': 'input',
             'type': 'text',
-            'target': 'attributes.aria-label'
+            'target': 'attributes.aria.label'
           },
           {
             'label': 'aria-labelledby',
             'classlist': 'mb-3',
             'input': 'input',
             'type': 'text',
-            'target': 'attributes.aria-labelledby'
+            'target': 'attributes.aria.labelledby'
           },
           {block: 'hr', classlist:'mb-3'},
           {
@@ -95,21 +102,21 @@ const rte_forms = [
             'classlist': 'mb-3',
             'input': 'input',
             'type': 'text',
-            'target': 'attributes.data-bs-ride'
+            'target': 'data.bs-ride'
           },
           {
             'label': 'bs-slide',
             'classlist': 'mb-3',
             'input': 'input',
             'type': 'text',
-            'target': 'attributes.data-bs-slide'
+            'target': 'data.bs-slide'
           },
           {
             'label': 'bs-slide-to',
             'classlist': 'mb-3',
             'input': 'input',
             'type': 'text',
-            'target': 'attributes.data-bs-slide-to'
+            'target': 'data.bs-slide-to'
           }
         ]
       }
