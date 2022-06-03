@@ -30,6 +30,7 @@ const rte_forms = [
       },
       {
         title: 'Bootstrap',
+        'classlist': 'mt-3 mb-3',
         forms: [
           {
             'label': 'bs-target',
