@@ -37,49 +37,49 @@ const rte_forms = [
             'classlist': 'mb-3',
             'input': 'input',
             'type': 'text',
-            'target': 'data.bs-target'
+            'target': 'data.bs_target'
           },
           {
             'label': 'bs-toggle',
             'classlist': 'mb-3',
             'input': 'input',
             'type': 'text',
-            'target': 'data.data-bs-toggle'
+            'target': 'data.bs_toggle'
           },
           {
             'label': 'aria-controls',
             'classlist': 'mb-3',
             'input': 'input',
             'type': 'text',
-            'target': 'attributes.aria.controls'
+            'target': 'aria.controls'
           },
           {
             'label': 'aria-expanded',
             'classlist': 'mb-3',
             'input': 'input',
             'type': 'text',
-            'target': 'attributes.aria.expanded'
+            'target': 'aria.expanded'
           },
           {
             'label': 'tabindex',
             'classlist': 'mb-3',
             'input': 'input',
             'type': 'text',
-            'target': 'attributes.tabindex'
+            'target': 'tabindex'
           },
           {
             'label': 'aria-disabled',
             'classlist': 'mb-3',
             'input': 'input',
             'type': 'text',
-            'target': 'attributes.aria.disabled'
+            'target': 'aria.disabled'
           },
           {
             'label': 'aria-hidden',
             'classlist': 'mb-3',
             'input': 'input',
             'type': 'text',
-            'target': 'attributes.aria.hidden'
+            'target': 'aria.hidden'
           },
           {block: 'hr', classlist:'mb-3'},
           {
@@ -87,14 +87,14 @@ const rte_forms = [
             'classlist': 'mb-3',
             'input': 'input',
             'type': 'text',
-            'target': 'attributes.aria.label'
+            'target': 'aria.label'
           },
           {
             'label': 'aria-labelledby',
             'classlist': 'mb-3',
             'input': 'input',
             'type': 'text',
-            'target': 'attributes.aria.labelledby'
+            'target': 'aria.labelledby'
           },
           {block: 'hr', classlist:'mb-3'},
           {
@@ -102,21 +102,21 @@ const rte_forms = [
             'classlist': 'mb-3',
             'input': 'input',
             'type': 'text',
-            'target': 'data.bs-ride'
+            'target': 'data.bs_ride'
           },
           {
             'label': 'bs-slide',
             'classlist': 'mb-3',
             'input': 'input',
             'type': 'text',
-            'target': 'data.bs-slide'
+            'target': 'data.bs_slide'
           },
           {
             'label': 'bs-slide-to',
             'classlist': 'mb-3',
             'input': 'input',
             'type': 'text',
-            'target': 'data.bs-slide-to'
+            'target': 'data.bs_slide_to'
           }
         ]
       }

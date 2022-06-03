@@ -31,7 +31,7 @@ module RteHelper
 
     content_tag(b['block'].to_sym, content.join.html_safe,
                 id: b['id'], class: b['classlist'], style: b['style'],
-                src: b['src'], href: b['href'], type: b['type'], data: b['data'], attributes: b['attributes']) unless b['block'].nil?
+                src: b['src'], href: b['href'], type: b['type'], data: b['data'], aria: b['aria'], tabindex: b['tabindex']),  unless b['block'].nil?
   end
 
   def rte_helper(block)
