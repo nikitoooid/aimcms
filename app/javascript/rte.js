@@ -28,63 +28,90 @@ const rte_forms = [
         'input': 'textarea',
         'target': 'style'
       },
-      {block: 'hr', classlist:'mb-3'},
       {
-        'label': 'bs-target',
-        'classlist': 'mb-3',
-        'input': 'input',
-        'type': 'text',
-        'target': 'data.bs-target'
-      },
-      {
-        'label': 'bs-toggle',
-        'classlist': 'mb-3',
-        'input': 'input',
-        'type': 'text',
-        'target': 'data.bs-toggle'
-      },
-      {
-        'label': 'aria-controls',
-        'classlist': 'mb-3',
-        'input': 'input',
-        'type': 'text',
-        'target': 'attributes.aria-controls'
-      },
-      {
-        'label': 'aria-expanded',
-        'classlist': 'mb-3',
-        'input': 'input',
-        'type': 'text',
-        'target': 'attributes.aria-expanded'
-      },
-      {
-        'label': 'tabindex',
-        'classlist': 'mb-3',
-        'input': 'input',
-        'type': 'text',
-        'target': 'attributes.tabindex'
-      },
-      {
-        'label': 'aria-disabled',
-        'classlist': 'mb-3',
-        'input': 'input',
-        'type': 'text',
-        'target': 'attributes.aria-disabled'
-      },
-      {
-        'label': 'aria-label',
-        'classlist': 'mb-3',
-        'input': 'input',
-        'type': 'text',
-        'target': 'attributes.aria-label'
-      },
-      {
-        'label': 'aria-labelledby',
-        'classlist': 'mb-3',
-        'input': 'input',
-        'type': 'text',
-        'target': 'attributes.aria-labelledby'
-      },
+        title: 'Bootstrap',
+        forms: [
+          {
+            'label': 'bs-target',
+            'classlist': 'mb-3',
+            'input': 'input',
+            'type': 'text',
+            'target': 'attributes.data-bs-target'
+          },
+          {
+            'label': 'bs-toggle',
+            'classlist': 'mb-3',
+            'input': 'input',
+            'type': 'text',
+            'target': 'attributes.data-bs-toggle'
+          },
+          {
+            'label': 'aria-controls',
+            'classlist': 'mb-3',
+            'input': 'input',
+            'type': 'text',
+            'target': 'attributes.aria-controls'
+          },
+          {
+            'label': 'aria-expanded',
+            'classlist': 'mb-3',
+            'input': 'input',
+            'type': 'text',
+            'target': 'attributes.aria-expanded'
+          },
+          {
+            'label': 'tabindex',
+            'classlist': 'mb-3',
+            'input': 'input',
+            'type': 'text',
+            'target': 'attributes.tabindex'
+          },
+          {
+            'label': 'aria-disabled',
+            'classlist': 'mb-3',
+            'input': 'input',
+            'type': 'text',
+            'target': 'attributes.aria-disabled'
+          },
+          {block: 'hr', classlist:'mb-3'},
+          {
+            'label': 'aria-label',
+            'classlist': 'mb-3',
+            'input': 'input',
+            'type': 'text',
+            'target': 'attributes.aria-label'
+          },
+          {
+            'label': 'aria-labelledby',
+            'classlist': 'mb-3',
+            'input': 'input',
+            'type': 'text',
+            'target': 'attributes.aria-labelledby'
+          },
+          {block: 'hr', classlist:'mb-3'},
+          {
+            'label': 'bs-ride',
+            'classlist': 'mb-3',
+            'input': 'input',
+            'type': 'text',
+            'target': 'attributes.data-bs-ride'
+          },
+          {
+            'label': 'bs-slide',
+            'classlist': 'mb-3',
+            'input': 'input',
+            'type': 'text',
+            'target': 'attributes.data-bs-slide'
+          },
+          {
+            'label': 'bs-slide-to',
+            'classlist': 'mb-3',
+            'input': 'input',
+            'type': 'text',
+            'target': 'attributes.data-bs-slide-to'
+          }
+        ]
+      }
     ]
   },
   // advanced
