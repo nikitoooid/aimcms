@@ -207,9 +207,14 @@ ru:
         header:   "Категории"
         new:      "Создать категорию"
         title:    "Название"
+        slug:     "Slug"
         for:      "Категория для"
         created:  "Создано"
         updated:  "Обновлено"
+      new:
+        header:   "Новая категория"
+      edit:
+        header:   "Редактировать категорию"
       category:
         edit:     "Редактировать"
         delete:   "Удалить"
@@ -223,7 +228,9 @@ ru:
         success:  "Категория удалена"
       form:
         title:    "Название категории"
+        slug:     "Slug"
         for:      "Категория для"
+        submit:   "Сохранить"
 
   rte:
     page_settings:      'Страница'

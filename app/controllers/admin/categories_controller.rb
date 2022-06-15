@@ -44,9 +44,7 @@ class Admin::CategoriesController < Admin::MainController
   end
 
   def category_params
-    params.require(:category).permit([
-      
-    ])
+    params.require(:category).permit([:title, :slug, :for])
   end
 
   def rescue_with_category_not_found

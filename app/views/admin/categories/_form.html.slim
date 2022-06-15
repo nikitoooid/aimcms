@@ -1,0 +1,17 @@
+
+
+= form_with model: [:admin, @category] do |f|
+  div class="mb-2"
+    = f.label :title, t('.title'), class: "mb-1"
+    = f.text_field :title, class: "form-control", required: true
+
+  div class="mb-2"
+    = f.label :slug, t('.slug'), class: "mb-1"
+    = f.text_field :slug, class: "form-control", required: true
+
+  div class="mb-4"
+    = f.label :for, t('.for'), class: "mb-1"
+    = f.select :for, @category.available_for, {}, {class: "form-select", required: true}
+  
+  div class="mb-2"
+    = f.submit t('.submit'), class: 'btn btn-sm btn-primary'
