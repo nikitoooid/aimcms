@@ -208,9 +208,11 @@ ru:
         new:      "Создать категорию"
         title:    "Название"
         slug:     "Slug"
-        for:      "Категория для"
         created:  "Создано"
         updated:  "Обновлено"
+        type_page:      "Категории страниц"
+        type_block:     "Категории шаблонов"
+        type_document:  "Категории файлов"
       new:
         header:   "Новая категория"
       edit:
@@ -229,7 +231,7 @@ ru:
       form:
         title:    "Название категории"
         slug:     "Slug"
-        for:      "Категория для"
+        type:     "Категория для"
         submit:   "Сохранить"
 
   rte:

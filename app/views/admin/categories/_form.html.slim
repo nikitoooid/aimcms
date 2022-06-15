@@ -1,6 +1,7 @@
+- form_params = {model: [:admin, @category]}
+- form_params[:url] = form_url if local_assigns[:form_url]
 
-
-= form_with model: [:admin, @category] do |f|
+= form_with form_params do |f|
   div class="mb-2"
     = f.label :title, t('.title'), class: "mb-1"
     = f.text_field :title, class: "form-control", required: true
@@ -10,8 +11,8 @@
     = f.text_field :slug, class: "form-control", required: true
 
   div class="mb-4"
-    = f.label :for, t('.for'), class: "mb-1"
-    = f.select :for, @category.available_for, {}, {class: "form-select", required: true}
+    = f.label :type, t('.type'), class: "mb-1"
+    = f.select :type, options_for_select(@category.available_main_types, @category.type), {}, {class: "form-select", required: true}
   
   div class="mb-2"
     = f.submit t('.submit'), class: 'btn btn-sm btn-primary'

@@ -2,6 +2,8 @@ class Block < ApplicationRecord
   include ActionView::Helpers::TagHelper
   validates :title, presence: true
 
+  belongs_to :block_category, optional: true
+
   def prepare_template
     template = ActiveSupport::JSON.decode(self.content)['blocks'].first
 

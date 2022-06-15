@@ -1,6 +1,7 @@
 class Page < ApplicationRecord
   include ActionView::Helpers::TagHelper
 
+  belongs_to :page_category, optional: true
   has_and_belongs_to_many :styles
   validates :title, presence: true
 

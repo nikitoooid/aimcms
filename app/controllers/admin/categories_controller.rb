@@ -2,6 +2,8 @@ class Admin::CategoriesController < Admin::MainController
   before_action :set_category, only: [:edit, :update, :destroy]
 
   rescue_from ActiveRecord::RecordNotFound, with: :rescue_with_category_not_found
+
+  PERMITTED = [:title, :slug, :type].freeze
   
   def index
     @categories = Category.order(id: :asc)
@@ -9,6 +11,10 @@ class Admin::CategoriesController < Admin::MainController
 
   def new
     @category = Category.new
+  end
+
+  def edit
+    
   end
 
   def create
@@ -44,7 +50,10 @@ class Admin::CategoriesController < Admin::MainController
   end
 
   def category_params
-    params.require(:category).permit([:title, :slug, :for])
+    return params.require(:page_category).permit(PERMITTED) if params.has_key?(:page_category)
+    return params.require(:block_category).permit(PERMITTED) if params.has_key?(:block_category)
+    return params.require(:document_category).permit(PERMITTED) if params.has_key?(:document_category)
+    params.require(:category).permit(PERMITTED)
   end
 
   def rescue_with_category_not_found

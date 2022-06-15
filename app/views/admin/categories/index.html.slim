@@ -7,15 +7,45 @@ div class="content p-2 pt-3"
 
     hr
 
-    div.table-responsive
-      table class="table"
-        thead
-          tr
-            th = t('.title')
-            th = t('.slug')
-            th = t('.for')
-            th = t('.created')
-            th = t('.updated')
-            th
-        tbody
-          == render @categories
+    ul class="nav nav-tabs" id="myTab"
+      li class="nav-item" role="presentation"
+        button class="nav-link active" data-bs-toggle="tab" data-bs-target="#pages" aria-selected="false" = t('.type_page')
+      li class="nav-item" role="presentation"
+        button class="nav-link" data-bs-toggle="tab" data-bs-target="#blocks" aria-selected="false" = t('.type_block')
+      li class="nav-item" role="presentation"
+        button class="nav-link" data-bs-toggle="tab" data-bs-target="#documents" aria-selected="false" = t('.type_document')
+
+    div class="table-responsive tab-content"
+      div class="tab-pane fade show active" id="pages"
+        table class="table"
+          thead
+            tr
+              th = t('.title')
+              th = t('.slug')
+              th = t('.created')
+              th = t('.updated')
+              th
+          tbody
+              = render partial: "category", collection: @categories, locals: {only_type: 'PageCategory'}
+      div class="tab-pane fade" id="blocks"
+        table class="table"
+          thead
+            tr
+              th = t('.title')
+              th = t('.slug')
+              th = t('.created')
+              th = t('.updated')
+              th
+          tbody
+              = render partial: "category", collection: @categories, locals: {only_type: 'BlockCategory'}
+      div class="tab-pane fade" id="documents"
+        table class="table"
+          thead
+            tr
+              th = t('.title')
+              th = t('.slug')
+              th = t('.created')
+              th = t('.updated')
+              th
+          tbody
+              = render partial: "category", collection: @categories, locals: {only_type: 'DocumentCategory'}

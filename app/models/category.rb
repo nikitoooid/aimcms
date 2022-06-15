@@ -1,9 +1,19 @@
 class Category < ApplicationRecord
   has_many :products
 
-  FOR = [:pages, :blocks, :documents, :products, :styles].freeze
+  MAIN_TYPES = ['PageCategory', 'BlockCategory', 'DocumentCategory'].freeze
+  ADDITIONAL_TYPES =  ['StyleCategory', 'DocumentCategory'].freeze
+  STORE_TYPES = ['ProductCategory'].freeze
 
-  def available_for
-    FOR
+  def available_main_types
+    MAIN_TYPES
+  end
+
+  def available_additional_types
+    ADDITIONAL_TYPES
+  end
+
+  def available_store_types
+    STORE_TYPES
   end
 end
