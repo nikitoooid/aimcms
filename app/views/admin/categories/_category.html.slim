@@ -1,0 +1,10 @@
+tr
+  td = category.title
+  td.text-muted = category.for
+  td.text-muted = category.created_at.strftime("%d.%m.%Y %H:%M:%S")
+  td.text-muted = category.updated_at.strftime("%d.%m.%Y %H:%M:%S")
+  td
+    div class="d-flex justify-content-end"
+      = link_to t('.edit'), edit_admin_category_path(category), class: 'btn btn-sm btn-dark me-2', data: { turbo: false }
+      = link_to t('.delete'), admin_category_path(category), data: {'turbo-method' => :delete}, class: 'btn btn-sm btn-danger'
+ 
