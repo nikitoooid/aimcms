@@ -1,7 +1,7 @@
 class Document < ApplicationRecord
   has_one_attached :file
 
-  belongs_to :document_category, optional: true
+  belongs_to :category, class_name: 'DocumentCategory', foreign_key: 'category_id', optional: true
   
   def extension
     self.file.filename.extension

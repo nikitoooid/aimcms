@@ -2,7 +2,7 @@ class Block < ApplicationRecord
   include ActionView::Helpers::TagHelper
   validates :title, presence: true
 
-  belongs_to :block_category, optional: true
+  belongs_to :category, class_name: 'BlockCategory', foreign_key: 'category_id', optional: true
 
   def prepare_template
     template = ActiveSupport::JSON.decode(self.content)['blocks'].first
