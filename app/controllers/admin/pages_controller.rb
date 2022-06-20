@@ -51,7 +51,7 @@ class Admin::PagesController < Admin::MainController
     params.require(:page).permit([
       :title, :slug, { style_ids: [] }, :content, :description,
       :og_title, :og_type, :og_image, :og_url, :og_description,
-      :index, :follow
+      :index, :follow, :page_category_id
     ])
   end
 

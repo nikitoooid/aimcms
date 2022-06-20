@@ -1,3 +1,3 @@
 class PageCategory < Category
-  has_many :pages
+  has_many :items, class_name: 'Page'
 end

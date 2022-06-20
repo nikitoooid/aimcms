@@ -48,7 +48,7 @@ class Admin::BlocksController < Admin::MainController
   end
 
   def block_params
-    params.require(:block).permit([:title, :template_name, :content])
+    params.require(:block).permit([:title, :template_name, :content, :block_category_id])
   end
 
   def rescue_with_block_not_found

@@ -1,6 +1,4 @@
 class Category < ApplicationRecord
-  has_many :products
-
   MAIN_TYPES = ['PageCategory', 'BlockCategory', 'DocumentCategory'].freeze
   ADDITIONAL_TYPES =  ['StyleCategory', 'DocumentCategory'].freeze
   STORE_TYPES = ['ProductCategory'].freeze

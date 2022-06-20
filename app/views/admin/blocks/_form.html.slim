@@ -13,6 +13,9 @@ div style="visibility: collapse"
     div class="mb-2"
       = f.label :template_name, t('admin.blocks.index.desc')
       = f.text_field :template_name, class: "result_template form-control"
+    div class="mb-2"
+      = f.label :block_category_id, t('.category'), class: "mb-1"
+      = f.collection_select :block_category_id, BlockCategory.order(:title), :id, :title, {include_blank: true}, {class: "form-select mb-2"}
     = f.text_area :content, class: 'result_content'
     = f.submit 'submit', class: 'rte_submit'  
 

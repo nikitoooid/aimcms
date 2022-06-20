@@ -1,3 +1,3 @@
 class DocumentCategory < Category
-  has_many :documents
+  has_many :items, class_name: 'Document'
 end
