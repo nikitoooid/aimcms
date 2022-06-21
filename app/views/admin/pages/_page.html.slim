@@ -1,4 +1,4 @@
-tr data-category = page.category.nil? ? t('.nocategory') : page.category.title
+= content_tag :tr, data: { category: page.category.nil? ? t('.nocategory') : page.category.title }
   td = page.title
   td.text-muted = page.slug
   td.text-muted = page.category.nil? ? t('.nocategory') : page.category.title
