@@ -68,6 +68,8 @@ ru:
       index:
         header:       "Файлы"
         new:          "Загрузить файл"
+      document:
+        nocategory:   "Без категории"
       new:
         new:          "Новый файл"
         upload:       "Загрузить файл"
@@ -126,6 +128,7 @@ ru:
         created:  "Создана"
         updated:  "Последнее изменение"
       page:
+        nocategory: "Без категории"
         show:     "Посмотреть"
         edit:     "Редактировать"
         delete:   "Удалить"
@@ -158,6 +161,7 @@ ru:
         desc:     "Тип шаблона"
         category: "Категория"
       block:
+        nocategory: "Без категории"
         show:     "Посмотреть"
         edit:     "Редактировать"
         delete:   "Удалить"

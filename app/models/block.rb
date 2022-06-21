@@ -1,5 +1,6 @@
 class Block < ApplicationRecord
-  include ActionView::Helpers::TagHelper
+  include ActionView::Helpers
+  
   validates :title, presence: true
 
   belongs_to :category, foreign_key: 'block_category_id', optional: true
@@ -9,7 +10,7 @@ class Block < ApplicationRecord
 
     template['title'] = self.title
     template['template_name'] = self.template_name
-    template['category'] = self.category.title
+    template['category'] = self.category.nil? ? t('admin.blocks.block.nocategory') : self.category.title
     template
   end
 

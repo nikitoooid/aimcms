@@ -68,6 +68,8 @@ en:
       index:
         header:       "Files"
         new:          "Upload file"
+      document:
+        nocategory:   "Without category"
       new:
         new:          "New file"
         upload:       "Upload file"
@@ -126,6 +128,7 @@ en:
         created:  "Created at"
         updated:  "Updated at"
       page:
+        nocategory: "Without category"
         show:     "Show"
         edit:     "Edit"
         delete:   "Delete"
@@ -158,6 +161,7 @@ en:
         desc:     "Template name"
         category: "Category"
       block:
+        nocategory: "Without category"
         show:     "Show"
         edit:     "Edit"
         delete:   "Delete"

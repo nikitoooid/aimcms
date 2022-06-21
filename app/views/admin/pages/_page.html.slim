@@ -1,7 +1,7 @@
-tr data-category = page.category.title
+tr data-category = page.category.nil? ? t('.nocategory') : page.category.title
   td = page.title
   td.text-muted = page.slug
-  td.text-muted = page.category.title
+  td.text-muted = page.category.nil? ? t('.nocategory') : page.category.title
   td.text-muted = page.created_at.strftime("%d.%m.%Y %H:%M:%S")
   td.text-muted = page.updated_at.strftime("%d.%m.%Y %H:%M:%S")
   td
