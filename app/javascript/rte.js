@@ -378,6 +378,11 @@ const rte_forms = [
         'classlist': 'mb-3',
         'input': 'textarea',
         'target': 'style'
+      },
+      {
+        'label': loc.content,
+        'input': 'textarea',
+        'target': 'content'
       }
     ]
   },
