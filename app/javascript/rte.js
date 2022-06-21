@@ -620,7 +620,7 @@ function generateRte(control) {
                   }
                 ]},
                 {block: 'li', classlist: 'nav-item', blocks:[
-                  {block: 'button', classlist: 'nav-link', content: loc.block_settings,
+                  {block: 'button', classlist: 'nav-link', id: 'block_settings', content: loc.block_settings,
                     attributes: {'data-bs-toggle':'tab', 'data-bs-target':'#rte_block_tab'}
                   }
                 ]},
@@ -1100,6 +1100,11 @@ function renderPage() {
 function markBlock(block_name=null) {
   // снимаем маркировки
   let active = document.querySelector('.rteblock.active')
+  if (active && active.dataset['block_name'] == block_name) {
+    let tab = document.querySelector('#block_settings')
+    if (tab) tab.click()
+    return
+  }
   if (active) active.classList.remove('active')
   active = document.querySelector('.blocklist_wrapper .active')
   if (active) active.classList.remove('active')
