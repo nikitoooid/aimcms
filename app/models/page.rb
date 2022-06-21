@@ -1,7 +1,7 @@
 class Page < ApplicationRecord
   include ActionView::Helpers::TagHelper
 
-  belongs_to :category, optional: true
+  belongs_to :category, foreign_key: 'page_category_id', optional: true
   has_and_belongs_to_many :styles
   validates :title, presence: true
 
