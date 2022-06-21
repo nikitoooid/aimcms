@@ -1,8 +1,6 @@
 var categories = []
 
 document.addEventListener("DOMContentLoaded", function(){
-  console.log('Categories sorting activated')
-
   let all_items = document.querySelectorAll('[data-category]')
 
   all_items.forEach(item => {
@@ -10,8 +8,6 @@ document.addEventListener("DOMContentLoaded", function(){
   })
 
   categories = unique_array(categories)
-
-  console.log(categories)
 })
 
 function unique_array(a) {

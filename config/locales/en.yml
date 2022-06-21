@@ -271,6 +271,7 @@ en:
     type:               'Type'
     content:            'Content'
     select_ff:          'Select from file'
+    nocategory:         "Without category"
 
     helper:             'Helper name'
     attribute:          'Attribute name'

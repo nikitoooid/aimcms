@@ -271,6 +271,7 @@ ru:
     type:               'Атрибут type'
     content:            'Содержимое блока'
     select_ff:          'Выбрать файл'
+    nocategory:         "Без категории"
 
     helper:             'Имя хэлпера'
     attribute:          'Имя атрибута'

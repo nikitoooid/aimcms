@@ -591,6 +591,8 @@ var newblockbuffer = {block: 'div', title: 'advanced block', template_name: 'adv
 function generateRte(control) {
   
   if(control.classList.contains('rte_editor')) {
+    // сортируем шаблоны по категориям
+    block_templates = sort_templates(block_templates)
 
     // создаем рабочую область
     control.appendChild(createBlock({
@@ -715,6 +717,25 @@ function generateFields(paste_selector = '#rte_page_tab', form_selector = '.rte_
   if (!form || !paste_in) return
   
   paste_in.appendChild(form)
+}
+function sort_templates(templates) {
+  let result = {}
+
+  // создаем категорию "без категории"
+  result[loc.nocategory] = []
+  
+  // создаем категории
+  templates.blocks.forEach(e => {
+    if (e['category'] && !result.hasOwnProperty(e['category'])) result[e.category] = []
+  })
+
+  // наполняем категории
+  templates.blocks.forEach(e => {
+    if (e['category']) result[e.category].push(e)
+    else result[loc.nocategory].push(e)
+  })
+
+  return result
 }
 
 // ----------------------------------------
@@ -1090,7 +1111,7 @@ function renderPage() {
   // формируем список блоков для шаблонлиста
   let tl = document.querySelector('.rte_bt')
   tl.innerHTML = ''
-  tl.appendChild(getTemplateList(block_templates.blocks))
+  tl.appendChild(getTemplates(block_templates))
 
   // если до рендера был выбран блок - помечаем его
   let tb = document.querySelector(`[data-block_name="${ab}"]`)
@@ -1122,7 +1143,48 @@ function markBlock(block_name=null) {
   else document.querySelector('.rte_block_settings').innerHTML = ''
   
 }
-// формирует строку (row) с шаблонами блоков
+function getTemplates(templates) {
+  let result = document.createElement('div')
+  result.className = 'accordion'
+
+  let result_buffer = {}
+
+  for (let category in templates)
+    result_buffer[category] = getTemplateList(templates[category])
+  
+  for (let category in result_buffer) {
+    if (category == loc.nocategory) continue
+    
+    let item = createBlock({ 'block': 'div', 'classlist':'accordion-item','blocks':[
+      { 
+        'block': 'h2',
+        'classlist': 'accordion-header accordion-button collapsed',
+        content: category,
+        attributes: {
+          'data-bs-toggle': "collapse",
+          'data-bs-target':`#category_${ category.replace(/\s+/g, '') }`
+        }
+      }
+    ]}, false)
+
+    // контейнер с содержимым
+    let container = createBlock({
+      'block': 'div',
+      'id': `category_${ category.replace(/\s+/g, '') }`,
+      'classlist': 'accordion-collapse collapse p-2'
+    }, false)
+
+    container.appendChild(result_buffer[category])
+    item.appendChild(container)
+    result.appendChild(item)
+  }
+  
+  result_buffer[loc.nocategory].style.cssText = 'margin-top: .3em'
+  result.appendChild(result_buffer[loc.nocategory])
+
+  return result
+}
+// формирует строку (div.list-group) с шаблонами блоков
 function getTemplateList(blocks) {
 
   let result = createBlock({ 'block':'div', classlist: 'list-group' }, false)
