@@ -9,7 +9,7 @@ class Block < ApplicationRecord
 
     template['title'] = self.title
     template['template_name'] = self.template_name
-    template['category'] = self.template_name
+    template['category'] = self.category.title
     template
   end
 

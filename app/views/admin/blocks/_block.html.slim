@@ -1,6 +1,7 @@
-tr
+tr data-category = block.category.title
   td = block.title
   td.text-muted = block.template_name
+  td.text-muted = block.category.title
   td
     div class="d-flex justify-content-end"
       = link_to t('.show'), admin_block_path(block), class: 'btn btn-sm btn-dark me-2'

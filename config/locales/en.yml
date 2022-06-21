@@ -122,6 +122,7 @@ en:
         new:      "New page"
         title:    "Title"
         slug:     "Page slug"
+        category: "Category"
         created:  "Created at"
         updated:  "Updated at"
       page:
@@ -155,6 +156,7 @@ en:
         new:      "New block"
         title:    "Title"
         desc:     "Template name"
+        category: "Category"
       block:
         show:     "Show"
         edit:     "Edit"
