@@ -60,6 +60,26 @@
   cursor: pointer;
 }
 
+[data-action="expander"] {
+  position: absolute;
+  left: 0;
+  top: 0;
+  border-radius: 1px;
+  width: .6em;
+  height: 100%;
+  background: var(--bs-gray-300);
+}
+.unexpanded ul {
+  display: none;
+}
+.unexpanded [data-action="expander"]{
+  background: var(--bs-dark);
+}
+
+.rte_bi {
+  position: relative;
+}
+
 /* ------------------------------------------------------ */
 
 .rte_filemanager {

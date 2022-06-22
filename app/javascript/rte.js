@@ -571,6 +571,7 @@ const rte_actions = {
   'apply': formSave,
   'save': savePage,
   'delete' : function() { removeBlock() },
+  'expander' : expander,
   //---------------------------
   'cde_apply': cdeApply,
   'cde_open_in' : cdeOpenIn,
@@ -586,6 +587,20 @@ var paramsbuffer = {}   // буфер параметров формы
 var blockbuffer         // буфер для копирования блока
 var newblockbuffer = {block: 'div', title: 'advanced block', template_name: 'advanced'}      // буфер нового блока
 
+function expander(btn) {
+  let target = document.querySelector(`.rte_bi[data-target="${btn.dataset['target']}"]`)
+  let json_target = page.blocks.getBlock('block_name', btn.dataset['target'], 'blocks')
+  if (!target || !json_target) return
+
+  if (!json_target.hasOwnProperty('expanded') || json_target['expanded']) {
+    json_target['expanded'] = false
+    target.classList.add('unexpanded')
+  }
+  else {
+    json_target['expanded'] = true
+    target.classList.remove('unexpanded')
+  }
+}
 // ----------------------------------------
 
 function generateRte(control) {
@@ -756,7 +771,7 @@ function buttonsHandler(actions) {
 
   document.addEventListener('click', function(e){
     // слушаем функциональные кнопки
-    if (e.target.classList.contains('btn'))
+    if (e.target.classList.contains('btn') || e.target.classList.contains('nbtn'))
       if (e.target.dataset.hasOwnProperty('action'))
         if (actions.hasOwnProperty(e.target.dataset.action))
           actions[e.target.dataset.action](e.target)
@@ -1216,14 +1231,19 @@ function getBlocklist(blocks) {
   blocks.forEach ( b => {
     let element = createBlock({
       'block':'li',
-      'classlist':'list-group-item rte_bi',
+      'classlist':`list-group-item rte_bi`,
       'data':{'target': b.block_name},
-      // 'content':`<span class="badge bg-dark">${b.block}</span><span class="ms-1 badge bg-secondary">${b.block_name}</span>  ${(b.content ? b.content.slice(0, 35) : b.title) || loc.empty}`,
-      'content':`<span class="badge bg-dark">${b.block}</span>  ${(b.content ? b.content.slice(0, 30) : b.title) || loc.empty}`,
+      'content':`<span class="badge bg-dark">${b.block}</span>  ${(b.content ? b.content.slice(0, 22) : b.title) || loc.empty}`,
     }, false)
     
-    if (b.hasOwnProperty('blocks')) element.appendChild(getBlocklist(b.blocks))
-
+    if (b.hasOwnProperty('blocks') && b['blocks'].length) {
+      if(b.hasOwnProperty('expanded') && !b['expanded']) element.classList.add('unexpanded')
+      let expander_btn = { block:'div', classlist: 'nbtn', data:{action: 'expander', target: b.block_name} }
+      element.prepend(createBlock(expander_btn, false))
+      element.appendChild(getBlocklist(b.blocks))
+    } else {
+      if (b.hasOwnProperty('expanded') && !b['expanded']) b['expanded'] = true
+    }
     result.appendChild(element)
   })
 
