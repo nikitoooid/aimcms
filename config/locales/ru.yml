@@ -68,6 +68,8 @@ ru:
       index:
         header:       "Файлы"
         new:          "Загрузить файл"
+      document:
+        nocategory:   "Без категории"
       new:
         new:          "Новый файл"
         upload:       "Загрузить файл"
@@ -122,9 +124,11 @@ ru:
         new:      "Создать страницу"
         title:    "Название"
         slug:     "Slug страницы"
+        category: "Категория"
         created:  "Создана"
         updated:  "Последнее изменение"
       page:
+        nocategory: "Без категории"
         show:     "Посмотреть"
         edit:     "Редактировать"
         delete:   "Удалить"
@@ -155,7 +159,10 @@ ru:
         new:      "Создать шаблон"
         title:    "Название"
         desc:     "Тип шаблона"
+        category: "Категория"
+        system:   "Системные шаблоны"
       block:
+        nocategory: "Без категории"
         show:     "Посмотреть"
         edit:     "Редактировать"
         delete:   "Удалить"
@@ -202,6 +209,37 @@ ru:
         fail:     "Ошибка при обновлении стиля"
       destroy:
         success:  "Стиль удалён"
+    categories:
+      index:
+        header:   "Категории"
+        new:      "Создать категорию"
+        title:    "Название"
+        slug:     "Slug"
+        created:  "Создано"
+        updated:  "Обновлено"
+        type_page:      "Категории страниц"
+        type_block:     "Категории шаблонов"
+        type_document:  "Категории файлов"
+      new:
+        header:   "Новая категория"
+      edit:
+        header:   "Редактировать категорию"
+      category:
+        edit:     "Редактировать"
+        delete:   "Удалить"
+      create:
+        success:  "Категория успешно создана"
+        fail:     "Ошибка при создании категории"
+      update:
+        success:  "Категория успешно обновлена"
+        fail:     "Ошибка при обновлении категории"
+      destroy:
+        success:  "Категория удалена"
+      form:
+        title:    "Название категории"
+        slug:     "Slug"
+        type:     "Категория для"
+        submit:   "Сохранить"
 
   rte:
     page_settings:      'Страница'
@@ -234,6 +272,7 @@ ru:
     type:               'Атрибут type'
     content:            'Содержимое блока'
     select_ff:          'Выбрать файл'
+    nocategory:         "Без категории"
 
     helper:             'Имя хэлпера'
     attribute:          'Имя атрибута'

@@ -20,7 +20,8 @@ class Admin::DocumentsController < Admin::MainController
   end
 
   def create
-    @params = { title: document_params[:file].original_filename, description: document_params[:description], file: document_params[:file] }
+    @params = { title: document_params[:file].original_filename, description: document_params[:description],
+                file: document_params[:file], document_category_id: document_params[:document_category_id] }
     @document = Document.new(@params)
 
     if @document.save
@@ -60,7 +61,7 @@ class Admin::DocumentsController < Admin::MainController
   end
 
   def document_params
-    params.require(:document).permit(:title, :description, :file)
+    params.require(:document).permit(:title, :description, :file, :category_id)
   end
 
   def rescue_with_document_not_found

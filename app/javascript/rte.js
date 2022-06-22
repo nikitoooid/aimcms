@@ -378,6 +378,11 @@ const rte_forms = [
         'classlist': 'mb-3',
         'input': 'textarea',
         'target': 'style'
+      },
+      {
+        'label': loc.content,
+        'input': 'textarea',
+        'target': 'content'
       }
     ]
   },
@@ -566,6 +571,7 @@ const rte_actions = {
   'apply': formSave,
   'save': savePage,
   'delete' : function() { removeBlock() },
+  'expander' : expander,
   //---------------------------
   'cde_apply': cdeApply,
   'cde_open_in' : cdeOpenIn,
@@ -581,11 +587,27 @@ var paramsbuffer = {}   // буфер параметров формы
 var blockbuffer         // буфер для копирования блока
 var newblockbuffer = {block: 'div', title: 'advanced block', template_name: 'advanced'}      // буфер нового блока
 
+function expander(btn) {
+  let target = document.querySelector(`.rte_bi[data-target="${btn.dataset['target']}"]`)
+  let json_target = page.blocks.getBlock('block_name', btn.dataset['target'], 'blocks')
+  if (!target || !json_target) return
+
+  if (!json_target.hasOwnProperty('expanded') || json_target['expanded']) {
+    json_target['expanded'] = false
+    target.classList.add('unexpanded')
+  }
+  else {
+    json_target['expanded'] = true
+    target.classList.remove('unexpanded')
+  }
+}
 // ----------------------------------------
 
 function generateRte(control) {
   
   if(control.classList.contains('rte_editor')) {
+    // сортируем шаблоны по категориям
+    block_templates = sort_templates(block_templates)
 
     // создаем рабочую область
     control.appendChild(createBlock({
@@ -615,7 +637,7 @@ function generateRte(control) {
                   }
                 ]},
                 {block: 'li', classlist: 'nav-item', blocks:[
-                  {block: 'button', classlist: 'nav-link', content: loc.block_settings,
+                  {block: 'button', classlist: 'nav-link', id: 'block_settings', content: loc.block_settings,
                     attributes: {'data-bs-toggle':'tab', 'data-bs-target':'#rte_block_tab'}
                   }
                 ]},
@@ -711,6 +733,25 @@ function generateFields(paste_selector = '#rte_page_tab', form_selector = '.rte_
   
   paste_in.appendChild(form)
 }
+function sort_templates(templates) {
+  let result = {}
+
+  // создаем категорию "без категории"
+  result[loc.nocategory] = []
+  
+  // создаем категории
+  templates.blocks.forEach(e => {
+    if (e['category'] && !result.hasOwnProperty(e['category'])) result[e.category] = []
+  })
+
+  // наполняем категории
+  templates.blocks.forEach(e => {
+    if (e['category']) result[e.category].push(e)
+    else result[loc.nocategory].push(e)
+  })
+
+  return result
+}
 
 // ----------------------------------------
 
@@ -730,7 +771,7 @@ function buttonsHandler(actions) {
 
   document.addEventListener('click', function(e){
     // слушаем функциональные кнопки
-    if (e.target.classList.contains('btn'))
+    if (e.target.classList.contains('btn') || e.target.classList.contains('nbtn'))
       if (e.target.dataset.hasOwnProperty('action'))
         if (actions.hasOwnProperty(e.target.dataset.action))
           actions[e.target.dataset.action](e.target)
@@ -1085,7 +1126,7 @@ function renderPage() {
   // формируем список блоков для шаблонлиста
   let tl = document.querySelector('.rte_bt')
   tl.innerHTML = ''
-  tl.appendChild(getTemplateList(block_templates.blocks))
+  tl.appendChild(getTemplates(block_templates))
 
   // если до рендера был выбран блок - помечаем его
   let tb = document.querySelector(`[data-block_name="${ab}"]`)
@@ -1095,6 +1136,11 @@ function renderPage() {
 function markBlock(block_name=null) {
   // снимаем маркировки
   let active = document.querySelector('.rteblock.active')
+  if (active && active.dataset['block_name'] == block_name) {
+    let tab = document.querySelector('#block_settings')
+    if (tab) tab.click()
+    return
+  }
   if (active) active.classList.remove('active')
   active = document.querySelector('.blocklist_wrapper .active')
   if (active) active.classList.remove('active')
@@ -1112,7 +1158,48 @@ function markBlock(block_name=null) {
   else document.querySelector('.rte_block_settings').innerHTML = ''
   
 }
-// формирует строку (row) с шаблонами блоков
+function getTemplates(templates) {
+  let result = document.createElement('div')
+  result.className = 'accordion'
+
+  let result_buffer = {}
+
+  for (let category in templates)
+    result_buffer[category] = getTemplateList(templates[category])
+  
+  for (let category in result_buffer) {
+    if (category == loc.nocategory) continue
+    
+    let item = createBlock({ 'block': 'div', 'classlist':'accordion-item','blocks':[
+      { 
+        'block': 'h2',
+        'classlist': 'accordion-header accordion-button collapsed',
+        content: category,
+        attributes: {
+          'data-bs-toggle': "collapse",
+          'data-bs-target':`#category_${ category.replace(/\s+/g, '') }`
+        }
+      }
+    ]}, false)
+
+    // контейнер с содержимым
+    let container = createBlock({
+      'block': 'div',
+      'id': `category_${ category.replace(/\s+/g, '') }`,
+      'classlist': 'accordion-collapse collapse p-2'
+    }, false)
+
+    container.appendChild(result_buffer[category])
+    item.appendChild(container)
+    result.appendChild(item)
+  }
+  
+  result_buffer[loc.nocategory].style.cssText = 'margin-top: .3em'
+  result.appendChild(result_buffer[loc.nocategory])
+
+  return result
+}
+// формирует строку (div.list-group) с шаблонами блоков
 function getTemplateList(blocks) {
 
   let result = createBlock({ 'block':'div', classlist: 'list-group' }, false)
@@ -1144,14 +1231,19 @@ function getBlocklist(blocks) {
   blocks.forEach ( b => {
     let element = createBlock({
       'block':'li',
-      'classlist':'list-group-item rte_bi',
+      'classlist':`list-group-item rte_bi`,
       'data':{'target': b.block_name},
-      // 'content':`<span class="badge bg-dark">${b.block}</span><span class="ms-1 badge bg-secondary">${b.block_name}</span>  ${(b.content ? b.content.slice(0, 35) : b.title) || loc.empty}`,
-      'content':`<span class="badge bg-dark">${b.block}</span>  ${(b.content ? b.content.slice(0, 30) : b.title) || loc.empty}`,
+      'content':`<span class="badge bg-dark">${b.block}</span>  ${(b.content ? b.content.slice(0, 22) : b.title) || loc.empty}`,
     }, false)
     
-    if (b.hasOwnProperty('blocks')) element.appendChild(getBlocklist(b.blocks))
-
+    if (b.hasOwnProperty('blocks') && b['blocks'].length) {
+      if(b.hasOwnProperty('expanded') && !b['expanded']) element.classList.add('unexpanded')
+      let expander_btn = { block:'div', classlist: 'nbtn', data:{action: 'expander', target: b.block_name} }
+      element.prepend(createBlock(expander_btn, false))
+      element.appendChild(getBlocklist(b.blocks))
+    } else {
+      if (b.hasOwnProperty('expanded') && !b['expanded']) b['expanded'] = true
+    }
     result.appendChild(element)
   })
 
@@ -1174,11 +1266,11 @@ function getBlockSettings(block, blocklib = rte_forms) {
   form.innerHTML = ''
   if (!block) return
   
-  let template = {}
+  let template;
   // получаем шаблон
   if (block.hasOwnProperty('template_name')) template = blocklib.getBlock('template_name', block.template_name)
-  // если нет шаблона - берем стандартный шаблон
-  else template = blocklib.getBlock('template_name', 'default')
+  // если нет или не существует шаблона - берем стандартный шаблон
+  if(!template) template = blocklib.getBlock('template_name', 'default')
   // наполняем
   form.appendChild(getForm(template, block))
 

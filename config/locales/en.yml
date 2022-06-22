@@ -68,6 +68,8 @@ en:
       index:
         header:       "Files"
         new:          "Upload file"
+      document:
+        nocategory:   "Without category"
       new:
         new:          "New file"
         upload:       "Upload file"
@@ -122,9 +124,11 @@ en:
         new:      "New page"
         title:    "Title"
         slug:     "Page slug"
+        category: "Category"
         created:  "Created at"
         updated:  "Updated at"
       page:
+        nocategory: "Without category"
         show:     "Show"
         edit:     "Edit"
         delete:   "Delete"
@@ -155,7 +159,10 @@ en:
         new:      "New block"
         title:    "Title"
         desc:     "Template name"
+        category: "Category"
+        system:   "System templates"
       block:
+        nocategory: "Without category"
         show:     "Show"
         edit:     "Edit"
         delete:   "Delete"
@@ -202,6 +209,37 @@ en:
         fail:     "Style updating failed"
       destroy:
         success:  "Style delted"
+    categories:
+      index:
+        header:   "Categories"
+        new:      "New category"
+        title:    "Title"
+        slug:     "Slug"
+        created:  "Created at"
+        updated:  "Updated at"
+        type_page:      "Page categories"
+        type_block:     "Template categories"
+        type_document:  "File categories"
+      new:
+        header:   "New category"
+      edit:
+        header:   "Edit category"
+      category:
+        edit:     "Edit"
+        delete:   "Delete"
+      create:
+        success:  "Category successfully created"
+        fail:     "Category creating error"
+      update:
+        success:  "Category successfully upated"
+        fail:     "Category updating error"
+      destroy:
+        success:  "Category deleted"
+      form:
+        title:    "Category title"
+        slug:     "Category slug"
+        type:     "Category for"
+        submit:   "Save"
 
   rte:
     page_settings:      'Page'
@@ -234,6 +272,7 @@ en:
     type:               'Type'
     content:            'Content'
     select_ff:          'Select from file'
+    nocategory:         "Without category"
 
     helper:             'Helper name'
     attribute:          'Attribute name'

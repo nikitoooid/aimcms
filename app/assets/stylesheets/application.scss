@@ -38,3 +38,35 @@
   height: 250px;
   width: 250px;
 }
+
+// SORTING
+[data-sortby] {
+  position: relative;
+  cursor: pointer;
+}
+.sort_list {
+  display: none;
+  left: 0;
+  top: 100%;
+  position: absolute;
+  z-index: 999;
+  overflow: hidden;
+
+  border: 2px solid var(--bs-dark);
+  border-top: none;
+  border-radius: 0px 0px 8px 8px;
+  background: var(--bs-white);
+}
+[data-sortby].active .sort_list {
+  display: inline-block;
+}
+
+.sort_variant {
+  padding: 0 .3em 0 .3em;
+  color: var(--bs-gray-600);
+  font-weight: 400;
+}
+.sort_variant:hover {
+  background: var(--bs-gray-200);
+  color: var(--bs-dark)
+}

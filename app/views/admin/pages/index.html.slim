@@ -13,7 +13,10 @@ div class="content p-2 pt-3"
           tr
             th = t('.title')
             th = t('.slug')
+            = content_tag :th, t('.category'), data: {sortby: 'category'}
             th = t('.created')
             th = t('.updated')
         tbody
           == render @pages
+
+= javascript_import_module_tag "sorting"
