@@ -13,7 +13,7 @@ div class="content p-2 pt-3"
           tr
             th = t('.title')
             th = t('.desc')
-            th = t('.category')
+            = content_tag :th, t('.category'), data: { sortby: 'category' }
         tbody
           == render @blocks
 
