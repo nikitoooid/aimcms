@@ -27,6 +27,8 @@ function init_sorting(active_class, hide_class){
     let control_element = document.createElement('div')
     control_element.classList.add('sort_list')
 
+    let sort_area_selector = control.dataset['sortarea'] ? control.dataset['sortarea'] : 'body'
+
     // наполняем его вариантами
     sort_by[control.dataset['sortby']].forEach(variant => {
       let variant_element = document.createElement('div')
@@ -34,7 +36,7 @@ function init_sorting(active_class, hide_class){
       variant_element.textContent = variant
 
       variant_element.addEventListener('click', function(){
-        sortElements(control.dataset['sortby'], variant_element.textContent, control.textContent, hide_class)
+        sortElements(sort_area_selector, control.dataset['sortby'], variant_element.textContent, control.textContent, hide_class)
       })
 
       control_element.appendChild(variant_element)
@@ -46,11 +48,6 @@ function init_sorting(active_class, hide_class){
     //слушаем и обрабатываем управление
     control.addEventListener('click', function(){
       if (!control.classList.contains(active_class)) control.classList.add(active_class)
-      // if (control.classList.contains(active_class)) control.classList.remove(active_class)
-      // else {
-      //   controls.forEach(e => e.classList.remove(active_class))
-      //   control.classList.add(active_class)
-      // }
     })
   })
   
@@ -60,9 +57,11 @@ function init_sorting(active_class, hide_class){
   })
 }
 
-function sortElements(sort_by, value, default_value, hide_class) {
-  let items = document.querySelectorAll(`[data-${sort_by}]`)
+function sortElements(sort_area, sort_by, value, default_value, hide_class) {
+  let sortarea = document.querySelector(sort_area)
+  if (!sortarea) return
 
+  let items = sortarea.querySelectorAll(`[data-${sort_by}]`)
   items.forEach(item => {
     if (value == default_value || item.dataset[sort_by] == value) item.classList.remove(hide_class)
     else item.classList.add(hide_class)

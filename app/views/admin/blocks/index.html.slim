@@ -7,14 +7,25 @@ div class="content p-2 pt-3"
 
     hr
 
-    div.table-responsive
+    div class="table-responsive mb-5"
       table class="table"
         thead
           tr
             th = t('.title')
             th = t('.desc')
-            = content_tag :th, t('.category'), data: { sortby: 'category' }
+            = content_tag :th, t('.category'), data: { sortby: 'category', sortarea: '.sort_area' }
+        tbody class="sort_area"
+          == render @blocks[:regular_blocks]
+
+    h3 = t('.system')
+    div class="table-responsive mb-5"
+      table class="table"
+        thead
+          tr
+            th = t('.title')
+            th = t('.desc')
+            th = t('.category')
         tbody
-          == render @blocks
+          == render @blocks[:system_blocks]
 
 = javascript_import_module_tag "sorting"

@@ -6,7 +6,7 @@ class Admin::CategoriesController < Admin::MainController
   PERMITTED = [:title, :slug, :type].freeze
   
   def index
-    @categories = Category.order(id: :asc)
+    @categories = Category.where.not(slug: 'system').order(id: :asc)
   end
 
   def new

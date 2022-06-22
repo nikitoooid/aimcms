@@ -1246,11 +1246,11 @@ function getBlockSettings(block, blocklib = rte_forms) {
   form.innerHTML = ''
   if (!block) return
   
-  let template = {}
+  let template;
   // получаем шаблон
   if (block.hasOwnProperty('template_name')) template = blocklib.getBlock('template_name', block.template_name)
-  // если нет шаблона - берем стандартный шаблон
-  else template = blocklib.getBlock('template_name', 'default')
+  // если нет или не существует шаблона - берем стандартный шаблон
+  if(!template) template = blocklib.getBlock('template_name', 'default')
   // наполняем
   form.appendChild(getForm(template, block))
 

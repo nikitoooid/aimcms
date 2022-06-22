@@ -5,7 +5,10 @@ class Admin::BlocksController < Admin::MainController
   rescue_from ActiveRecord::RecordNotFound, with: :rescue_with_block_not_found
   
   def index
-    @blocks = Block.order(id: :asc)
+    @blocks = {
+      system_blocks: Block.where(is_system: true).order(id: :asc),
+      regular_blocks: Block.where(is_system: false).order(id: :asc)
+    }
   end
 
   def show
@@ -48,7 +51,7 @@ class Admin::BlocksController < Admin::MainController
   end
 
   def block_params
-    params.require(:block).permit([:title, :template_name, :content, :block_category_id])
+    params.require(:block).permit([:title, :template_name, :content, :block_category_id, :is_system])
   end
 
   def rescue_with_block_not_found

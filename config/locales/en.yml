@@ -160,6 +160,7 @@ en:
         title:    "Title"
         desc:     "Template name"
         category: "Category"
+        system:   "System templates"
       block:
         nocategory: "Without category"
         show:     "Show"
