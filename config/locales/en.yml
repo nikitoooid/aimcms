@@ -142,7 +142,7 @@ en:
         success:  "Page deleted"
       form:
         title:    "Page title"
-        slug:     ""
+        slug:     "Page slug"
         css:      "Additional styles"
         css_s:    "Select style"
         desc:     "Description"
@@ -250,6 +250,30 @@ en:
         category: "Category"
         created:  "Created at"
         updated:  "Updated at"
+      new:
+        header:   "New product"
+      edit:
+        header:   "Edit product"
+      show:
+      product:
+        nocategory: "Without category"
+        show:     "Show"
+        edit:     "Edit"
+        delete:   "Delete"
+      create:
+        success:  "Product successfully created"
+        fail:     "Product creation failed"
+      update:
+        success:  "Product successfully updated"
+        fail:     "Product updating failed"
+      destroy:
+        success:  "Product deleted"
+      form:
+        title:    "Product title"
+        slug:     "Product slug"
+        category: "Category"
+        template: "Custom template"
+        save:     "Save"
       sync:
         header: "Syncronization"
 

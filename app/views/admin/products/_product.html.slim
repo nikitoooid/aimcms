@@ -1,0 +1,12 @@
+= content_tag :tr, data: { category: product.category.nil? ? t('.nocategory') : product.category.title }
+  td = product.title
+  td.text-muted = product.slug
+  td.text-muted = product.category.nil? ? t('.nocategory') : product.category.title
+  td.text-muted = product.created_at.strftime("%d.%m.%Y %H:%M:%S")
+  td.text-muted = product.updated_at.strftime("%d.%m.%Y %H:%M:%S")
+  td
+    div class="d-flex justify-content-end"
+      = link_to t('.show'), admin_product_path(product), class: 'btn btn-sm btn-dark me-2'
+      = link_to t('.edit'), edit_admin_product_path(product), class: 'btn btn-sm btn-dark me-2', data: { turbo: false }
+      = link_to t('.delete'), admin_product_path(product), data: {'turbo-method' => :delete}, class: 'btn btn-sm btn-danger'
+ 

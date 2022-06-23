@@ -250,6 +250,30 @@ ru:
         category: "Категория"
         created:  "Создан"
         updated:  "Последнее изменение"
+      new:
+        header:   "Создать товар"
+      edit:
+        header:   "Редактировать товар"
+      show:
+      product:
+        nocategory: "Без категории"
+        show:     "Показать"
+        edit:     "Редактировать"
+        delete:   "Удалить"
+      create:
+        success:  "Товар успешно создан"
+        fail:     "Ошибка при создании товара"
+      update:
+        success:  "Товар успешно обновлён"
+        fail:     "Ошибка при обновлении товара"
+      destroy:
+        success:  "Товар удалён"
+      form:
+        title:    "Название товара"
+        slug:     "Slug товара"
+        category: "Категория товара"
+        template: "Персональный шаблон"
+        save:     "Сохранить"
       sync:
         header: "Синхронизация"
 
