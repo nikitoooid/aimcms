@@ -853,7 +853,6 @@ function fileManager(files, target) {
             blocks: [
               { block: 'h5', classlist: 'title', style: 'overflow:hidden' },
               { block: 'hr' },
-              { block: 'p', classlist: 'desc' },
               { block: 'p', classlist: 'url text-muted' },
               { block: 'hr' },
               { block: 'div', classlist: 'btn-group btn-group-sm w-100', blocks:[
@@ -885,7 +884,7 @@ function createFile(file){
     classlist: 'rte_file col-xl-1 col-lg-2 col-md-3 col-sm-6',
     data: {
       title: file.title != undefined ? file.title : 'File',
-      desc: file.desc != undefined ? file.desc : '',
+      category: file.category != undefined ? file.category : '',
       url: file.url != undefined ? file.url : ''
     },
     blocks: [
@@ -906,7 +905,6 @@ function createFile(file){
       if (sb) sb.classList.remove('active')
 
       document.querySelector('.rte_filemanager .sidebar .title').textContent = element.dataset['title']
-      document.querySelector('.rte_filemanager .sidebar .desc').textContent = element.dataset['desc']
       document.querySelector('.rte_filemanager .sidebar .url').textContent = element.dataset['url']
 
       this.classList.add('active')

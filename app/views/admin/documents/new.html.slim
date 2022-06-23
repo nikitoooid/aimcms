@@ -14,12 +14,7 @@
         div class="mb-2"
           = f.label :document_category_id, t('.category'), class: "mb-1"
           = f.collection_select :document_category_id, DocumentCategory.order(:title), :id, :title, {include_blank: true}, {class: "form-select"}
-        div class="mb-3"
-          = f.label :description,
-            t('.description'),
-            class: "form-label"
-          = f.text_area :description, class: "form-control"
-
+        
         div class="mb-3"
           = f.submit t('.upload'), class: "btn btn-sm btn-primary w-100"
 

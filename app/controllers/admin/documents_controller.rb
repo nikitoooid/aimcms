@@ -3,8 +3,6 @@ class Admin::DocumentsController < Admin::MainController
   before_action :set_document, only: %i[show update destroy]
   before_action :set_documents, only: %i[index list]
 
-  rescue_from ActiveRecord::RecordNotFound, with: :rescue_with_document_not_found
-
   def index
   end
 
@@ -20,7 +18,7 @@ class Admin::DocumentsController < Admin::MainController
   end
 
   def create
-    @params = { title: document_params[:file].original_filename, description: document_params[:description],
+    @params = { title: document_params[:file].original_filename,
                 file: document_params[:file], document_category_id: document_params[:document_category_id] }
     @document = Document.new(@params)
 
@@ -61,10 +59,6 @@ class Admin::DocumentsController < Admin::MainController
   end
 
   def document_params
-    params.require(:document).permit(:title, :description, :file, :category_id)
-  end
-
-  def rescue_with_document_not_found
-    redirect_to admin_path, flash: { danger: t('not_found', item: Document.model_name.human(count: 10) ) }
+    params.require(:document).permit(:title, :file, :category_id)
   end
 end

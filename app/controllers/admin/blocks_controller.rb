@@ -1,8 +1,6 @@
 class Admin::BlocksController < Admin::MainController
 
   before_action :set_block, only: [:show, :edit, :update, :destroy]
-
-  rescue_from ActiveRecord::RecordNotFound, with: :rescue_with_block_not_found
   
   def index
     @blocks = {
@@ -52,10 +50,6 @@ class Admin::BlocksController < Admin::MainController
 
   def block_params
     params.require(:block).permit([:title, :template_name, :content, :block_category_id, :is_system])
-  end
-
-  def rescue_with_block_not_found
-    redirect_to admin_block_path, flash: { danger: t('not_found', item: Block.model_name.human(count: 10) ) } 
   end
     
 end
