@@ -241,6 +241,17 @@ ru:
         slug:     "Slug"
         type:     "Категория для"
         submit:   "Сохранить"
+    products:
+      index:
+        header: "Товары"
+        new:      "Создать товар"
+        title:    "Название"
+        slug:     "Slug товара"
+        category: "Категория"
+        created:  "Создан"
+        updated:  "Последнее изменение"
+      sync:
+        header: "Синхронизация"
 
   rte:
     page_settings:      'Страница'

@@ -41,15 +41,15 @@ div class="content p-2 pt-3"
         = f.label :body_tags, t('.body_tags'), class: 'form-label'
         = f.text_area :body_tags, class: "form-control"
 
-      .mb-3
-        = f.submit t('.save'), class: 'btn btn-sm btn-primary'
-
       hr
 
       div class="form-check mb-3"
-        = f.check_box :store_active, class: 'form-check-input'
-        = f.label :store_active, t('.store_active'), class: 'form-check-label'
+        = f.check_box :active_store, class: 'form-check-input'
+        = f.label :active_store, t('.store_active'), class: 'form-check-label'
 
       div class="form-check mb-3"
-        = f.check_box :store_active_sync, class: 'form-check-input'
-        = f.label :store_active_sync, t('.store_sync'), class: 'form-check-label'
+        = f.check_box :active_store_sync, class: 'form-check-input'
+        = f.label :active_store_sync, t('.store_sync'), class: 'form-check-label'
+
+      .mb-3
+        = f.submit t('.save'), class: 'btn btn-sm btn-primary'

@@ -18,10 +18,11 @@ Rails.application.routes.draw do
     resources :settings, only: [:index, :update]
     resources :styles, only: [:index, :new, :create, :edit, :update, :destroy]
     resources :categories, only: [:index, :new, :create, :edit, :update, :destroy]
+    resources :products
   end
 
-  get '/catalog/:slug', to: 'products#show'
-  get '/category/:slug', to: 'categories#show'
+  # get '/catalog/:slug', to: 'products#show'
+  # get '/category/:slug', to: 'categories#show'
   get '/:slug', to: 'main#show'
 
 end

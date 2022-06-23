@@ -241,6 +241,17 @@ en:
         slug:     "Category slug"
         type:     "Category for"
         submit:   "Save"
+    products:
+      index:
+        header: "Products"
+        new:      "New product"
+        title:    "Title"
+        slug:     "Product slug"
+        category: "Category"
+        created:  "Created at"
+        updated:  "Updated at"
+      sync:
+        header: "Syncronization"
 
   rte:
     page_settings:      'Page'
