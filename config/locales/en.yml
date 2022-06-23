@@ -179,7 +179,8 @@ en:
       index:
         header:       "Settings"
         site_name:    "Site name"
-        site_domain:  "Site domain name"
+        store_active: "Store"
+        store_sync:   "Sync products"
         favicon:      "Favicon"
         logo:         "Site logo"
         site_header:  "Site header"

@@ -17,9 +17,8 @@
 ### Documents
 * Add multi upload from admin/index
 * Remove :new view
-* Remove :description from Documents
 ### Blocks
-* Remove :type from Blocks if it possible
+* none
 ### RTE Helpers
 * Create single Object processing helper
 * Create helpers for Devise

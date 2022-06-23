@@ -179,7 +179,8 @@ ru:
       index:
         header:       "Настройки"
         site_name:    "Название сайта"
-        site_domain:  "Доменное имя сайта"
+        store_active: "Магазин"
+        store_sync:   "Синхронизация товаров"
         favicon:      "Favicon"
         logo:         "Логотип сайта"
         site_header:  "Шапка сайта"

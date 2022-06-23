@@ -15,6 +15,6 @@ class Admin::SettingsController < Admin::MainController
   private
 
   def setting_params
-    params.require(:setting).permit(:site_name, :site_domain, :header_id, :footer_id, :head_tags, :body_tags, :logo, :favicon)
+    params.require(:setting).permit(:site_name, :header_id, :footer_id, :head_tags, :body_tags, :logo, :favicon, :active_store, :active_store_sync)
   end
 end
