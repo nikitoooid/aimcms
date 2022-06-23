@@ -10,12 +10,8 @@
 
 ## TODO
 ### Settings
-* Add <head> helpers
-* Add before </body> helpers
-* Add selection of :header from Blocks
-* Add selection of :footer from Blocks
+* none
 ### RTE
-* Add template groups
 * Add filetype sorting to filemanager
 * Add file uploading to filemanager
 ### Documents
