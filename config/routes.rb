@@ -19,6 +19,7 @@ Rails.application.routes.draw do
     resources :styles, only: [:index, :new, :create, :edit, :update, :destroy]
     resources :categories, only: [:index, :new, :create, :edit, :update, :destroy]
     resources :products
+    resources :product_categories
   end
 
   # get '/catalog/:slug', to: 'products#show'
