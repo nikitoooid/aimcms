@@ -1,0 +1,14 @@
+- form_params = {model: [:admin, @product_category]}
+- form_params[:url] = form_url if local_assigns[:form_url]
+
+= form_with form_params do |f|
+  div class="mb-2"
+    = f.label :title, t('admin.categories.form.title'), class: "mb-1"
+    = f.text_field :title, class: "form-control", required: true
+
+  div class="mb-2"
+    = f.label :slug, t('admin.categories.form.slug'), class: "mb-1"
+    = f.text_field :slug, class: "form-control", required: true
+
+  div class="mb-2"
+    = f.submit t('admin.categories.form.submit'), class: 'btn btn-sm btn-primary'
