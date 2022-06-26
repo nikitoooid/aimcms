@@ -3,9 +3,10 @@ module RteTemplatesHelper
   # from RTE can be called helper_name or helper_name(block)
 
   def rte_list(block)
-    return if block['blocks'].nil? || !block['blocks'].any? || block['params'].nil?
+    return if block['blocks'].nil? || !block['blocks'].any? || block['params'].nil? || !Class.const_defined?(block['params']['model'].capitalize)
+    
+    model = Class.const_get(block['params']['model'].capitalize)
 
-    model = ApplicationRecord.descendants.select { |m| m.name == block['params']['model'].capitalize}.first
     model_objects = []
     
     if block['params']['find'].nil? || block['params']['find']['key'].nil? || block['params']['find']['value'].nil?

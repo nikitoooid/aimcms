@@ -1404,13 +1404,8 @@ function createBlock(b, forRte = true) {
         break
       case 'attribute':
         element.classList.add('rte_attribute')
-        element.innerHTML = `${loc.attribute}: ${b.params.attribute}`
+        element.innerHTML = `${loc.attribute}: ${b.params ? b.params.attribute : "-"}`
     }
-    // if (b.rtype == 'helper') {
-      
-    // }
-    // if (b.rtype == 'attribute') element.classList.add('rte_attr')
-    
   }
 
   // наполняем блок дочерними блоками

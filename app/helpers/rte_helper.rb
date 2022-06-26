@@ -8,7 +8,7 @@ module RteHelper
     blocks = ActiveSupport::JSON.decode(resource.content)['blocks']
     result = []
 
-    blocks.each { |block| result.push create_block(block) }
+    blocks.each { |block| result.push create_block(block, resource) }
 
     result.join.to_s.html_safe
   end
