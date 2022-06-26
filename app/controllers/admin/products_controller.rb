@@ -16210,6 +16210,7 @@ class Admin::ProductsController < Admin::MainController
   end
 
   def product_params
-    params.require(:product).permit([:title, :slug, :product_category_id, :template_id, :content])
+    params.require(:product).permit([:title, :slug, :product_category_id, :template_id,
+                                      :description, :available, :price, :currency, :picture_url, :content])
   end
 end
