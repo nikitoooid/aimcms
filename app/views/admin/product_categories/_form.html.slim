@@ -11,4 +11,9 @@
     = f.text_field :slug, class: "form-control", required: true
 
   div class="mb-2"
+    = f.label :category_id, t('admin.categories.form.parent'), class: 'form-label'
+    = f.collection_select :category_id,
+                          Category.where(type: @product_category.type).order(:title), :id, :title,
+                          {include_blank: true}, {class: "form-select"}
+  div class="mb-2"
     = f.submit t('admin.categories.form.submit'), class: 'btn btn-sm btn-primary'

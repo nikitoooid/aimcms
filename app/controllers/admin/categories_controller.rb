@@ -1,7 +1,7 @@
 class Admin::CategoriesController < Admin::MainController
   before_action :set_category, only: [:edit, :update, :destroy]
 
-  PERMITTED = [:title, :slug, :type].freeze
+  PERMITTED = [:title, :slug, :type, :category_id].freeze
   
   def index
     @categories = Category.where.not(type: ['PageCategory']).order(id: :asc)

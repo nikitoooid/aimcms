@@ -5,6 +5,6 @@ tr
   td.text-muted = product_category.updated_at.strftime("%d.%m.%Y %H:%M:%S")
   td
     div class="d-flex justify-content-end"
-      = link_to t('admin.categories.category.edit'), edit_admin_category_path(product_category), class: 'btn btn-sm btn-dark me-2', data: { turbo: false }
-      = link_to t('admin.categories.category.delete'), admin_category_path(product_category), data: {'turbo-method' => :delete}, class: 'btn btn-sm btn-danger'
+      = link_to t('admin.categories.category.edit'), edit_admin_product_category_path(product_category), class: 'btn btn-sm btn-dark me-2', data: { turbo: false }
+      = link_to t('admin.categories.category.delete'), admin_product_category_path(product_category), data: {'turbo-method' => :delete}, class: 'btn btn-sm btn-danger'
  
