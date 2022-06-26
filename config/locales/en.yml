@@ -189,6 +189,7 @@ en:
         head_tags:    "Before closing <head>"
         body_tags:    "Before closing <body>"
         save:         "Save changes"
+        product_template: "Default template for products"
       update:
         success:  "Settings successfully saved"
         fail:     "Settings updating failed"

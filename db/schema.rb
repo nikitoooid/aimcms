@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_23_115555) do
+ActiveRecord::Schema[7.0].define(version: 2022_06_26_102158) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -109,6 +109,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_23_115555) do
     t.integer "footer_id"
     t.boolean "active_store", default: false, null: false
     t.boolean "active_store_sync", default: false, null: false
+    t.integer "product_template_id"
   end
 
   create_table "styles", force: :cascade do |t|

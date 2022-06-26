@@ -47,9 +47,17 @@ div class="content p-2 pt-3"
         = f.check_box :active_store, class: 'form-check-input'
         = f.label :active_store, t('.store_active'), class: 'form-check-label'
 
-      div class="form-check mb-3"
-        = f.check_box :active_store_sync, class: 'form-check-input'
-        = f.label :active_store_sync, t('.store_sync'), class: 'form-check-label'
+      - if @setting.active_store
+        
+        div class="form-check mb-3"
+          = f.check_box :active_store_sync, class: 'form-check-input'
+          = f.label :active_store_sync, t('.store_sync'), class: 'form-check-label'
+        
+        .mb-3
+          = f.label :product_template_id, t('.product_template'), class: 'form-label'
+          = f.collection_select :product_template_id,
+                                Block.where(is_system: true).order(:title), :id, :title,
+                                {include_blank: true}, {class: "form-select"}
 
       .mb-3
         = f.submit t('.save'), class: 'btn btn-sm btn-primary'
