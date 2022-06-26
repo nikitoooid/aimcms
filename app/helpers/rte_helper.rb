@@ -4,8 +4,8 @@ module RteHelper
     t('rte').to_json.html_safe
   end
 
-  def html_content(resource)
-    blocks = ActiveSupport::JSON.decode(resource.content)['blocks']
+  def html_content(resource, template = nil)
+    blocks = ActiveSupport::JSON.decode(template.nil? ? resource.content : template)['blocks']
     result = []
 
     blocks.each { |block| result.push create_block(block, resource) }
@@ -48,8 +48,25 @@ module RteHelper
     return if model.nil?
     
     block['block'] = 'span' if block['block'].nil?
-    block['content'] = model[block['params']['attribute']] unless block['params'].nil? || block['params']['attribute'].nil?
+    
+    block['content'] = deep_attr(model, deep_attr(block, 'params.attribute.content')) unless deep_attr(block, 'params.attribute.content').nil?
+    block['src'] = deep_attr(model, deep_attr(block, 'params.attribute.src')) unless deep_attr(block, 'params.attribute.src').nil?
+    block['href'] = deep_attr(model, deep_attr(block, 'params.attribute.href')) unless deep_attr(block, 'params.attribute.href').nil?
+    block['alt'] = deep_attr(model, deep_attr(block, 'params.attribute.alt')) unless deep_attr(block, 'params.attribute.alt').nil?
+    
     block
   end
 
+  def deep_attr(obj, path)
+    subpaths = path.split(".")
+    object = obj
+
+    subpaths.each do |path|
+      # object[path] = {} if object[path].nil?
+      return nil if object[path].nil?
+      object = object[path]
+    end
+    
+    object unless object.nil? || object.empty?
+  end
 end

@@ -1,6 +1,2 @@
 .content
-  h2 Parsed
-  hr
-  p = @test_var['yml_catalog']['shop']['offers']['offer'].first['param']
-  hr
-  = @test_var
+  = html_content @product, @product.template.nil? ? @setting.product_template.content : @product.template.content

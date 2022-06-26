@@ -529,14 +529,27 @@ const rte_forms = [
       }
     ]
   },
-  // attribute
+  // advanced attribute
   {
-    template_name: 'rte_attribute', forms: [
+    template_name: 'advanced_attribute', forms: [
+      { block: 'h3', content: loc.attribute },
       {
-        label: loc.attribute,
+        label: 'For block content',
         input: 'input',
         type: 'text',
-        target: 'params.attribute'
+        target: 'params.attribute.content'
+      },
+      {
+        label: 'For block src',
+        input: 'input',
+        type: 'text',
+        target: 'params.attribute.src'
+      },
+      {
+        label: 'For block href',
+        input: 'input',
+        type: 'text',
+        target: 'params.attribute.href'
       },
       {
         label: loc.tag,
@@ -1335,7 +1348,7 @@ function getForm(template, block) {
 }
 // создает DOM блок (не дает ему имя)
 function createBlock(b, forRte = true) {
-  // создаем оболочку блока
+   // создаем оболочку блока
   let element = document.createElement(b.block)
 
   if (forRte) {
@@ -1404,7 +1417,17 @@ function createBlock(b, forRte = true) {
         break
       case 'attribute':
         element.classList.add('rte_attribute')
-        element.innerHTML = `${loc.attribute}: ${b.params ? b.params.attribute : "-"}`
+        element.src = '/default-image.png'
+        let inner = {
+          block: 'span', blocks: [
+            {block: 'span', classlist: 'badge m-1 bg-dark', content: b.block},
+            {block: 'span', content: `${loc.attribute}: ${b.params && b.params.attribute ?
+              b.params.attribute.href || b.params.attribute.content || b.params.attribute.src :
+              "-"}`}
+          ]
+        }
+        element.appendChild(createBlock(inner, false))
+        break
     }
   }
 
