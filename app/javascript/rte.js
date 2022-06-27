@@ -397,18 +397,21 @@ const rte_forms = [
         target: 'block_name'
       },
       {
-        label: loc.block_name,
+        label: loc.title,
         input: 'input',
         type: 'text',
         target: 'title'
       },
       {block: 'hr'},
+      { label: 'RTE type' },
       {
-        label: 'RTE type',
-        input: 'input',
-        type: 'text',
-        target: 'rtype',
-        description: 'Type of helper block: "helper"/"attribute"'
+        block: 'select',
+        classlist: 'form-select form-select-sm',
+        data: { target: 'rtype' },
+        blocks:[
+          { block: 'option', value: 'helper', content: 'helper' },
+          { block: 'option', value: 'attribute', content: 'attribute' }
+        ]
       },
       {
         label: loc.helper,
