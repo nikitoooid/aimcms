@@ -2,8 +2,8 @@ module RteTemplatesHelper
   # Helpers must be helper_name(block)
   # from RTE can be called helper_name or helper_name(block)
 
-  def rte_list(block)
-    return if block['blocks'].nil? || !block['blocks'].any? || block['params'].nil? || !Class.const_defined?(block['params']['model'].capitalize)
+  def rte_list(block, object = nil)
+    return if block_invalid?(block) || !Class.const_defined?(block['params']['model'].capitalize)
     
     model = Class.const_get(block['params']['model'].capitalize)
 
@@ -23,5 +23,27 @@ module RteTemplatesHelper
     block['content'] = result.join
     block['blocks'] = nil
     create_block(block)
+  end
+
+  def rte_table(block, object = nil)
+    return if block_invalid?(block) || object.nil? || block['params']['hash_path'].nil?
+
+    table_params = deep_attr(object, block['params']['hash_path'])
+    return if table_params.nil?
+
+    result = []
+    table_params.each do |table_param|
+      result.push( create_block(block['blocks'].first, table_param) ) if table_param['show'] || table_param['show'].nil?
+    end
+
+    block['content'] = result.join
+    block['blocks'] = nil
+    create_block(block)
+  end
+
+  private
+
+  def block_invalid?(block)
+    return true if block['blocks'].nil? || !block['blocks'].any? || block['params'].nil?
   end
 end

@@ -8,7 +8,14 @@ class Admin::ProductsController < Admin::MainController
 
   def show
     # @product.testvar = ActiveSupport::JSON.decode(@product.content)
-    @product.content = {'link' => 'https://d5nunyagcicgy.cloudfront.net/external_assets/hero_examples/hair_beach_v391182663/original.jpeg', 'content' => 'test content'}
+    @product.content = {'link' => 'https://d5nunyagcicgy.cloudfront.net/external_assets/hero_examples/hair_beach_v391182663/original.jpeg', 'content' => 'test content',
+      'params' => [
+        {name: 'Строка 1', value: '1', 'show' => true},
+        {name: 'Строка 2', value: '2', 'show' => true},
+        {name: 'Строка 3', value: '3', 'show' => true},
+        {name: 'Строка 4', value: '4', 'show' => true}
+      ]
+    }
   end
 
   def new

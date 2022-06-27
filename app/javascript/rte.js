@@ -478,7 +478,14 @@ const rte_forms = [
         input: 'input',
         type: 'text',
         target: 'params.model',
-        description: 'Not all helpers need this.'
+        description: 'Model, that will be sent to helper'
+      },
+      {
+        label: loc.data,
+        input: 'input',
+        type: 'text',
+        target: 'params.hash_path',
+        description: 'Path to data of page model, that will be sent to helper as hash'
       },
       {label: loc.find_by},
       {

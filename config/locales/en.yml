@@ -314,6 +314,7 @@ en:
     helper:             'Helper name'
     attribute:          'Attribute name'
     model:              'Model name'
+    data:               'Hash path'
     title:              'Block title'
     find_by:            'Find by'
     key:                'Key'
