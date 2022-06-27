@@ -1602,6 +1602,8 @@ function formSave(){
       if (k != 'target' && k != undefined) block[k] = paramsbuffer[k]
       if (paramsbuffer[k] == 'null' || paramsbuffer[k] == 'undefined' || paramsbuffer[k] == undefined || paramsbuffer[k] == null || paramsbuffer[k] == '' || k == 'undefined') delete block[k]
     }
+
+    if (block.hasOwnProperty('target')) delete block['target']
   }
   
   // сохраняем страницу в форму
@@ -1673,7 +1675,7 @@ function getRandName(namelist, prefix = 'ag_') {
 
   if (!namelist.includes(name)) return name
 
-  getRandName(namelist, prefix)
+  return getRandName(namelist, prefix)
 }
 
 // Блокировка стандартных комбинаций
