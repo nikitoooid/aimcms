@@ -319,3 +319,5 @@ ru:
     find_by:            'Выбрать по'
     key:                'Ключ'
     value:              'Значение'
+    language:           'Язык'
+    make_multilang:     'Сделать мультиязычным'

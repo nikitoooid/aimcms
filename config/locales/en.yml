@@ -319,3 +319,5 @@ en:
     find_by:            'Find by'
     key:                'Key'
     value:              'Value'
+    language:           'Language'
+    make_multilang:     'Make multilang'

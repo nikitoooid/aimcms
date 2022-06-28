@@ -2,6 +2,7 @@ javascript:
   var page = #{@block.content.nil? ? "{blocks:[]}".html_safe : @block.content.html_safe}
   var loc = #{rte_localization}
   var block_templates = #{Block.json_list.html_safe}
+  var language = '#{I18n.locale}'
   
 div class="content rte rte_editor"
 

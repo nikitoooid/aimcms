@@ -6,7 +6,7 @@ class Block < ApplicationRecord
   belongs_to :category, foreign_key: 'block_category_id', optional: true
 
   def prepare_template
-    template = ActiveSupport::JSON.decode(self.content)['blocks'].first
+    template = ActiveSupport::JSON.decode(self.content)
 
     template['title'] = self.title
     template['template_name'] = self.template_name

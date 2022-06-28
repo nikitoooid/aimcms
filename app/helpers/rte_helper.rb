@@ -5,9 +5,10 @@ module RteHelper
   end
 
   def html_content(resource, template = nil)
-    blocks = ActiveSupport::JSON.decode(template.nil? ? resource.content : template)['blocks']
+    content = ActiveSupport::JSON.decode(template.nil? ? resource.content : template)
     result = []
 
+    blocks = content['multilang'] == true ? content[I18n.locale.to_s]['blocks'] : content['blocks']
     blocks.each { |block| result.push create_block(block, resource) }
 
     result.join.to_s.html_safe
@@ -28,6 +29,7 @@ module RteHelper
   private
 
   def create_block(b, model=nil)
+    b = b[I18n.locale.to_s] unless b['multilang'].nil? && b[I18n.locale.to_s].nil?
     b = rte_attribute(b, model) if b['rtype'] == 'attribute'
     return if b.nil?
 

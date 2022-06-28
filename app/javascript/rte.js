@@ -595,6 +595,7 @@ const rte_actions = {
   'save': savePage,
   'delete' : function() { removeBlock() },
   'expander' : expander,
+  'make_multilang' : make_multilang,
   //---------------------------
   'cde_apply': cdeApply,
   'cde_open_in' : cdeOpenIn,
@@ -606,13 +607,15 @@ const rte_actions = {
   'fs_close' : fs_closeWindow
 }
 
+// var current             // c каким типом ресурса сейчас работает редактор (страница/шаблон). Указывается в content.rte.data-type
 var paramsbuffer = {}   // буфер параметров формы
 var blockbuffer         // буфер для копирования блока
 var newblockbuffer = {block: 'div', title: 'advanced block', template_name: 'advanced'}      // буфер нового блока
 
 function expander(btn) {
   let target = document.querySelector(`.rte_bi[data-target="${btn.dataset['target']}"]`)
-  let json_target = page.blocks.getBlock('block_name', btn.dataset['target'], 'blocks')
+  let page_blocks = page.multilang ? page[language]['blocks'] : page['blocks']
+  let json_target = page_blocks.getBlock('block_name', btn.dataset['target'], 'blocks')
   if (!target || !json_target) return
 
   if (!json_target.hasOwnProperty('expanded') || json_target['expanded']) {
@@ -652,6 +655,7 @@ function generateRte(control) {
             'role':'tablist'
           },
           blocks:[
+            { block: 'div', classlist: 'offcanvas-header'},
             {block: 'div', classlist: 'offcanvas-body', blocks:[
               {block: 'ul', classlist: 'nav nav-tabs', blocks:[
                 {block: 'li', classlist: 'nav-item', blocks:[
@@ -721,7 +725,19 @@ function generateRte(control) {
     buttonsHandler(rte_actions)
     otherHandler()
     initRedirectInput()
-    
+
+    // выбор языка
+    let sidebar_header = document.querySelector('.rte_sidebar .offcanvas-header')
+    if (page.multilang) add_multilang_select_in(sidebar_header)
+    else {
+      sidebar_header.appendChild(createBlock({
+        block: 'div',
+        classlist: 'btn btn-sm btn-dark',
+        data: {action: 'make_multilang'},
+        content: loc.make_multilang
+      },false))
+    }
+
     // отрисовка страницы
     renderPage()
   } else if (control.classList.contains('cde_editor')) {
@@ -748,6 +764,53 @@ function generateRte(control) {
   }
   
 }
+
+// сделать страницу/шаблон мультиязычными
+function make_multilang(object) {
+  page['multilang'] = true
+  add_multilang_select_in(object.parentElement)
+  object.remove()
+}
+function migrate_to_multilang(resource, langs) {
+  if (!resource['blocks']) return
+  
+  resource['multilang'] = true
+
+  langs.forEach(l => {
+    if (!resource[l]) {
+      resource[l] = {}
+      resource[l]['blocks'] = resource['blocks']
+    }
+  })
+  
+  delete resource['blocks']
+}
+function add_multilang_select_in(object){
+  // совместимость старой версии без мультиязычности и новой
+  migrate_to_multilang(page, ['uk', 'en', 'ru'])
+  // поле выбора языка
+  object.appendChild(createBlock({
+    block: 'select',
+    classlist: 'form-select form-select-sm language-select',
+    blocks:[
+      { block: 'option', value: 'uk', content: 'Українська'},
+      { block: 'option', value: 'en', content: 'English'},
+      { block: 'option', value: 'ru', content: 'Свинособачий язык'}
+    ]
+  },false))
+
+  // активация формы
+  let langselect = document.querySelector('.language-select')
+  langselect.value = language
+
+  langselect.addEventListener('change', function(){
+    formSave()
+    language = langselect.value
+    markBlock()
+    renderPage()
+  })
+}
+
 function generateFields(paste_selector = '#rte_page_tab', form_selector = '.rte_result_form') {
   
   let form = document.querySelector(form_selector)
@@ -1129,18 +1192,21 @@ function toNode(htmlString) {
 // -------------------------------------------------
 
 function renderPage() {
+  // блоки
+  let blocks = page['multilang'] ? page[language]['blocks'] : page['blocks']
+
   // кэшируем выбранный блок
   let ab = activeBlockName()
 
   let control = document.querySelector('.rte_control')
   // рисуем страницу
   control.innerHTML = ''
-  control.appendChild(getRtePage(page.blocks))
+  control.appendChild(getRtePage(blocks))
 
   // формируем список блоков для блоклиста
   let bl = document.querySelector('.blocklist_wrapper')
   bl.innerHTML = ''
-  bl.appendChild(getBlocklist(page.blocks))
+  bl.appendChild(getBlocklist(blocks))
   let pv = document.querySelector('.rte_new_preview')
   pv.textContent = newblockbuffer.title
 
@@ -1174,7 +1240,8 @@ function markBlock(block_name=null) {
       document.querySelector('.blocklist_wrapper [data-target="' + block_name + '"]').classList.add('active')
     }
 
-    getBlockSettings(page.blocks.getBlock('block_name', block_name, 'blocks'), rte_forms)
+    let page_blocks = page.multilang ? page[language]['blocks'] : page['blocks']
+    getBlockSettings(page_blocks.getBlock('block_name', block_name, 'blocks'), rte_forms)
   }
   else document.querySelector('.rte_block_settings').innerHTML = ''
   
@@ -1363,7 +1430,7 @@ function createBlock(b, forRte = true) {
 
   if (forRte) {
     // это добавляется только в РТЕ
-    b.block_name = getName(b, page.blocks)
+    b.block_name = getName(b, page.multilang ? page[language]['blocks'] : page['blocks'])
     element.dataset.block_name = b.block_name
     element.classList.add('rteblock')
     if (b.hasOwnProperty('block_template')) element.dataset.template = b.block_template
@@ -1532,10 +1599,11 @@ function newBlock(params={}){
 function insertBlock(block, params={}) {
   // готовим контейнер, куда будем вставлять
   let container = {}
-  if (params.hasOwnProperty('inside')) container = page.blocks.getBlock('block_name', params.inside, 'blocks')
-  else container = page.blocks.getBlock('block_name', activeBlockName(), 'blocks')
+  let page_ml = page.multilang ? page[language] : page
+  if (params.hasOwnProperty('inside')) container = page_ml['blocks'].getBlock('block_name', params.inside, 'blocks')
+  else container = page_ml['blocks'].getBlock('block_name', activeBlockName(), 'blocks')
 
-  if(!container) container = page
+  if(!container) container = page_ml
 
   // если в контейнере нет блоков - создаем
   if (!container.hasOwnProperty('blocks')) container.blocks = []
@@ -1553,7 +1621,8 @@ function copyBlock(){
   let block_name = activeBlockName()
   if(!block_name) return
 
-  let block = page.blocks.getBlock('block_name',block_name,'blocks')
+  let page_blocks = page.multilang ? page[language]['blocks'] : page['blocks']
+  let block = page_blocks.getBlock('block_name',block_name,'blocks')
   
   blockbuffer = Object.assign({}, block)
 }
@@ -1571,7 +1640,9 @@ function removeBlock(block_name=null) {
   let target = block_name
   if(!block_name) target = document.querySelector('.rte_bi.active').dataset.target
 
-  if(target) page.blocks.deleteBlock('block_name', target, 'blocks')
+  let page_blocks = page.multilang ? page[language]['blocks'] : page['blocks']
+
+  if(target) page_blocks.deleteBlock('block_name', target, 'blocks')
   else console.log('Target not found')
 
   renderPage()
@@ -1582,8 +1653,10 @@ function removeBlock(block_name=null) {
 function nameDuplicateProtected(block) {
   let result = Object.assign({}, block)
 
-  if(result.hasOwnProperty('block_name') && page.blocks.getBlock('block_name', result.block_name, 'blocks')) delete result.block_name
-  result.block_name = getName(result, page.blocks)
+  let page_blocks = page.multilang ? page[language]['blocks'] : page['blocks']
+
+  if(result.hasOwnProperty('block_name') && page_blocks.getBlock('block_name', result.block_name, 'blocks')) delete result.block_name
+  result.block_name = getName(result, page_blocks)
 
   if(result.hasOwnProperty('blocks')) {
     result.blocks = []
@@ -1595,7 +1668,8 @@ function nameDuplicateProtected(block) {
 
 // сохранить форму
 function formSave(){
-  let block = page.blocks.getBlock('block_name', paramsbuffer.target, 'blocks')
+  let page_blocks = page.multilang ? page[language]['blocks'] : page['blocks']
+  let block = page_blocks.getBlock('block_name', paramsbuffer.target, 'blocks')
   
   if (block) {
     for (var k in paramsbuffer) {
