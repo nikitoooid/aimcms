@@ -29,14 +29,6 @@ class SyncProductsService
       return error_messsages
     end
 
-    p '---------------------'
-    p '---------------------'
-    p @params
-    p '---------------------'
-    p '---------------------'
-
-    # return error_messsages
-
     categories = xml_document.xpath(@params[:category_xpath]) unless @params[:category_xpath].nil?
     products = xml_document.xpath(@params[:product_xpath]) unless @params[:product_xpath].nil?
     
