@@ -7,7 +7,6 @@ class Admin::ProductsController < Admin::MainController
   end
 
   def show
-    @product.content = ActiveSupport::JSON.decode(@product.content) unless @product.content.nil?
   end
 
   def new

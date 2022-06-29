@@ -6,7 +6,6 @@ class ProductsController < ApplicationController
 
   def show
     @product = Product.find_by(slug: params[:slug])
-    @product.content = ActiveSupport::JSON.decode(@product.content) unless @product.content.nil?
   end
 
   def show_category_items

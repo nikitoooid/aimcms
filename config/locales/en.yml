@@ -24,6 +24,7 @@ en:
   home: "Home"
   back: "Back"
   file: "File"
+  store_sync: "Store sync"
 
   new: "New"
   upload: "Upload"
@@ -180,7 +181,15 @@ en:
         header:       "Settings"
         site_name:    "Site name"
         store_active: "Store"
-        store_sync:   "Sync products"
+        store_sync:   "Sync products and categories"
+        sync:         "Sync now"
+        xml_url:      "URL to XML file"
+        category_xpath: "Category xpath"
+        product_xpath: "Product xpath"
+        category_whitelist: "Category whitelist"
+        category_blacklist: "Category blacklist"
+        product_whitelist: "Product whitelist"
+        product_blacklist: "Product blacklist"
         favicon:      "Favicon"
         logo:         "Site logo"
         site_header:  "Site header"
@@ -190,6 +199,7 @@ en:
         body_tags:    "Before closing <body>"
         save:         "Save changes"
         product_template: "Default template for products"
+
       update:
         success:  "Settings successfully saved"
         fail:     "Settings updating failed"
@@ -275,8 +285,6 @@ en:
         category: "Category"
         template: "Custom template"
         save:     "Save"
-      sync:
-        header: "Syncronization"
 
   rte:
     page_settings:      'Page'

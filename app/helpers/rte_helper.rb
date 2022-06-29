@@ -5,7 +5,7 @@ module RteHelper
   end
 
   def html_content(resource, template = nil)
-    content = ActiveSupport::JSON.decode(template.nil? ? resource.content : template)
+    content = prepare_json(template.nil? ? resource.content : template)
     result = []
 
     blocks = content['multilang'] == true ? content[I18n.locale.to_s]['blocks'] : content['blocks']
@@ -69,5 +69,9 @@ module RteHelper
     block['alt'] = deep_attr(model, deep_attr(block, 'params.attribute.alt')) unless deep_attr(block, 'params.attribute.alt').nil?
     
     block
+  end
+
+  def prepare_json(content)
+   content.is_a?(String) ? ActiveSupport::JSON.decode(content) : content
   end
 end

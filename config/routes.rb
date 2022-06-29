@@ -20,6 +20,9 @@ Rails.application.routes.draw do
     resources :categories, only: [:index, :new, :create, :edit, :update, :destroy]
     resources :products
     resources :product_categories
+
+    get 'services/sync', to: 'services#sync_page'
+    post 'services/sync', to: 'services#sync'
   end
 
   get '/products/:slug', to: 'products#show'

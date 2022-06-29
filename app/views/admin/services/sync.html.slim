@@ -1,0 +1,35 @@
+div class="content p-2 pt-3"
+  .container-fluid
+    h1 = t('admin.settings.index.store_sync')
+    hr
+
+    .mb-3
+      h3 = t('admin.settings.index.xml_url')
+      p = @setting.xml_url
+
+    .mb-3
+      h3 = t('admin.settings.index.category_xpath')
+      p = @setting.category_xpath
+
+    .mb-3
+      h3 = t('admin.settings.index.product_xpath')
+      p = @setting.product_xpath
+    
+    .mb-3
+      h3 = t('admin.settings.index.category_whitelist')
+      p = @setting.category_whitelist
+
+    .mb-3
+      h3 = t('admin.settings.index.category_blacklist')
+      p = @setting.category_blacklist
+
+    .mb-3
+      h3 = t('admin.settings.index.product_whitelist')
+      p = @setting.product_whitelist
+
+    .mb-3
+      h3 = t('admin.settings.index.product_blacklist')
+      p = @setting.product_blacklist
+
+    .mb-3
+      = button_to t('admin.settings.index.sync'), '/admin/services/sync', method: :post

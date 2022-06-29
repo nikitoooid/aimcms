@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_26_154904) do
+ActiveRecord::Schema[7.0].define(version: 2022_06_29_165247) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -118,6 +118,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_26_154904) do
     t.boolean "active_store", default: false, null: false
     t.boolean "active_store_sync", default: false, null: false
     t.integer "product_template_id"
+    t.string "xml_url"
+    t.string "category_xpath"
+    t.string "product_xpath"
+    t.text "category_whitelist"
+    t.text "category_blacklist"
+    t.text "product_whitelist"
+    t.text "product_blacklist"
   end
 
   create_table "styles", force: :cascade do |t|

@@ -24,6 +24,7 @@ ru:
   home: "Главная"
   back: "Назад"
   file: "Файл"
+  store_sync: "Синхронизация магазина"
 
   new: "Новый"
   upload: "Загрузить"
@@ -180,7 +181,15 @@ ru:
         header:       "Настройки"
         site_name:    "Название сайта"
         store_active: "Магазин"
-        store_sync:   "Синхронизация товаров"
+        store_sync:   "Синхронизация товаров и категорий"
+        sync:         "Синхронизировать"
+        xml_url:      "Ссылка на XML"
+        category_xpath: "xpath Категорий"
+        product_xpath: "xpath Товаров"
+        category_whitelist: "Белый список категорий (через \";\")"
+        category_blacklist: "Черный список категорий (через \";\")"
+        product_whitelist: "Белый список товаров (через \";\")"
+        product_blacklist: "Черный список товаров (через \";\")"
         favicon:      "Favicon"
         logo:         "Логотип сайта"
         site_header:  "Шапка сайта"
@@ -275,8 +284,6 @@ ru:
         category: "Категория товара"
         template: "Персональный шаблон"
         save:     "Сохранить"
-      sync:
-        header: "Синхронизация"
 
   rte:
     page_settings:      'Страница'

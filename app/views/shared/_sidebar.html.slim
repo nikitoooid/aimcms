@@ -18,7 +18,7 @@ div class="sidebar_front d-flex flex-column flex-shrink-0 p-3 text-white bg-dark
         = sidebar_item t('admin.products.index.header'), admin_products_path, 'shop'
         = sidebar_item t('admin.categories.index.header'), admin_product_categories_path, 'tags'
         - if @setting.active_store_sync
-          = sidebar_item t('admin.products.sync.header'), '#', 'arrow-repeat'
+          = sidebar_item t('store_sync'), admin_services_sync_path, 'arrow-repeat'
 
     hr
     = sidebar_item t('admin.users.index.header'), admin_users_path, 'people'
