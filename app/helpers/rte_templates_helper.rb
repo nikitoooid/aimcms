@@ -21,8 +21,9 @@ module RteTemplatesHelper
     end
 
     block['content'] = result.join
-    block['blocks'] = nil
-    create_block(block)
+    # block['blocks'] = nil
+    # create_block(block)
+    block['content']
   end
 
   def rte_table(block, object = nil)
@@ -37,8 +38,26 @@ module RteTemplatesHelper
     end
 
     block['content'] = result.join
-    block['blocks'] = nil
-    create_block(block)
+    # block['blocks'] = nil
+    # create_block(block)
+    block['content']
+  end
+
+  def rte_images(block, object = nil)
+    return if block_invalid?(block) || object.nil? || block['params']['hash_path'].nil?
+    
+    images = deep_attr(object, block['params']['hash_path'])
+    return if images.nil? || images.empty?
+    
+    result = []
+    images.each do |i|
+      result.push( create_block(block['blocks'].first, {'text' => i}) )
+    end
+
+    block['content'] = result.join
+    # block['blocks'] = nil
+    # create_block(block)
+    block['content']
   end
 
   private

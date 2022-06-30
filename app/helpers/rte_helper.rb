@@ -49,8 +49,12 @@ module RteHelper
   end
 
   def rte_helper(block, model=nil)
+    p ''
+    p ''
+    p 'RTE Helper'
     return if block['helper'].nil?
-
+    p block['helper']
+    p ''
     if block['params'].nil?
       ApplicationController.helpers.try(block['helper'], nil, model)
     else

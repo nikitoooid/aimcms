@@ -91,7 +91,12 @@ class SyncProductsService
       product.available = pr.xpath('@available').text == 'true'
       product.price = pr.xpath('price').text.to_i
 
-      images = pr.xpath('picture').text.split(';')
+      feedimages = pr.xpath('picture')
+      images = []
+      feedimages.each do |i|
+        images.push(i.text)
+      end
+
       product.picture_url = images.first
       product_content['images'] = images
 
