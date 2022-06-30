@@ -20,6 +20,6 @@ module Aimcms
     # config.eager_load_paths << Rails.root.join("extras")
 
     config.time_zone = "Europe/Kiev"
-    config.i18n.default_locale = :ru
+    config.i18n.default_locale = :uk
   end
 end

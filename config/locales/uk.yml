@@ -1,0 +1,342 @@
+uk:
+  signup: "Реєстрація"
+  login: "Вхід"
+  logout: "Вийти"
+  email: "Email"
+  profile: "Профіль"
+  new_avatar: "Новий аватар"
+  password: "Пароль"
+  new_password: "Новий пароль"
+  current_password: "Поточний пароль"
+  password_confirmation: "Повторіть пароль"
+  min_password_length:
+    one: "Мінімум %{count} символ"
+    few: "Мінімум %{count} символа"
+    many: "Мінімум %{count} символів"
+    other: "Мінімум %{count} символів"
+  remember_me: "Запам'ятати мене"
+  first_name: "Ім'я"
+  last_name: "Прізвище"
+  lang: "Мова"
+
+  admin_panel: "Панель адміністратора"
+
+  home: "Головна"
+  back: "Назад"
+  file: "Файл"
+  store_sync: "Синхронізація магазину"
+
+  new: "Новий"
+  upload: "Завантажити"
+  download: "Завантажити"
+  delete: "Видалити"
+  save: "Зберегти"
+  show_profile: "Переглянути профіль"
+
+  need_login: "Спочатку авторизуйтесь."
+  not_uthorized: "Ви не авторизовані для перегляду даної сторінки!"
+  not_found: "%{item} не знайдені"
+
+  users:
+    show:
+      edit: "Редагувати профіль"
+      delete: "Видалити профіль"
+
+  admin:
+    main:
+      index:
+        show: "Перейти"
+        file:
+          one: "%{count} файл"
+          few: "%{count} файлу"
+          many: "%{count} файлів"
+          other: "%{count} файлів"
+        files_description: "Ви можете використовувати файли для зберігання, обміну з користувачами та прикріплення до сторінок та публікацій"
+        user:
+          one: "%{count} користувач"
+          few: "%{count} користувача"
+          many: "%{count} користувачів"
+          other: "%{count} користувачів"
+        users_description: "Керування користувачами та їх ролями."
+        page:
+          one: "%{count} сторінка"
+          few: "%{count} сторінки"
+          many: "%{count} сторінок"
+          other: "%{count} сторінок"
+        pages_description: "Керування сторінками сайту."
+
+    documents:
+      index:
+        header:       "Файли"
+        new:          "Завантажити файл"
+      document:
+        nocategory:   "Без категорії"
+      new:
+        new:          "Новий файл"
+        upload:       "Завантажити файл"
+        description:  "Опис"
+      show:
+        description:  "Опис файлу"
+        url:          "Посилання на файл"
+        size:         "Размер файлу:"
+        created:      "Создано:"
+        updated:      "Изменено:"
+        save:         "Зберегти зміни"
+
+      create:
+        success:    "Файл створений"
+        fail:       "Помилка при створенні файлу"
+      update:
+        success:    "Файл оновлено"
+        fail:       "Помилка при оновленні файлу"
+      destroy:
+        success:    "Файл видалено"
+
+    admins:
+      admin:
+        role:       "Адміністратор"
+        edit:       "Редагувати"
+    users:
+      user:
+        role:       "Користувач"
+        edit:       "Редагувати"
+      index:
+        header:     "Користувачі"
+        title:      "Ім'я користувача"
+        role:       "Роль"
+      edit:
+        header:     "Редагувати користувача"
+        first_name: "Ім'я"
+        last_name:  "Прізвище"
+        email:      "E-mail"
+        role:       "Роль користувача"
+        submit:     "Зберегти зміни"
+        delete:     "Видалити користувача"
+        confirm:    "Вы впевнені?"
+      update:
+        success:    "Данные користувача обновлены"
+        fail:       "Помилка при оновленні данных користувача"
+      destroy:
+        success:    "Пользователь видалено."
+
+    pages:
+      index:
+        header:   "Сторінки"
+        new:      "Створити сторінку"
+        title:    "Назва"
+        slug:     "Slug сторінки"
+        category: "Категорія"
+        created:  "Створена"
+        updated:  "Оновлена"
+      page:
+        nocategory: "Без категорії"
+        show:     "Переглянути"
+        edit:     "Редагувати"
+        delete:   "Видалити"
+      create:
+        success:  "Сторінка успішно створена"
+        fail:     "Помилка при створенні сторінки"
+      update:
+        success:  "Сторінка успішно обновлена"
+        fail:     "Помилка при оновленні сторінки"
+      destroy:
+        success:  "Сторінка удалена"
+      form:
+        title:    "Назва сторінки"
+        slug:     "Slug сторінки"
+        css:      "Дополнительные стили"
+        css_s:    "Выберите стили"
+        desc:     "Мета Опис"
+        og_title: "og title"
+        og_type:  "og type"
+        og_image: "og image url"
+        og_url:   "og url"
+        og_desc:  "og description"
+        index:    "индексировать сторінку"
+        follow:   "переходити за посиланнями"
+    blocks:
+      form:
+          title:    "Назва блока"
+          rte_type: "RTE тип (необязательно)"
+          container_tag: "HTML тег блока"
+      index:
+        header:   "Шаблоны"
+        new:      "Створити шаблон"
+        title:    "Назва"
+        desc:     "Тип шаблона"
+        category: "Категорія"
+        system:   "Системные шаблоны"
+      block:
+        nocategory: "Без категорії"
+        show:     "Переглянути"
+        edit:     "Редагувати"
+        delete:   "Видалити"
+      create:
+        success:  "Шаблон успішно створений"
+        fail:     "Помилка при створенні шаблона"
+      update:
+        success:  "Шаблон успішно оновлено"
+        fail:     "Помилка при оновленні шаблона"
+      destroy:
+        success:  "Шаблон видалено"
+
+    settings:
+      index:
+        header:       "Налаштування"
+        site_name:    "Назва сайту"
+        store_active: "Магазин"
+        store_sync:   "Синхронізація товарів та категорій"
+        sync:         "Синхронізувати"
+        xml_url:      "Посилання на XML"
+        category_xpath: "xpath Категорій"
+        product_xpath: "xpath Товарів"
+        category_whitelist: "Білий список категорий (через \";\")"
+        category_blacklist: "Чорний список категорий (через \";\")"
+        product_whitelist: "Білий список товаров (через \";\")"
+        product_blacklist: "Чорний список товаров (через \";\")"
+        favicon:      "Favicon"
+        logo:         "Логотип сайту"
+        site_header:  "Шапка сайту"
+        site_sidebar: "Сайдбар сайту"
+        site_footer:  "Підвал сайту"
+        head_tags:    "Перед закриваючим тегом </head>"
+        body_tags:    "Перед закриваючим тегом </body>"
+        save:         "Зберегти зміни"
+        product_template: "Шаблон для товарів"
+      update:
+        success:  "Налаштування успішно збережені"
+        fail:     "Помилка при сохранении настроек"
+    styles:
+      index:
+        header:   "Пользовательские стили"
+        new:      "Нова таблиця стилей"
+      style:
+        open:     "Відкрити"
+        delete:   "Видалити"
+      block:
+        open:     "Відкрити"
+        delete:   "Видалити"
+      create:
+        success:  "Стиль успішно створений"
+        fail:     "Помилка при створенні стиля"
+      update:
+        success:  "Стиль успішно оновлено"
+        fail:     "Помилка при оновленні стиля"
+      destroy:
+        success:  "Стиль видалено"
+    categories:
+      index:
+        header:   "Категории"
+        new:      "Створити категорию"
+        title:    "Назва"
+        slug:     "Slug"
+        created:  "Создано"
+        updated:  "Обновлено"
+        type_page:      "Категории страниц"
+        type_block:     "Категории шаблонов"
+        type_document:  "Категории файлов"
+      new:
+        header:   "Нова категория"
+      edit:
+        header:   "Редагувати категорию"
+      category:
+        edit:     "Редагувати"
+        delete:   "Видалити"
+      create:
+        success:  "Категорія успішно створена"
+        fail:     "Помилка при створенні категорії"
+      update:
+        success:  "Категорія успішно обновлена"
+        fail:     "Помилка при оновленні категорії"
+      destroy:
+        success:  "Категорія удалена"
+      form:
+        title:    "Назва категорії"
+        slug:     "Slug"
+        type:     "Категорія для"
+        submit:   "Зберегти"
+    products:
+      index:
+        header: "Товари"
+        new:      "Створити товар"
+        title:    "Назва"
+        slug:     "Slug товару"
+        category: "Категорія"
+        created:  "Створений"
+        updated:  "Редагований"
+      new:
+        header:   "Створити товар"
+      edit:
+        header:   "Редагувати товар"
+      show:
+      product:
+        nocategory: "Без категорії"
+        show:     "Переглянути"
+        edit:     "Редагувати"
+        delete:   "Видалити"
+      create:
+        success:  "Товар успішно створений"
+        fail:     "Помилка при створенні товару"
+      update:
+        success:  "Товар успішно оновлено"
+        fail:     "Помилка при оновленні товару"
+      destroy:
+        success:  "Товар видалено"
+      form:
+        title:    "Назва товару"
+        slug:     "Slug товару"
+        category: "Категорія товару"
+        template: "Персональний шаблон"
+        og_title: "og title"
+        og_type:  "og type"
+        og_image: "og image url"
+        og_url:   "og url"
+        og_desc:  "og description"
+        save:     "Зберегти"
+    services:
+      sync:
+        success: 'Синхронізовано'
+
+  rte:
+    page_settings:      'Сторінка'
+    block_settings:     'Блок'
+    structure:          'Структура'
+    select:             'Обрати'
+    new:                'Вставити '
+    save:               'Зберегти'
+    apply:              'Применить'
+    close:              'Закрити'
+    delete:             'Видалити'
+    empty:              'пустий блок'
+    code:               'Відкрити в CodeEditor'
+    get_json:           'Отримати Json'
+    blocklist:          'Список блоків'
+    code_header:        'Редактор CODE'
+    templates:          'Шаблони'
+    main_settings:      'Основные параметри'
+    block_name:         "Ім'я блоку"
+    id:                 'Id блоку'
+    classes:            'Css класи'
+    template:           'Шаблон блоку'
+    style:              'Стиль'
+    styles:             'Стилі блоку'
+    advanced:           'Розширені параметри'
+    tag:                'Block tag'
+    src:                'Source'
+    href:               'Посилання'
+    alt:                'Атрибут Alt'
+    type:               'Атрибут type'
+    content:            'Вміст блоку'
+    select_ff:          'Обрати файл'
+    nocategory:         "Без категорії"
+
+    helper:             "Ім'я хелпера"
+    attribute:          "Ім'я атрибуту"
+    model:              "Ім'я моделі"
+    data:               'Шлях до хешу'
+    title:              'Назва блоку'
+    find_by:            'Обрати по'
+    key:                'Ключ'
+    value:              'Значення'
+    language:           'Мова'
+    make_multilang:     'Зробити мультимовним'
