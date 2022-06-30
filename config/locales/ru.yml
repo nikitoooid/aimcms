@@ -155,6 +155,10 @@ ru:
         index:    "индексировать страницу"
         follow:   "переходить по ссылкам"
     blocks:
+      form:
+          title:    "Название блока"
+          rte_type: "RTE тип (необязательно)"
+          container_tag: "HTML тег блока"
       index:
         header:   "Шаблоны"
         new:      "Создать шаблон"

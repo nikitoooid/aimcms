@@ -30,7 +30,7 @@ module RteTemplatesHelper
     return if block_invalid?(block) || object.nil? || block['params']['hash_path'].nil?
 
     table_params = deep_attr(object, block['params']['hash_path'])
-    return if table_params.nil?
+    return if table_params.nil? || !table_params.is_a?(Array)
 
     result = []
     table_params.each do |table_param|
@@ -45,7 +45,7 @@ module RteTemplatesHelper
     return if block_invalid?(block) || object.nil? || block['params']['hash_path'].nil?
     
     images = deep_attr(object, block['params']['hash_path'])
-    return if images.nil? || images.empty?
+    return if images.nil? || images.empty? || !images.is_a?(Array)
     
     result = []
     images.each do |i|

@@ -155,6 +155,10 @@ en:
         index:    "index"
         follow:    "follow"
     blocks:
+      form:
+        title:    "Template title"
+        rte_type: "RTE type (необязательно)"
+        container_tag: "HTML tag"
       index:
         header:   "Blocks"
         new:      "New block"

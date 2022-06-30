@@ -39,6 +39,10 @@ module ApplicationHelper
     @setting.favicon.attached? ? custom_favicon : default_favicon
   end
 
+  def prepare_content(content)
+    content.is_a?(String) ? content.html_safe : content.to_json.html_safe
+  end
+
   private
 
   def bootstrap_icon(icon_name)

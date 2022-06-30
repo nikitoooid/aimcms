@@ -1293,7 +1293,11 @@ function getTemplateList(blocks) {
   let result = createBlock({ 'block':'div', classlist: 'list-group' }, false)
 
   blocks.forEach ( b => {
-
+    if (!b.block_name) {
+      let page_blocks = page.multilang ? page[language]['blocks'] : page['blocks']
+      b.block_name = getName(b, page_blocks)
+    }
+    
     let element = createBlock({
       block :'li',
       classlist : 'list-group-item',
