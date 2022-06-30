@@ -15,7 +15,7 @@ class Admin::ProductsController < Admin::MainController
 
   def create
     @product = Product.new(product_params)
-
+    
     if @product.save
       redirect_to admin_products_path, flash: { success: t('.success') }
     else
@@ -46,7 +46,9 @@ class Admin::ProductsController < Admin::MainController
   end
 
   def product_params
-    params.require(:product).permit([:title, :slug, :product_category_id, :template_id,
+    result = params.require(:product).permit([:title, :slug, :product_category_id, :template_id,
                                       :description, :available, :price, :currency, :picture_url, :content])
+    result[:content] = ActiveSupport::JSON.decode(result[:content]) if !result[:content].nil? && result[:content].is_a?(String)
+    result
   end
 end

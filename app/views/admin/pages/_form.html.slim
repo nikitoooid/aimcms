@@ -1,5 +1,5 @@
 javascript:
-  var page = #{@page.content.nil? ? "{multilang:true, uk:{blocks:[]}, en:{blocks:[]}, ru:{blocks:[]} }".html_safe : @page.content.html_safe}
+  var page = #{@page.content.nil? ? "{blocks:[]}".html_safe : (@page.content.is_a?(String) ? @page.content.html_safe : @page.content.to_json.html_safe)}
   var loc = #{rte_localization}
   var block_templates = #{Block.json_list.html_safe}
   var language = "#{I18n.locale}"
