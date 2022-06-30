@@ -24,6 +24,7 @@ en:
   home: "Home"
   back: "Back"
   file: "File"
+  store_sync: "Store sync"
 
   new: "New"
   upload: "Upload"
@@ -142,7 +143,7 @@ en:
         success:  "Page deleted"
       form:
         title:    "Page title"
-        slug:     ""
+        slug:     "Page slug"
         css:      "Additional styles"
         css_s:    "Select style"
         desc:     "Description"
@@ -154,6 +155,10 @@ en:
         index:    "index"
         follow:    "follow"
     blocks:
+      form:
+        title:    "Template title"
+        rte_type: "RTE type (необязательно)"
+        container_tag: "HTML tag"
       index:
         header:   "Blocks"
         new:      "New block"
@@ -179,7 +184,16 @@ en:
       index:
         header:       "Settings"
         site_name:    "Site name"
-        site_domain:  "Site domain name"
+        store_active: "Store"
+        store_sync:   "Sync products and categories"
+        sync:         "Sync now"
+        xml_url:      "URL to XML file"
+        category_xpath: "Category xpath"
+        product_xpath: "Product xpath"
+        category_whitelist: "Category whitelist"
+        category_blacklist: "Category blacklist"
+        product_whitelist: "Product whitelist"
+        product_blacklist: "Product blacklist"
         favicon:      "Favicon"
         logo:         "Site logo"
         site_header:  "Site header"
@@ -188,6 +202,7 @@ en:
         head_tags:    "Before closing <head>"
         body_tags:    "Before closing <body>"
         save:         "Save changes"
+        product_template: "Default template for products"
       update:
         success:  "Settings successfully saved"
         fail:     "Settings updating failed"
@@ -240,6 +255,47 @@ en:
         slug:     "Category slug"
         type:     "Category for"
         submit:   "Save"
+    products:
+      index:
+        header: "Products"
+        new:      "New product"
+        title:    "Title"
+        slug:     "Product slug"
+        category: "Category"
+        created:  "Created at"
+        updated:  "Updated at"
+      new:
+        header:   "New product"
+      edit:
+        header:   "Edit product"
+      show:
+      product:
+        nocategory: "Without category"
+        show:     "Show"
+        edit:     "Edit"
+        delete:   "Delete"
+      create:
+        success:  "Product successfully created"
+        fail:     "Product creation failed"
+      update:
+        success:  "Product successfully updated"
+        fail:     "Product updating failed"
+      destroy:
+        success:  "Product deleted"
+      form:
+        title:    "Product title"
+        slug:     "Product slug"
+        category: "Category"
+        template: "Custom template"
+        og_title: "og title"
+        og_type:  "og type"
+        og_image: "og image url"
+        og_url:   "og url"
+        og_desc:  "og description"
+        save:     "Save"
+    services:
+      sync:
+        success: 'Syncronized'
 
   rte:
     page_settings:      'Page'
@@ -277,7 +333,10 @@ en:
     helper:             'Helper name'
     attribute:          'Attribute name'
     model:              'Model name'
+    data:               'Hash path'
     title:              'Block title'
     find_by:            'Find by'
     key:                'Key'
     value:              'Value'
+    language:           'Language'
+    make_multilang:     'Make multilang'

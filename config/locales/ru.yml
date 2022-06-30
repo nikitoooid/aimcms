@@ -24,6 +24,7 @@ ru:
   home: "Главная"
   back: "Назад"
   file: "Файл"
+  store_sync: "Синхронизация магазина"
 
   new: "Новый"
   upload: "Загрузить"
@@ -154,6 +155,10 @@ ru:
         index:    "индексировать страницу"
         follow:   "переходить по ссылкам"
     blocks:
+      form:
+          title:    "Название блока"
+          rte_type: "RTE тип (необязательно)"
+          container_tag: "HTML тег блока"
       index:
         header:   "Шаблоны"
         new:      "Создать шаблон"
@@ -179,7 +184,16 @@ ru:
       index:
         header:       "Настройки"
         site_name:    "Название сайта"
-        site_domain:  "Доменное имя сайта"
+        store_active: "Магазин"
+        store_sync:   "Синхронизация товаров и категорий"
+        sync:         "Синхронизировать"
+        xml_url:      "Ссылка на XML"
+        category_xpath: "xpath Категорий"
+        product_xpath: "xpath Товаров"
+        category_whitelist: "Белый список категорий (через \";\")"
+        category_blacklist: "Черный список категорий (через \";\")"
+        product_whitelist: "Белый список товаров (через \";\")"
+        product_blacklist: "Черный список товаров (через \";\")"
         favicon:      "Favicon"
         logo:         "Логотип сайта"
         site_header:  "Шапка сайта"
@@ -188,6 +202,7 @@ ru:
         head_tags:    "Перед закрывающим тегом </head>"
         body_tags:    "Перед закрывающим тегом </body>"
         save:         "Сохранить изменения"
+        product_template: "Шаблон для товаров"
       update:
         success:  "Настройки успешно сохранены"
         fail:     "Ошибка при сохранении настроек"
@@ -240,6 +255,47 @@ ru:
         slug:     "Slug"
         type:     "Категория для"
         submit:   "Сохранить"
+    products:
+      index:
+        header: "Товары"
+        new:      "Создать товар"
+        title:    "Название"
+        slug:     "Slug товара"
+        category: "Категория"
+        created:  "Создан"
+        updated:  "Последнее изменение"
+      new:
+        header:   "Создать товар"
+      edit:
+        header:   "Редактировать товар"
+      show:
+      product:
+        nocategory: "Без категории"
+        show:     "Показать"
+        edit:     "Редактировать"
+        delete:   "Удалить"
+      create:
+        success:  "Товар успешно создан"
+        fail:     "Ошибка при создании товара"
+      update:
+        success:  "Товар успешно обновлён"
+        fail:     "Ошибка при обновлении товара"
+      destroy:
+        success:  "Товар удалён"
+      form:
+        title:    "Название товара"
+        slug:     "Slug товара"
+        category: "Категория товара"
+        template: "Персональный шаблон"
+        og_title: "og title"
+        og_type:  "og type"
+        og_image: "og image url"
+        og_url:   "og url"
+        og_desc:  "og description"
+        save:     "Сохранить"
+    services:
+      sync:
+        success: 'Синхронизировано'
 
   rte:
     page_settings:      'Страница'
@@ -277,7 +333,10 @@ ru:
     helper:             'Имя хэлпера'
     attribute:          'Имя атрибута'
     model:              'Имя модели'
+    data:               'Путь к хэшу'
     title:              'Название блока'
     find_by:            'Выбрать по'
     key:                'Ключ'
     value:              'Значение'
+    language:           'Язык'
+    make_multilang:     'Сделать мультиязычным'

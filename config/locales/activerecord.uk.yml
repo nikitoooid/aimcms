@@ -1,0 +1,20 @@
+en:
+  activerecord:
+    models:
+      user:
+        one: Користувач
+        other: Користувачі
+      document: 
+        one: Файл
+        few: Файли
+        other: Файлів
+
+    attributes:
+      document:
+        title: "Назва"
+        description: "Опис файлу"
+        file: "Файл"
+
+    errors:
+      messages:
+        blank: "не може бути порожнім"

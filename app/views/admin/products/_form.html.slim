@@ -1,0 +1,57 @@
+= form_with model: [:admin, @product] do |f|
+  .mb-2
+    = f.label :title, t('.title'), class: "mb-1"
+    = f.text_field :title, class: "result_title form-control", required: true
+  .mb-2
+    = f.label :slug, t('.slug'), class: "mb-1"
+    = f.text_field :slug, class: "result_path form-control"
+  .mb-2
+    = f.label :product_category_id, t('.category'), class: "mb-1"
+    = f.collection_select :product_category_id, ProductCategory.order(:title), :id, :title, {include_blank: true}, {class: "form-select mb-2"}
+  
+  hr.mb-2
+
+  .mb-2
+    = f.label :description, t('.description'), class: "mb-1"
+    = f.text_area :description, class: "form-control"
+
+  .mb-2
+    = f.label :price, t('.price'), class: "mb-1"
+    = f.number_field :price, class: "form-control"
+
+  .mb-2
+    = f.label :currency, t('.currency'), class: "mb-1"
+    = f.text_field :currency, class: "form-control"
+
+  div class="form-check mb-3"
+    = f.check_box :available, class: 'form-check-input'
+    = f.label :available, t('.available'), class: 'form-check-label'
+  
+  hr.mb-2
+
+  .mb-2
+        = f.label :template_id, t('.template'), class: 'form-label'
+        = f.collection_select :template_id,
+                              Block.where(is_system: true).order(:title), :id, :title,
+                              {include_blank: true}, {class: "form-select"}
+
+  hr class="mb-2"
+  
+  div class="mb-2"
+    = f.label :og_title, t('.og_title'), class: "mb-1"
+    = f.text_field :og_title, class: "form-control"
+  div class="mb-2"
+    = f.label :og_type, t('.og_type'), class: "mb-1"
+    = f.text_field :og_type, class: "form-control"
+  div class="mb-2"
+    = f.label :og_image, t('.og_image'), class: "mb-1"
+    = f.text_field :og_image, class: "form-control", data: { target: 'ogimage'}
+  div class="mb-2"
+    = f.label :og_url, t('.og_url'), class: "mb-1"
+    = f.text_field :og_url, class: "form-control"
+  div class="mb-2"
+    = f.label :og_description, t('.og_desc'), class: "mb-1"
+    = f.text_area :og_description, class: "form-control"
+  
+  .mb-3
+        = f.submit t('.save'), class: 'btn btn-sm btn-primary'

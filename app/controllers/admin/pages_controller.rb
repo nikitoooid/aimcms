@@ -1,8 +1,6 @@
 class Admin::PagesController < Admin::MainController
 
   before_action :set_page, only: [:show, :edit, :update, :destroy]
-
-  rescue_from ActiveRecord::RecordNotFound, with: :rescue_with_page_not_found
   
   def index
     @pages = Page.order(id: :asc)
@@ -48,15 +46,13 @@ class Admin::PagesController < Admin::MainController
   end
 
   def page_params
-    params.require(:page).permit([
+    result = params.require(:page).permit([
       :title, :slug, { style_ids: [] }, :content, :description,
       :og_title, :og_type, :og_image, :og_url, :og_description,
       :index, :follow, :page_category_id
     ])
-  end
-
-  def rescue_with_page_not_found
-    redirect_to admin_pages_path, flash: { danger: t('not_found', item: Page.model_name.human(count: 10) ) } 
+    result[:content] = ActiveSupport::JSON.decode(result[:content]) if !result[:content].nil? && result[:content].is_a?(String)
+    result
   end
     
 end

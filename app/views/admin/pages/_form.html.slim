@@ -1,7 +1,8 @@
 javascript:
-  var page = #{@page.content.nil? ? "{blocks:[]}".html_safe : @page.content.html_safe}
+  var page = #{@page.content.nil? ? "{blocks:[]}".html_safe : prepare_content(@page.content)}
   var loc = #{rte_localization}
   var block_templates = #{Block.json_list.html_safe}
+  var language = "#{I18n.locale}"
 
 = @page.style_content
 
@@ -40,13 +41,12 @@ div class="content rte rte_editor"
   div class="mb-2"
     = f.label :og_description, t('.og_desc'), class: "mb-1"
     = f.text_area :og_description, class: "form-control"
-  div class=""
-    div class="form-check mb-1"
-      = f.check_box :index, class: 'form-check-input'
-      = f.label :index, 'index page', class: 'form-check-label'
-    div class="form-check"
-      = f.check_box :follow, class: 'form-check-input'
-      = f.label :follow, 'follow page', class: 'form-check-label'
+  div class="form-check mb-1"
+    = f.check_box :index, class: 'form-check-input'
+    = f.label :index, 'index page', class: 'form-check-label'
+  div class="form-check"
+    = f.check_box :follow, class: 'form-check-input'
+    = f.label :follow, 'follow page', class: 'form-check-label'
 
   = f.text_area :content, class: 'result_content'
   = f.submit 'submit', class: 'rte_submit'

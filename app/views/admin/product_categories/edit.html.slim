@@ -1,0 +1,7 @@
+div class="content p-2 pt-3"
+  .container-fluid
+    h1 = t('admin.categories.edit.header')
+    hr
+
+    / = render 'form', form_url: admin_category_path
+    = render 'form'

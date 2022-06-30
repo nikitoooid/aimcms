@@ -36,7 +36,7 @@ class Document < ApplicationRecord
           Rails.application.routes.url_helpers.rails_blob_path(
             doc.file.variant(resize_to_limit: [110,nil]), only_path: true
           ) if doc.is_image?),
-        desc: doc.description
+        category: (doc.category.title unless doc.category.nil? )
       })
     end
 

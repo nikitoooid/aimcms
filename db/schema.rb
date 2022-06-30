@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_22_150242) do
+ActiveRecord::Schema[7.0].define(version: 2022_06_30_131554) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -50,6 +50,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_22_150242) do
     t.datetime "updated_at", null: false
     t.integer "block_category_id"
     t.boolean "is_system", default: false, null: false
+    t.string "rte_type"
+    t.string "container_tag"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -58,11 +60,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_22_150242) do
     t.datetime "updated_at", null: false
     t.string "slug", null: false
     t.string "type"
+    t.integer "category_id"
   end
 
   create_table "documents", force: :cascade do |t|
     t.string "title"
-    t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "document_category_id"
@@ -97,17 +99,39 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_22_150242) do
     t.string "slug", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "product_category_id"
+    t.integer "template_id"
+    t.string "picture_url"
+    t.text "description"
+    t.integer "price"
+    t.string "currency"
+    t.boolean "available", default: false, null: false
+    t.json "content"
+    t.string "og_title"
+    t.string "og_type"
+    t.string "og_image"
+    t.text "og_description"
+    t.string "og_url"
   end
 
   create_table "settings", force: :cascade do |t|
     t.string "site_name", default: "My new website", null: false
-    t.string "site_domain", default: "mynewwebsite.com", null: false
     t.text "head_tags"
     t.text "body_tags"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "header_id"
     t.integer "footer_id"
+    t.boolean "active_store", default: false, null: false
+    t.boolean "active_store_sync", default: false, null: false
+    t.integer "product_template_id"
+    t.string "xml_url"
+    t.string "category_xpath"
+    t.string "product_xpath"
+    t.text "category_whitelist"
+    t.text "category_blacklist"
+    t.text "product_whitelist"
+    t.text "product_blacklist"
   end
 
   create_table "styles", force: :cascade do |t|

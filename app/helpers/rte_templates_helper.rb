@@ -2,10 +2,11 @@ module RteTemplatesHelper
   # Helpers must be helper_name(block)
   # from RTE can be called helper_name or helper_name(block)
 
-  def rte_list(block)
-    return if block['blocks'].nil? || !block['blocks'].any? || block['params'].nil?
+  def rte_list(block, object = nil)
+    return if block_invalid?(block) || !Class.const_defined?(block['params']['model'].capitalize)
+    
+    model = Class.const_get(block['params']['model'].capitalize)
 
-    model = ApplicationRecord.descendants.select { |m| m.name == block['params']['model'].capitalize}.first
     model_objects = []
     
     if block['params']['find'].nil? || block['params']['find']['key'].nil? || block['params']['find']['value'].nil?
@@ -20,7 +21,44 @@ module RteTemplatesHelper
     end
 
     block['content'] = result.join
-    block['blocks'] = nil
-    create_block(block)
+    # block['blocks'] = nil
+    # create_block(block)
+    block['content']
+  end
+
+  def rte_table(block, object = nil)
+    return if block_invalid?(block) || object.nil? || block['params']['hash_path'].nil?
+
+    table_params = deep_attr(object, block['params']['hash_path'])
+    return if table_params.nil? || !table_params.is_a?(Array)
+
+    result = []
+    table_params.each do |table_param|
+      result.push( create_block(block['blocks'].first, table_param) ) if table_param['show'] || table_param['show'].nil?
+    end
+
+    block['content'] = result.join
+    block['content']
+  end
+
+  def rte_images(block, object = nil)
+    return if block_invalid?(block) || object.nil? || block['params']['hash_path'].nil?
+    
+    images = deep_attr(object, block['params']['hash_path'])
+    return if images.nil? || images.empty? || !images.is_a?(Array)
+    
+    result = []
+    images.each do |i|
+      result.push( create_block(block['blocks'].first, {'text' => i}) )
+    end
+
+    block['content'] = result.join
+    block['content']
+  end
+
+  private
+
+  def block_invalid?(block)
+    return true if block['blocks'].nil? || !block['blocks'].any? || block['params'].nil?
   end
 end

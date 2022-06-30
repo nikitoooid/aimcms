@@ -1,0 +1,22 @@
+div class="content p-2 pt-3"
+  .container-fluid
+
+    div class="d-flex align-items-center"
+      h1 style="margin-right: 1rem" #{t('.header')}
+      = link_to t('.new'), new_admin_product_path, class: 'btn btn-sm btn-dark', data: { turbo: false }
+
+    hr
+
+    div.table-responsive
+      table class="table"
+        thead
+          tr
+            th = t('.title')
+            th = t('.slug')
+            = content_tag :th, t('.category'), data: {sortby: 'category'}
+            th = t('.created')
+            th = t('.updated')
+        tbody
+          == render @products
+
+= javascript_import_module_tag "sorting"

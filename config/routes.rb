@@ -18,10 +18,15 @@ Rails.application.routes.draw do
     resources :settings, only: [:index, :update]
     resources :styles, only: [:index, :new, :create, :edit, :update, :destroy]
     resources :categories, only: [:index, :new, :create, :edit, :update, :destroy]
+    resources :products
+    resources :product_categories
+
+    get 'services/sync', to: 'services#sync_page'
+    post 'services/sync', to: 'services#sync'
   end
 
-  get '/catalog/:slug', to: 'products#show'
-  get '/category/:slug', to: 'categories#show'
+  get '/products/:slug', to: 'products#show'
+  get '/categories/:slug', to: 'products#show_category_items'
   get '/:slug', to: 'main#show'
 
 end
