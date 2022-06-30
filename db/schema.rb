@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_29_165247) do
+ActiveRecord::Schema[7.0].define(version: 2022_06_30_115506) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -105,6 +105,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_29_165247) do
     t.string "currency"
     t.boolean "available", default: false, null: false
     t.json "content"
+    t.string "og_title"
+    t.string "og_type"
+    t.string "og_image"
+    t.text "og_description"
+    t.string "og_url"
   end
 
   create_table "settings", force: :cascade do |t|

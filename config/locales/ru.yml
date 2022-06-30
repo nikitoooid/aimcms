@@ -283,7 +283,15 @@ ru:
         slug:     "Slug товара"
         category: "Категория товара"
         template: "Персональный шаблон"
+        og_title: "og title"
+        og_type:  "og type"
+        og_image: "og image url"
+        og_url:   "og url"
+        og_desc:  "og description"
         save:     "Сохранить"
+    services:
+      sync:
+        success: 'Синхронизировано'
 
   rte:
     page_settings:      'Страница'

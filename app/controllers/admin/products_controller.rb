@@ -47,7 +47,8 @@ class Admin::ProductsController < Admin::MainController
 
   def product_params
     result = params.require(:product).permit([:title, :slug, :product_category_id, :template_id,
-                                      :description, :available, :price, :currency, :picture_url, :content])
+                                      :description, :available, :price, :currency, :picture_url, :content,
+                                      :og_title, :og_type, :og_image, :og_url, :og_description])
     result[:content] = ActiveSupport::JSON.decode(result[:content]) if !result[:content].nil? && result[:content].is_a?(String)
     result
   end

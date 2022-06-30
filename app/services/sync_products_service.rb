@@ -72,13 +72,13 @@ class SyncProductsService
       category_id = pr.xpath('categoryId').text.to_i
       new_product = !Product.exists?(id)
       
-      next if @whitelist[:products].any? && !@whitelist[:products].include?(pr.text)
+      next if @whitelist[:products].any? && !@whitelist[:products].include?(pr.xpath('name').text)
       next if !accepted_categories.include?(category_id)
-      next if @blacklist[:products].any? && @blacklist[:products].include?(pr.text)
+      next if @blacklist[:products].any? && @blacklist[:products].include?(pr.xpath('name').text)
       next if !category_id.zero? && banned_categories.include?(category_id)
 
       product = new_product ? Product.new : Product.find(id)
-      product_content = new_product ? {'params' => []} : ActiveSupport::JSON.decode(product.content)
+      product_content = new_product ? {'params' => []} : ( product.content.is_a?(String) ? ActiveSupport::JSON.decode(product.content) : product.content )
 
       if new_product
         product.id = id
@@ -97,6 +97,7 @@ class SyncProductsService
         images.push(i.text)
       end
 
+      product.og_image = images.first
       product.picture_url = images.first
       product_content['images'] = images
 

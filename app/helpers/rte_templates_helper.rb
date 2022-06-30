@@ -38,8 +38,6 @@ module RteTemplatesHelper
     end
 
     block['content'] = result.join
-    # block['blocks'] = nil
-    # create_block(block)
     block['content']
   end
 
@@ -55,8 +53,6 @@ module RteTemplatesHelper
     end
 
     block['content'] = result.join
-    # block['blocks'] = nil
-    # create_block(block)
     block['content']
   end
 

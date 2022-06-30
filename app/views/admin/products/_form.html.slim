@@ -34,6 +34,24 @@
         = f.collection_select :template_id,
                               Block.where(is_system: true).order(:title), :id, :title,
                               {include_blank: true}, {class: "form-select"}
+
+  hr class="mb-2"
+  
+  div class="mb-2"
+    = f.label :og_title, t('.og_title'), class: "mb-1"
+    = f.text_field :og_title, class: "form-control"
+  div class="mb-2"
+    = f.label :og_type, t('.og_type'), class: "mb-1"
+    = f.text_field :og_type, class: "form-control"
+  div class="mb-2"
+    = f.label :og_image, t('.og_image'), class: "mb-1"
+    = f.text_field :og_image, class: "form-control", data: { target: 'ogimage'}
+  div class="mb-2"
+    = f.label :og_url, t('.og_url'), class: "mb-1"
+    = f.text_field :og_url, class: "form-control"
+  div class="mb-2"
+    = f.label :og_description, t('.og_desc'), class: "mb-1"
+    = f.text_area :og_description, class: "form-control"
   
   .mb-3
         = f.submit t('.save'), class: 'btn btn-sm btn-primary'

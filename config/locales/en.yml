@@ -199,7 +199,6 @@ en:
         body_tags:    "Before closing <body>"
         save:         "Save changes"
         product_template: "Default template for products"
-
       update:
         success:  "Settings successfully saved"
         fail:     "Settings updating failed"
@@ -284,7 +283,15 @@ en:
         slug:     "Product slug"
         category: "Category"
         template: "Custom template"
+        og_title: "og title"
+        og_type:  "og type"
+        og_image: "og image url"
+        og_url:   "og url"
+        og_desc:  "og description"
         save:     "Save"
+    services:
+      sync:
+        success: 'Syncronized'
 
   rte:
     page_settings:      'Page'
