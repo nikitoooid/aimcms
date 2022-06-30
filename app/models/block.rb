@@ -10,7 +10,7 @@ class Block < ApplicationRecord
 
     template['title'] = self.title
     template['block'] = self.container_tag
-    template['block'] = self.rte_type
+    template['rtype'] = self.rte_type
     template['template_name'] = self.template_name
     template['category'] = self.category.nil? ? t('admin.blocks.block.nocategory') : self.category.title
     

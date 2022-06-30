@@ -1318,6 +1318,7 @@ function getTemplateList(blocks) {
 }
 // формирует список (ul) блоков со всеми детьми
 function getBlocklist(blocks) {
+  
   let result = createBlock({ 'block':'ul', classlist: 'list-group mt-2' }, false)
 
   blocks.forEach ( b => {
@@ -1328,11 +1329,16 @@ function getBlocklist(blocks) {
       'content':`<span class="badge bg-dark">${b.block}</span>  ${(b.content ? b.content.slice(0, 22) : b.title) || loc.empty}`,
     }, false)
     
-    if (b.hasOwnProperty('blocks') && b['blocks'].length) {
+    let expander_btn = { block:'div', classlist: 'nbtn', data:{action: 'expander', target: b.block_name} }
+
+    if (b[language] && b[language]['blocks'] && b[language]['blocks'].length) {
       if(b.hasOwnProperty('expanded') && !b['expanded']) element.classList.add('unexpanded')
-      let expander_btn = { block:'div', classlist: 'nbtn', data:{action: 'expander', target: b.block_name} }
       element.prepend(createBlock(expander_btn, false))
-      element.appendChild(getBlocklist(b.blocks))
+      element.appendChild(getBlocklist(b[language]['blocks']))
+    } else if(b.hasOwnProperty('blocks') && b['blocks'].length){
+      if(b.hasOwnProperty('expanded') && !b['expanded']) element.classList.add('unexpanded')
+      element.prepend(createBlock(expander_btn, false))
+      element.appendChild(getBlocklist(b['blocks']))
     } else {
       if (b.hasOwnProperty('expanded') && !b['expanded']) b['expanded'] = true
     }
@@ -1513,8 +1519,12 @@ function createBlock(b, forRte = true) {
   }
 
   // наполняем блок дочерними блоками
-  if (b.hasOwnProperty('blocks')) {
-    b.blocks.forEach( block => {
+  if (b.hasOwnProperty(language)) {
+    b[language]['blocks'].forEach( block => {
+      element.appendChild(createBlock(block, forRte))
+    })
+  } else if (b.hasOwnProperty('blocks')) {
+    b['blocks'].forEach( block => {
       element.appendChild(createBlock(block, forRte))
     })
   }

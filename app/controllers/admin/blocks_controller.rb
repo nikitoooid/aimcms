@@ -49,7 +49,7 @@ class Admin::BlocksController < Admin::MainController
   end
 
   def block_params
-    params.require(:block).permit([:title, :template_name, :content, :block_category_id, :is_system])
+    params.require(:block).permit([:title, :template_name, :content, :block_category_id, :is_system, :container_tag, :rte_type])
   end
     
 end
