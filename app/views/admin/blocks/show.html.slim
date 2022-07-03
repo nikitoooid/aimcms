@@ -1,2 +1,4 @@
+- content_for :global_styles, @setting.style_content unless @setting.style.nil?
+
 .content
   = html_content @block
