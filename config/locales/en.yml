@@ -203,6 +203,7 @@ en:
         body_tags:    "Before closing <body>"
         save:         "Save changes"
         product_template: "Default template for products"
+        css:          "CSS for all pages"
       update:
         success:  "Settings successfully saved"
         fail:     "Settings updating failed"
