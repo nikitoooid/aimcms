@@ -340,3 +340,4 @@ en:
     value:              'Value'
     language:           'Language'
     make_multilang:     'Make multilang'
+    make_onelang:       'Make single lang'

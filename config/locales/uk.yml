@@ -340,3 +340,4 @@ uk:
     value:              'Значення'
     language:           'Мова'
     make_multilang:     'Зробити мультимовним'
+    make_onelang:       'Зробити одномовним'

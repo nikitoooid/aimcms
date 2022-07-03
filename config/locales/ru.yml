@@ -340,3 +340,4 @@ ru:
     value:              'Значение'
     language:           'Язык'
     make_multilang:     'Сделать мультиязычным'
+    make_onelang:       'Сделать одноязычным'
