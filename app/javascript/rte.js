@@ -636,6 +636,9 @@ function expander(btn) {
 function generateRte(control) {
   
   if(control.classList.contains('rte_editor')) {
+    // буфер обмена
+    if (!sessionStorage.getItem('block_buffer')) sessionStorage.setItem('block_buffer', '')
+    
     // сортируем шаблоны по категориям
     block_templates = sort_templates(block_templates)
 
@@ -903,6 +906,16 @@ document.addEventListener("DOMContentLoaded", function () {
   if (control) generateRte(control)
 })
 
+function block_buffer(block = null) {
+  if (block) {
+    sessionStorage.setItem('block_buffer', JSON.stringify(block))
+    return
+  }
+
+  let bb = sessionStorage.getItem('block_buffer')
+  if (bb && bb != '') return JSON.parse(bb)
+}
+
 function buttonsHandler(actions) {
 
   document.addEventListener('click', function(e){
@@ -928,15 +941,15 @@ function otherHandler(){
       if (ControlKeyCombo(event, 'KeyC')) copyBlock()
       // Crtrl+V
       if (ControlKeyCombo(event, 'KeyV')) {
-        if (window.blockbuffer) {
-          insertBlock(window.blockbuffer)
+        if (block_buffer()) {
+          insertBlock(block_buffer())
           renderPage()
         }
       }
       // Ctrl+X
       if (ControlKeyCombo(event, 'KeyX')) {
         copyBlock()
-        if (window.blockbuffer) removeBlock()
+        if (block_buffer()) removeBlock()
       }
       // DEL
       if (event.code == 'Delete') removeBlock()
@@ -1729,7 +1742,8 @@ function copyBlock(){
   let page_blocks = page.multilang ? page[language]['blocks'] : page['blocks']
   let block = page_blocks.getBlock('block_name',block_name,'blocks')
   
-  window.blockbuffer = Object.assign({}, block)
+  // window.blockbuffer = Object.assign({}, block)
+  block_buffer(block)
 }
 
 // имя активного блока
