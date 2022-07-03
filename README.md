@@ -10,7 +10,7 @@
 
 ## TODO
 ### Settings
-* none
+* Global styles
 ### RTE
 * Add filetype sorting to filemanager
 * Add file uploading to filemanager
@@ -30,13 +30,5 @@ Model: Document
 
 ## Localization
 * EN
-- Devise
-- Main#index (Admin)
-- Documents (Admin)
-- RTE
-
-* RU
-- Devise
-- Main#index (Admin)
-- Documents (Admin)
-- RTE
+* UK
+* rU

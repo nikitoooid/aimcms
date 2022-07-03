@@ -18,7 +18,7 @@ User.create(
 )
 
 #create category for Rails templates
-BlocckCategory.create({
+BlockCategory.create({
   title: 'Rails',
   slug: 'rails-templates'
 })
