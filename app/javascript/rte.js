@@ -1,3 +1,6 @@
+// Languages
+const langs = ['uk', 'en', 'ru']
+
 // forms library
 const rte_forms = [
   // default
@@ -596,6 +599,7 @@ const rte_actions = {
   'delete' : function() { removeBlock() },
   'expander' : expander,
   'make_multilang' : make_multilang,
+  'make_onelang' : make_onelang,
   //---------------------------
   'cde_apply': cdeApply,
   'cde_open_in' : cdeOpenIn,
@@ -609,7 +613,7 @@ const rte_actions = {
 
 // var current             // c каким типом ресурса сейчас работает редактор (страница/шаблон). Указывается в content.rte.data-type
 var paramsbuffer = {}   // буфер параметров формы
-var blockbuffer         // буфер для копирования блока
+// var blockbuffer         // буфер для копирования блока
 var newblockbuffer = {block: 'div', title: 'advanced block', template_name: 'advanced'}      // буфер нового блока
 
 function expander(btn) {
@@ -632,6 +636,9 @@ function expander(btn) {
 function generateRte(control) {
   
   if(control.classList.contains('rte_editor')) {
+    // буфер обмена
+    if (!sessionStorage.getItem('block_buffer')) sessionStorage.setItem('block_buffer', '')
+    
     // сортируем шаблоны по категориям
     block_templates = sort_templates(block_templates)
 
@@ -727,16 +734,29 @@ function generateRte(control) {
     initRedirectInput()
 
     // выбор языка
-    let sidebar_header = document.querySelector('.rte_sidebar .offcanvas-header')
-    if (page.multilang) add_multilang_select_in(sidebar_header)
-    else {
-      sidebar_header.appendChild(createBlock({
-        block: 'div',
-        classlist: 'btn btn-sm btn-dark',
-        data: {action: 'make_multilang'},
-        content: loc.make_multilang
-      },false))
-    }
+    add_multilang_select_in(document.querySelector('.rte_sidebar .offcanvas-header'))
+    if (!page.multilang) document.querySelector('#rte_page_tab').prepend(createBlock({
+                                                                  block: 'div',
+                                                                  classlist: 'btn btn-sm btn-dark w-100 text-warning',
+                                                                  data: {action: 'make_multilang', target: 'page'},
+                                                                  content: loc.make_multilang
+                                                                },false))
+    else document.querySelector('#rte_page_tab').prepend(createBlock({
+                                                                  block: 'div',
+                                                                  classlist: 'btn btn-sm w-100 btn-dark text-info',
+                                                                  data: {action: 'make_onelang', target: 'page'},
+                                                                  content: loc.make_onelang
+                                                                },false))
+
+    // if (page.multilang) add_multilang_select_in(sidebar_header)
+    // else {
+    //   sidebar_header.appendChild(createBlock({
+    //     block: 'div',
+    //     classlist: 'btn btn-sm btn-dark',
+    //     data: {action: 'make_multilang', target: 'page'},
+    //     content: loc.make_multilang
+    //   },false))
+    // }
 
     // отрисовка страницы
     renderPage()
@@ -767,31 +787,64 @@ function generateRte(control) {
 
 // сделать страницу/шаблон мультиязычными
 function make_multilang(object) {
-  page['multilang'] = true
-  add_multilang_select_in(object.parentElement)
-  object.remove()
-}
-function migrate_to_multilang(resource, langs) {
-  if (!resource['blocks']) return
+  if (!object || !object.dataset['target']) return
+
+  if (object.dataset['target'] == 'page') {
+    migrate_to_multilang(page, langs)
+    object.textContent = loc.make_onelang
+    object.dataset['action'] = 'make_onelang'
+    object.classList.remove('text-warning')
+    object.classList.add('text-info')
+    return
+  }
+
+  if (page['multilang']) return
+  let target = page['blocks'].getBlock('block_name', object.dataset['target'], 'blocks')
   
-  resource['multilang'] = true
+  if (target) migrate_to_multilang(target, langs)
+
+  renderPage()
+}
+function make_onelang(object) {
+  if (!object || !object.dataset['target']) return
+  
+  if(object.dataset['target'] == 'page') {
+    restore_to_current_lang(page)
+    object.textContent = loc.make_multilang
+    object.dataset['action'] = 'make_multilang'
+    object.classList.remove('text-info')
+    object.classList.add('text-warning')
+  }
+  else {
+    let page_blocks = page.multilang ? page[language]['blocks'] : page['blocks']
+    restore_to_current_lang(page_blocks.getBlock('block_name', object.dataset['target'], 'blocks'))
+  }
+  
+  renderPage()
+}
+
+function migrate_to_multilang(resource, langs) {
+  let newResource = Object.assign({}, resource)
 
   langs.forEach(l => {
-    if (!resource[l]) {
-      resource[l] = {}
-      resource[l]['blocks'] = resource['blocks']
-    }
+    if (!resource[l]) resource[l] = Object.assign({}, newResource)
   })
-  
-  delete resource['blocks']
+
+  if (resource['blocks']) delete resource['blocks']
+  resource['multilang'] = true
+}
+function restore_to_current_lang(resource) {
+  let newResource = Object.assign({}, resource)
+  for (let key in resource) delete resource[key]
+  for (let key in newResource[language]) resource[key] = newResource[language][key]
 }
 function add_multilang_select_in(object){
   // совместимость старой версии без мультиязычности и новой
-  migrate_to_multilang(page, ['uk', 'en', 'ru'])
+  // migrate_to_multilang(page, langs)
   // поле выбора языка
   object.appendChild(createBlock({
     block: 'select',
-    classlist: 'form-select form-select-sm language-select',
+    classlist: 'form-select w-100 form-select-sm language-select',
     blocks:[
       { block: 'option', value: 'uk', content: 'Українська'},
       { block: 'option', value: 'en', content: 'English'},
@@ -806,10 +859,10 @@ function add_multilang_select_in(object){
   langselect.addEventListener('change', function(){
     formSave()
     language = langselect.value
-    markBlock()
     renderPage()
   })
 }
+
 
 function generateFields(paste_selector = '#rte_page_tab', form_selector = '.rte_result_form') {
   
@@ -853,6 +906,16 @@ document.addEventListener("DOMContentLoaded", function () {
   if (control) generateRte(control)
 })
 
+function block_buffer(block = null) {
+  if (block) {
+    sessionStorage.setItem('block_buffer', JSON.stringify(block))
+    return
+  }
+
+  let bb = sessionStorage.getItem('block_buffer')
+  if (bb && bb != '') return JSON.parse(bb)
+}
+
 function buttonsHandler(actions) {
 
   document.addEventListener('click', function(e){
@@ -878,15 +941,15 @@ function otherHandler(){
       if (ControlKeyCombo(event, 'KeyC')) copyBlock()
       // Crtrl+V
       if (ControlKeyCombo(event, 'KeyV')) {
-        if (blockbuffer) {
-          insertBlock(blockbuffer)
+        if (block_buffer()) {
+          insertBlock(block_buffer())
           renderPage()
         }
       }
       // Ctrl+X
       if (ControlKeyCombo(event, 'KeyX')) {
         copyBlock()
-        if (blockbuffer) removeBlock()
+        if (block_buffer()) removeBlock()
       }
       // DEL
       if (event.code == 'Delete') removeBlock()
@@ -1326,7 +1389,7 @@ function getBlocklist(blocks) {
       'block':'li',
       'classlist':`list-group-item rte_bi`,
       'data':{'target': b.block_name},
-      'content':`<span class="badge bg-dark">${b.block}</span>  ${(b.content ? b.content.slice(0, 22) : b.title) || loc.empty}`,
+      'content':`<span class="badge bg-dark">${b.block}${b.multilang ? ' <span style="color:var(--bs-danger)">m</span>' : ''}</span>  ${(b.content ? (b.content[language] ? b.content[language].slice(0, 20) : b.content.slice(0, 22)) : b.title) || loc.empty}`,
     }, false)
     
     let expander_btn = { block:'div', classlist: 'nbtn', data:{action: 'expander', target: b.block_name} }
@@ -1381,6 +1444,9 @@ function getBlockSettings(block, blocklib = rte_forms) {
       console.log('This field has no target!')
   })
   form.addEventListener('change', formSave)
+
+  // при мультиязычной странице очищаем блок от его мультиязычных версий
+  if (page.multilang && block.multilang) restore_to_current_lang(block)
 }
 // формирует форму
 function getForm(template, block) {
@@ -1392,9 +1458,31 @@ function getForm(template, block) {
   
   if (block.blocks) paramsbuffer.blocks = block.blocks
 
+
+  // -------------------------------------------------
   let result = {'block' : 'div', 'blocks':[
-    { block: 'div', classlist: 'btn btn-sm btn-dark w-100 mb-2', data: {action: 'cde_open_in'}, content: loc.code}
+    { block: 'div', classlist: 'btn-group mb-2 w-100', blocks: [
+      { block: 'div', classlist: 'btn btn-sm btn-dark', data: {action: 'cde_open_in'}, content: loc.code}
+    ]}
   ]}
+
+  // добавляем кнопки настроек мультиязычности блока
+  if (!page.multilang) {
+    if (block.multilang) result.blocks[0].blocks.push({
+      block: 'div',
+      classlist: 'btn btn-sm btn-dark text-info',
+      data: {action: 'make_onelang', target: block.block_name},
+      content: loc.make_onelang
+    })
+    else result.blocks[0].blocks.push({
+      block: 'div',
+      classlist: 'btn btn-sm btn-dark text-warning',
+      data: {action: 'make_multilang', target: block.block_name},
+      content: loc.make_multilang
+    })
+  } 
+  // -------------------------------------------------
+
 
   // для каждой группы полей создаем аккордион
   template.forms.forEach( group => {
@@ -1434,8 +1522,9 @@ function getForm(template, block) {
   return createBlock(result, false)
 }
 // создает DOM блок (не дает ему имя)
-function createBlock(b, forRte = true) {
-   // создаем оболочку блока
+function createBlock(eb, forRte = true) {
+  let b = eb['multilang'] && eb[language] ? eb[language] : eb
+  // создаем оболочку блока
   let element = document.createElement(b.block)
 
   if (forRte) {
@@ -1455,11 +1544,11 @@ function createBlock(b, forRte = true) {
   if (b.hasOwnProperty('type')) element.setAttribute('type', b.type)
   if (b.hasOwnProperty('height')) element.height = b.height
   if (b.hasOwnProperty('width')) element.width = b.width
-  if (b.hasOwnProperty('content')) element.innerHTML = b.content
   if (b.hasOwnProperty('value')) element.value = b.value
   if (b.hasOwnProperty('alt')) element.alt = b.alt
   if (b.hasOwnProperty('action')) element.action = b.action
   if (b.hasOwnProperty('placeholder')) element.placeholder = b.placeholder
+  if (b.hasOwnProperty('content')) element.innerHTML = b['content']
   // autofocus
   // selected
   // autoplay
@@ -1519,11 +1608,12 @@ function createBlock(b, forRte = true) {
   }
 
   // наполняем блок дочерними блоками
-  if (b.hasOwnProperty(language)) {
-    b[language]['blocks'].forEach( block => {
-      element.appendChild(createBlock(block, forRte))
-    })
-  } else if (b.hasOwnProperty('blocks')) {
+  // if (b.hasOwnProperty(language)) {
+  //   b[language]['blocks'].forEach( block => {
+  //     element.appendChild(createBlock(block, forRte))
+  //   })
+  // } else 
+  if (b.hasOwnProperty('blocks')) {
     b['blocks'].forEach( block => {
       element.appendChild(createBlock(block, forRte))
     })
@@ -1577,9 +1667,23 @@ function set_bat(element, block, target) {
 }
 
 // возвращает вложенную переменную ( 'params.lol.kek' => block['params']['lol']['kek'])
-function multiTargetObjectParam(obj, target, value = null) {
+function multiTargetObjectParam(object, target, value = null) {
   let path = target.split('.')
   
+  let obj = object.multilang ? object[language] : object
+  //для цели "content" - особые условия (в соответствии с оссбенностями мультиязычности)
+  // if (target == 'content') {
+  //   if (value) {
+  //     if (obj.multilang) obj[language][target] = value
+  //     else obj[target] = value
+  //     return
+  //   }
+  //   else {
+  //     if (obj.multilang) return obj[language][target]
+  //     else return obj[target]
+  //   }
+  // }
+
   for(var i = 0; i < path.length - 1; i++) {
     if (!obj[path[i]]) obj[path[i]] = {}
     obj = obj[path[i]]
@@ -1638,7 +1742,8 @@ function copyBlock(){
   let page_blocks = page.multilang ? page[language]['blocks'] : page['blocks']
   let block = page_blocks.getBlock('block_name',block_name,'blocks')
   
-  blockbuffer = Object.assign({}, block)
+  // window.blockbuffer = Object.assign({}, block)
+  block_buffer(block)
 }
 
 // имя активного блока
@@ -1704,17 +1809,18 @@ function formSave(){
 // -------- очень системные ----------------------------------
 
 // поиск блока по значению ключа (включая вложенные в массив sk)
-Array.prototype.getBlock = function ( k, v=null, sk = null) {
+Array.prototype.getBlock = function ( k, v=null, sk = '') {
   if(!v) return v
 
   let result = this.find(e => e[k] == v)
   if(result) return result
 
-  if(sk) {
-    this.forEach( b => {
-      if(!result && b.hasOwnProperty(sk)) result = b[sk].getBlock(k,v,sk)
-    })
-  }
+  this.forEach( b => {
+    if(!result) {
+      if (b[sk]) result = b[sk].getBlock(k,v,sk)
+      else if (b['multilang'] && b[language] && b[language][sk]) result = b[language][sk].getBlock(k,v,sk)
+    }
+  })
 
   return result
 }

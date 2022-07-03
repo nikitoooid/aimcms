@@ -1,3 +1,4 @@
+- content_for :global_styles, @setting.style_content unless @setting.style.nil?
 - content_for :page_styles, @page.style_content if @page.styles.any?
 
 .content
