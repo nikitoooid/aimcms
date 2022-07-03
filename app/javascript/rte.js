@@ -1,3 +1,6 @@
+// Languages
+const langs = ['uk', 'en', 'ru']
+
 // forms library
 const rte_forms = [
   // default
@@ -596,6 +599,7 @@ const rte_actions = {
   'delete' : function() { removeBlock() },
   'expander' : expander,
   'make_multilang' : make_multilang,
+  'make_multilang_block' : make_multilang_block,
   //---------------------------
   'cde_apply': cdeApply,
   'cde_open_in' : cdeOpenIn,
@@ -727,16 +731,17 @@ function generateRte(control) {
     initRedirectInput()
 
     // выбор языка
-    let sidebar_header = document.querySelector('.rte_sidebar .offcanvas-header')
-    if (page.multilang) add_multilang_select_in(sidebar_header)
-    else {
-      sidebar_header.appendChild(createBlock({
-        block: 'div',
-        classlist: 'btn btn-sm btn-dark',
-        data: {action: 'make_multilang'},
-        content: loc.make_multilang
-      },false))
-    }
+    add_multilang_select_in(document.querySelector('.rte_sidebar .offcanvas-header'))
+    
+    // if (page.multilang) add_multilang_select_in(sidebar_header)
+    // else {
+    //   sidebar_header.appendChild(createBlock({
+    //     block: 'div',
+    //     classlist: 'btn btn-sm btn-dark',
+    //     data: {action: 'make_multilang', target: 'page'},
+    //     content: loc.make_multilang
+    //   },false))
+    // }
 
     // отрисовка страницы
     renderPage()
@@ -767,10 +772,21 @@ function generateRte(control) {
 
 // сделать страницу/шаблон мультиязычными
 function make_multilang(object) {
-  page['multilang'] = true
-  add_multilang_select_in(object.parentElement)
-  object.remove()
+  let targetString = object.dataset['target']
+  if (!targetString) return
+
+  if (targetString == 'page') {
+    page['multilang'] = true
+    migrate_to_multilang(page, langs)
+    object.remove()
+    return
+  }
+  
+
+  // add_multilang_select_in(object.parentElement)
+  
 }
+
 function migrate_to_multilang(resource, langs) {
   if (!resource['blocks']) return
   
@@ -787,7 +803,7 @@ function migrate_to_multilang(resource, langs) {
 }
 function add_multilang_select_in(object){
   // совместимость старой версии без мультиязычности и новой
-  migrate_to_multilang(page, ['uk', 'en', 'ru'])
+  // migrate_to_multilang(page, langs)
   // поле выбора языка
   object.appendChild(createBlock({
     block: 'select',
@@ -1326,7 +1342,7 @@ function getBlocklist(blocks) {
       'block':'li',
       'classlist':`list-group-item rte_bi`,
       'data':{'target': b.block_name},
-      'content':`<span class="badge bg-dark">${b.block}</span>  ${(b.content ? b.content.slice(0, 22) : b.title) || loc.empty}`,
+      'content':`<span class="badge bg-dark">${b.block}${b.multilang ? ' <span style="color:var(--bg-pink)">m</span>' : ''}</span>  ${(b.content ? b.content.slice(0, 22) : b.title) || loc.empty}`,
     }, false)
     
     let expander_btn = { block:'div', classlist: 'nbtn', data:{action: 'expander', target: b.block_name} }
