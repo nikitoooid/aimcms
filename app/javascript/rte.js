@@ -507,7 +507,14 @@ const rte_forms = [
             classlist: 'form-control',
             placeholder: loc.value,
             data: {target: 'params.find.value'}
-          }
+          },
+          {
+            block: 'input',
+            type: 'text',
+            classlist: 'form-control',
+            placeholder: 'limit',
+            data: {target: 'params.limit'}
+          },
         ]
       },
       {
