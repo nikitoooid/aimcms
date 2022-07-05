@@ -1,1 +1,6 @@
+- content_for :title, @product.title
+- content_for :page_meta, page_meta_tags(@product, meta: ['description'],
+                og: ['og:title', 'og:image', 'og:type', 'og:description', 'og:url'])
+- content_for :global_styles, @setting.style_content unless @setting.style.nil?
+
 = html_content @product, @product.template.nil? ? @setting.product_template.content : @product.template.content

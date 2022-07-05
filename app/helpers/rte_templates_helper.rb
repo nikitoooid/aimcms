@@ -14,6 +14,8 @@ module RteTemplatesHelper
     else
       model_objects = model.where(block['params']['find']['key'] => block['params']['find']['value']) unless block['params']['find']['key'].nil? && block['params']['find']['value'].nil?
     end
+
+    model_objects = model_objects.limit(block['params']['limit'].to_i) unless block['params']['limit'].nil? && block['params']['limit'].to_i.zero?
     result = []
     
     model_objects.each do |model_object|
@@ -21,8 +23,6 @@ module RteTemplatesHelper
     end
 
     block['content'] = result.join
-    # block['blocks'] = nil
-    # create_block(block)
     block['content']
   end
 
