@@ -17,14 +17,14 @@ module ApplicationHelper
     
     if params[:meta]
       params[:meta].each do |t|
-        result.push(tag :meta, name: t, content: resource[t]) unless resource[t].empty?
+        result.push(tag :meta, name: t, content: resource[t]) unless resource[t].nil? || resource[t].empty?
       end
     end
 
     if params[:og]
       params[:og].each do |t|
         attribute = t.gsub(':','_')
-        result.push(tag :meta, property: t, content: resource[attribute]) unless resource[attribute].empty?
+        result.push(tag :meta, property: t, content: resource[attribute]) unless resource[attribute].nil? || resource[attribute].empty?
       end
     end
 
