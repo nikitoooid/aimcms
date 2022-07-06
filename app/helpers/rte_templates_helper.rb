@@ -5,7 +5,7 @@ module RteTemplatesHelper
   def rte_list(block, object = nil)
     return if block_invalid?(block) || !Class.const_defined?(block['params']['model'].capitalize)
     
-    model = Class.const_get(block['params']['model'].capitalize)
+    model = Class.const_get(block['params']['model'])
 
     model_objects = []
     
