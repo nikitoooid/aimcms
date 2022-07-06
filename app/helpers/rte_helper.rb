@@ -19,7 +19,10 @@ module RteHelper
     object = obj
 
     subpaths.each do |path|
+      attribute_command_result = attribute_commands_processor(obj, path)
+      return attribute_command_result unless attribute_command_result.nil?
       return nil if object[path].nil?
+      
       object = object[path]
     end
     
@@ -77,5 +80,20 @@ module RteHelper
 
   def prepare_json(content)
    content.is_a?(String) ? ActiveSupport::JSON.decode(content) : content
+  end
+
+  def attribute_commands_processor(object, command)
+    return unless command.first == "[" && command.last == "]"
+
+    subcommands = command[1..-1].split('|')
+    result = []
+
+    subcommands.each do |sc|
+      result.push(sc[1..-1]) if sc.first == '"' && sc.last == '"'
+
+      result.push(object[sc]) unless object[sc].nil?
+    end
+
+    return result.join if result.any?
   end
 end
