@@ -1,8 +1,10 @@
 div class="sidebar_front d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="height: 100vh; position: fixed"
   
   a href="#{ root_path }" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none"
-    = image_tag(@setting.logo, style: 'height: 32px', class: 'me-2') if @setting.logo.attached?
-    span class="fs-4" = @setting.site_name
+    - if @setting.logo.attached?
+      = image_tag(@setting.logo, style: 'height: 32px', class: 'me-2')
+    - else
+      span class="fs-4" = @setting.site_name
   
   hr
 
