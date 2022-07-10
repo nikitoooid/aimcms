@@ -6,7 +6,7 @@ const rte_ft = {
   // RTE
   title: { label: loc.title, classlist: 'mb-3', input: 'input', type: 'text', target: 'title' },
   block_name: { 'label': loc.block_name, classlist: 'mb-3', 'input': 'input', type: 'text', target: 'block_name' },
-  template: templatelist(rte_forms),
+  template: templatelist(),
 
   rte_type: { block: 'select', classlist: 'form-select form-select-sm mb-3', data: { target: 'rtype' }, blocks:[{ block: 'option', value: 'helper', content: 'helper' },{ block: 'option', value: 'attribute', content: 'attribute' }]},
   helper: { label: loc.helper, classlist: 'mb-3', input: 'input', type: 'text', target: 'helper' },
@@ -241,7 +241,7 @@ const rte_forms = [
   },
 ]
 
-function templatelist(forms) {
+function templatelist() {
   let form = {
     block: 'select',
     classlist: 'form-select form-select-sm',
@@ -249,7 +249,7 @@ function templatelist(forms) {
     blocks: [{ block: 'option', content: loc.template}]
   }
   
-  forms.forEach(f => {
+  rte_forms.forEach(f => {
     form.blocks.push({
       block: 'option',
       value: f['template_name'],
