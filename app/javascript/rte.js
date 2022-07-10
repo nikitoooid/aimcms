@@ -20,7 +20,7 @@ const rte_ft = {
   h_href: { label: 'For block href', input: 'input', type: 'text', target: 'params.attribute.href'},
   // Default
   id: { 'label': loc.id, classlist: 'mb-3', 'input': 'input', type: 'text', target: 'id' },
-  class: { 'label': loc.classes, classlist: 'mb-3', 'input': 'textarea', target: classlist },
+  class: { 'label': loc.classes, classlist: 'mb-3', 'input': 'textarea', target: 'classlist' },
   content: { 'label': loc.content, classlist: 'mb-3', 'input': 'textarea', type: 'text', target: 'content' },
   styles: { 'label': loc.styles, classlist: 'mb-3', 'input': 'textarea', target: 'style' },
   tag: { 'label': loc.tag, classlist: 'mb-3', 'input': 'input', type: 'text', target: 'block' },
