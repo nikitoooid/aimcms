@@ -6,7 +6,7 @@ const rte_ft = {
   // RTE
   title: { label: loc.title, classlist: 'mb-3', input: 'input', type: 'text', target: 'title' },
   block_name: { 'label': loc.block_name, classlist: 'mb-3', 'input': 'input', type: 'text', target: 'block_name' },
-  template: templatelist(),
+  template: templatelist,
 
   rte_type: { block: 'select', classlist: 'form-select form-select-sm mb-3', data: { target: 'rtype' }, blocks:[{ block: 'option', value: 'helper', content: 'helper' },{ block: 'option', value: 'attribute', content: 'attribute' }]},
   helper: { label: loc.helper, classlist: 'mb-3', input: 'input', type: 'text', target: 'helper' },
