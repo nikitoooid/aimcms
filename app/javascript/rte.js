@@ -1291,7 +1291,10 @@ function createBlock(eb, forRte = true) {
 }
 
 // создает поле формы (json) !!! доработать механику создания блока !!!
-function createFormField(args, block){
+function createFormField(template, block){
+  let args
+  typeof (template) === "function" ? args = template() : args = template
+  
   let field = {}
   // если поле - блок, создаем блок
   if(args.hasOwnProperty('block')) {
