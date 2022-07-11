@@ -342,3 +342,4 @@ ru:
     language:           'Язык'
     make_multilang:     'Сделать мультиязычным'
     make_onelang:       'Сделать одноязычным'
+    texteditor:         'Открыть в текстовом редакторе'

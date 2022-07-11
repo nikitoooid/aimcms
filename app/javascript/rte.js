@@ -1,6 +1,6 @@
 // Languages
 const langs = ['uk', 'en', 'ru']
-
+var text_editor_object
 // RTE forms templates
 const rte_ft = {
   // RTE
@@ -15,18 +15,19 @@ const rte_ft = {
   attribute: { label: loc.attribute, classlist: 'mb-3', input: 'input', type: 'text', target: 'params.attribute' },
   find_by: { block: 'div', classlist: 'input-group mb-3', blocks: [{ block: 'input', type: 'text', classlist: 'form-control', placeholder: loc.key, data: {target: 'params.find.key'} },{ block: 'input', type: 'text', classlist: 'form-control', placeholder: loc.value, data: {target: 'params.find.value'} },{ block: 'input', type: 'text', classlist: 'form-control', placeholder: 'limit', data: {target: 'params.limit'} }]},
   order: { label: 'Order', classlist: 'mb-3', input: 'input', type: 'text', target: 'params.order', description: 'example: \'id DESC, title ASC\'' },
-  h_content: { label: 'For block content', input: 'input', type: 'text', target: 'params.attribute.content'},
-  h_src: { label: 'For block src', input: 'input', type: 'text', target: 'params.attribute.src'},
-  h_href: { label: 'For block href', input: 'input', type: 'text', target: 'params.attribute.href'},
+  h_content: { label: 'For block content', classlist: 'mb-3', input: 'input', type: 'text', target: 'params.attribute.content'},
+  h_src: { label: 'For block src', classlist: 'mb-3', input: 'input', type: 'text', target: 'params.attribute.src'},
+  h_href: { label: 'For block href', classlist: 'mb-3', input: 'input', type: 'text', target: 'params.attribute.href'},
   // Default
   id: { 'label': loc.id, classlist: 'mb-3', 'input': 'input', type: 'text', target: 'id' },
   class: { 'label': loc.classes, classlist: 'mb-3', 'input': 'textarea', target: 'classlist' },
   content: { 'label': loc.content, classlist: 'mb-3', 'input': 'textarea', type: 'text', target: 'content' },
   styles: { 'label': loc.styles, classlist: 'mb-3', 'input': 'textarea', target: 'style' },
   tag: { 'label': loc.tag, classlist: 'mb-3', 'input': 'input', type: 'text', target: 'block' },
-  text_tag: { block: 'select', classlist: 'form-select form-select-sm', data: { target: 'block' }, blocks:[ { block: 'option', content: loc.select}, { block: 'option', value: 'p', content: 'p'}, { block: 'option', value: 'h1', content: 'h1'}, { block: 'option', value: 'h2', content: 'h2'}, { block: 'option', value: 'h3', content: 'h3'}, { block: 'option', value: 'h4', content: 'h4'}, { block: 'option', value: 'h5', content: 'h5'}, { block: 'option', value: 'h6', content: 'h6'}, { block: 'option', value: 'span', content: 'span'}, { block: 'option', value: 'small', content: 'small'}, { block: 'option', value: 'strong', content: 'strong'}, { block: 'option', value: 'b', content: 'b'}, { block: 'option', value: 'em', content: 'em'}, { block: 'option', value: 'sup', content: 'sup'}, { block: 'option', value: 'sub', content: 'sub'}, { block: 'option', value: 'del', content: 'del'}, { block: 'option', value: 'ins', content: 'ins'}, { block: 'option', value: 'cite', content: 'cite'}, { block: 'option', value: 'hr', content: 'hr'} ] },
+  text_tag: { block: 'select', classlist: 'form-select form-select-sm mb-3', data: { target: 'block' }, blocks:[ { block: 'option', content: loc.select}, { block: 'option', value: 'p', content: 'p'}, { block: 'option', value: 'h1', content: 'h1'}, { block: 'option', value: 'h2', content: 'h2'}, { block: 'option', value: 'h3', content: 'h3'}, { block: 'option', value: 'h4', content: 'h4'}, { block: 'option', value: 'h5', content: 'h5'}, { block: 'option', value: 'h6', content: 'h6'}, { block: 'option', value: 'span', content: 'span'}, { block: 'option', value: 'small', content: 'small'}, { block: 'option', value: 'strong', content: 'strong'}, { block: 'option', value: 'b', content: 'b'}, { block: 'option', value: 'em', content: 'em'}, { block: 'option', value: 'sup', content: 'sup'}, { block: 'option', value: 'sub', content: 'sub'}, { block: 'option', value: 'del', content: 'del'}, { block: 'option', value: 'ins', content: 'ins'}, { block: 'option', value: 'cite', content: 'cite'}, { block: 'option', value: 'hr', content: 'hr'} ] },
   src: { 'label': loc.src, classlist: 'mb-3', 'input': 'input', type: 'text', target: 'src' },
   src_button: { block: 'div', classlist: 'btn btn-sm btn-primary mb-3 w-100', content: loc.select_ff, data: { action: 'fs', target: 'src'} },
+  content_button: { block: 'div', classlist: 'btn btn-sm btn-primary mb-3 w-100', content: loc.texteditor, data: { action: 'texteditor', target: 'content'} },
   href: { 'label': loc.href, classlist: 'mb-3', 'input': 'input', type: 'text', target: 'href' },
   alt: { 'label': loc.alt, classlist: 'mb-3', 'input': 'textarea', type: 'text', target: 'alt' },
   type: { 'label': loc.type, classlist: 'mb-3', 'input': 'input', type: 'text', target: 'value' },
@@ -56,6 +57,7 @@ const rte_forms = [
       rte_ft.class,
       { block: 'hr' , classlist: 'mb-3'},
       rte_ft.content,
+      rte_ft.content_button,
       rte_ft.styles,
       { title: 'Bootstrap', 'classlist': 'mt-3 mb-3', forms: [
         rte_ft.bs_target,
@@ -85,6 +87,7 @@ const rte_forms = [
       rte_ft.id,
       rte_ft.class,
       rte_ft.content,
+      rte_ft.content_button,
       rte_ft.styles,
       rte_ft.tag,
       {block: 'hr', classlist: 'mb-3'},
@@ -101,6 +104,7 @@ const rte_forms = [
       rte_ft.text_tag,
       rte_ft.class,
       rte_ft.content,
+      rte_ft.content_button,
       { block: 'hr' , classlist: 'mb-3'},
       rte_ft.id,
       rte_ft.styles
@@ -244,7 +248,7 @@ const rte_forms = [
 function templatelist() {
   let form = {
     block: 'select',
-    classlist: 'form-select form-select-sm',
+    classlist: 'form-select form-select-sm mb-3',
     data: { target: 'template_name' },
     blocks: [{ block: 'option', content: loc.template}]
   }
@@ -268,6 +272,9 @@ const rte_actions = {
   'expander' : expander,
   'make_multilang' : make_multilang,
   'make_onelang' : make_onelang,
+  'texteditor' : text_editor,
+  'texteditor_apply' : texteditor_apply,
+  'texteditor_close' : texteditor_close,
   //---------------------------
   'cde_apply': cdeApply,
   'cde_open_in' : cdeOpenIn,
@@ -298,6 +305,70 @@ function expander(btn) {
     json_target['expanded'] = true
     target.classList.remove('unexpanded')
   }
+}
+
+// ----------------------------------------
+function text_editor(el) {
+  if(!el.dataset['target']) return
+
+  let win = {
+    block: 'div',
+    classlist: 'rte_window',
+    blocks: [
+      {block: 'div', classlist: 'body', blocks: [{block: 'textarea', id: 'rte_textarea', content: paramsbuffer[el.dataset['target']] || ''}]},
+      {
+        block: 'div',
+        classlist: 'footer p-3',
+        blocks: [
+          {block:'div', classlist:'btn btn-sm btn-primary me-2', content: loc.apply, data: {target: el.dataset['target'], action: 'texteditor_apply'}},
+          {block:'div', classlist:'btn btn-sm btn-dark', content: loc.close, data: {action: 'texteditor_close'}}
+        ]
+      }
+    ]
+  }
+  document.querySelector('body').appendChild(createBlock(win, false))
+
+  text_editor_object = SUNEDITOR.create((document.getElementById('rte_textarea') || 'rte_textarea'),{
+    lang: SUNEDITOR_LANG[language],
+    height: '100%',
+    width: '100%',
+    showPathLabel : false,
+    buttonList : [
+      ['save','undo', 'redo', 'font', 'fontSize', 'formatBlock'],
+      ['bold', 'underline', 'italic', 'strike', 'subscript', 'superscript', 'removeFormat'],
+      ['fontColor', 'hiliteColor', 'outdent', 'indent', 'align', 'horizontalRule', 'list', 'table'],
+      ['link', 'image', 'video', 'fullScreen', 'showBlocks', 'codeView', 'preview']
+    ],
+    callBackSave: function (contents, isChanged) {
+      texteditor_apply(el, contents)
+    }
+  });
+}
+function texteditor_apply(el, contents=null){
+  let win = document.querySelector('.rte_window')
+  if (!win) return
+  
+  
+  let content = document.querySelector('.rte_window .sun-editor-editable')
+  if (!contents && content) contents = content.innerHTML
+  if (!contents && content) return
+
+  let f = document.querySelector(`.rte_sidebar [data-target='${el.dataset['target']}']`)
+  if(f && el.dataset['target'] != 'target') {
+    f.value = contents
+    paramsbuffer[el.dataset['target']] = contents
+  }
+
+  text_editor_object.destroy()
+  win.remove()
+  formSave()
+}
+function texteditor_close(el){
+  let win = document.querySelector('.rte_window')
+  if (!win) return
+
+  text_editor_object.destroy()
+  win.remove()
 }
 // ----------------------------------------
 
@@ -1307,7 +1378,7 @@ function createFormField(template, block){
     }
   }
   else {
-    field = {'block' : 'div', 'classlist':'mt-3', 'blocks':[]}
+    field = {'block' : 'div', 'classlist':'mb-3', 'blocks':[]}
 
     if (args.hasOwnProperty('label')) field.blocks.push({'block':'label','classlist':'form-label','content':args.label})
     if (args.hasOwnProperty('input')) {
