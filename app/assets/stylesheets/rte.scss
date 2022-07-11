@@ -191,6 +191,9 @@
 .cdewrapper {
   height: 100vh;
   width: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
 }
 .cdewrapper .cdeheader {
   padding: 0.5rem;
