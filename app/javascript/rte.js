@@ -315,7 +315,7 @@ function text_editor(el) {
     block: 'div',
     classlist: 'rte_window',
     blocks: [
-      {block: 'div', classlist: 'body', blocks: [{block: 'textarea', id: 'rte_textarea', content: paramsbuffer[el.dataset['target']] || ''}]},
+      {block: 'div', classlist: 'body', blocks: [{block: 'textarea', id: 'rte_textarea', content: multiTargetObjectParam(paramsbuffer, el.dataset['target']) || ''}]},
       {
         block: 'div',
         classlist: 'footer p-3',
@@ -356,7 +356,8 @@ function texteditor_apply(el, contents=null){
   let f = document.querySelector(`.rte_sidebar [data-target='${el.dataset['target']}']`)
   if(f && el.dataset['target'] != 'target') {
     f.value = contents
-    paramsbuffer[el.dataset['target']] = contents
+    multiTargetObjectParam(paramsbuffer, el.dataset['target'], contents)
+    // paramsbuffer[el.dataset['target']] = contents
   }
 
   text_editor_object.destroy()
