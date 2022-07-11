@@ -5,9 +5,12 @@ var text_editor_object
 const rte_ft = {
   // RTE
   title: { label: loc.title, classlist: 'mb-3', input: 'input', type: 'text', target: 'title' },
+  title_color: {block: 'div', classlist: 'mb-3', blocks: [
+    {block: 'label', content: loc.title, classlist: 'mb-2'},
+    { block: 'div', classlist: 'input-group', blocks:[ {block: 'input', type: 'text', classlist: 'form-control', data: {target: 'title'}, attributes: {placeholder: loc.title}, style:'width:60%'},{block: 'input', type: 'color', data: {action: 'color_picker', target: 'rte_color'}, classlist: 'nbtn form-control form-control-color'}]}
+  ]},
   block_name: { 'label': loc.block_name, classlist: 'mb-3', 'input': 'input', type: 'text', target: 'block_name' },
   template: templatelist,
-
   rte_type: { block: 'select', classlist: 'form-select form-select-sm mb-3', data: { target: 'rtype' }, blocks:[{ block: 'option', value: 'helper', content: 'helper' },{ block: 'option', value: 'attribute', content: 'attribute' }]},
   helper: { label: loc.helper, classlist: 'mb-3', input: 'input', type: 'text', target: 'helper' },
   model: { label: loc.model, classlist: 'mb-3', input: 'input', type: 'text', target: 'params.model', description: 'Not all helpers need this.' },
@@ -52,7 +55,7 @@ const rte_forms = [
   // default
   {
     template_name: 'default', forms: [
-      rte_ft.title,
+      rte_ft.title_color,
       rte_ft.id,
       rte_ft.class,
       { block: 'hr' , classlist: 'mb-3'},
@@ -80,6 +83,7 @@ const rte_forms = [
   // advanced
   {
     'template_name' : 'advanced', 'forms' : [
+      rte_ft.title_color,
       rte_ft.block_name,
       rte_ft.template,
       rte_ft.rte_type,
@@ -101,6 +105,7 @@ const rte_forms = [
   // text
   {
     template_name: 'text', forms: [
+      rte_ft.title_color,
       rte_ft.text_tag,
       rte_ft.class,
       rte_ft.content,
@@ -113,7 +118,7 @@ const rte_forms = [
   // container
   {
     template_name: 'container', forms: [
-      rte_ft.title,
+      rte_ft.title_color,
       rte_ft.id,
       rte_ft.class,
       { block: 'hr' , classlist: 'mb-3'},
@@ -132,7 +137,7 @@ const rte_forms = [
   // image
   {
     'template_name' : 'image', 'forms' : [
-      rte_ft.title,
+      rte_ft.title_color,
       rte_ft.id,
       rte_ft.class,
       { block: 'hr' , classlist: 'mb-3'},
@@ -145,6 +150,7 @@ const rte_forms = [
   // link
   {
     'template_name' : 'link', 'forms' : [
+      rte_ft.title_color,
       rte_ft.id,
       rte_ft.class,
       rte_ft.styles,
@@ -157,7 +163,7 @@ const rte_forms = [
   // advanced
   {
     template_name: 'rte_advanced_helper', forms: [
-      rte_ft.title,
+      rte_ft.title_color,
       rte_ft.block_name,
       rte_ft.id,
       rte_ft.class,
@@ -175,7 +181,7 @@ const rte_forms = [
   // helper
   {
     template_name: 'rte_helper', forms: [
-      rte_ft.title,
+      rte_ft.title_color,
       rte_ft.block_name,
       rte_ft.id,
       rte_ft.class,
@@ -193,7 +199,7 @@ const rte_forms = [
   // advanced attribute
   {
     template_name: 'advanced_attribute', forms: [
-      rte_ft.title,
+      rte_ft.title_color,
       rte_ft.block_name,
       rte_ft.id,
       rte_ft.class,
@@ -211,7 +217,7 @@ const rte_forms = [
   // other attributes
   {
     template_name: 'image_attribute', forms: [
-      rte_ft.title,
+      rte_ft.title_color,
       rte_ft.id,
       rte_ft.class,
       { block: 'hr' , classlist: 'mb-3'},
@@ -223,7 +229,7 @@ const rte_forms = [
   },
   {
     template_name: 'content_attribute', forms: [
-      rte_ft.title,
+      rte_ft.title_color,
       rte_ft.id,
       rte_ft.class,
       { block: 'hr' , classlist: 'mb-3'},
@@ -234,7 +240,7 @@ const rte_forms = [
   },
   {
     template_name: 'link_attribute', forms: [
-      rte_ft.title,
+      rte_ft.title_color,
       rte_ft.id,
       rte_ft.class,
       { block: 'hr' , classlist: 'mb-3'},
@@ -275,6 +281,8 @@ const rte_actions = {
   'texteditor' : text_editor,
   'texteditor_apply' : texteditor_apply,
   'texteditor_close' : texteditor_close,
+  'color_picker' : blocklist_color_picker,
+  'apply_color' : apply_blocklist_color,
   //---------------------------
   'cde_apply': cdeApply,
   'cde_open_in' : cdeOpenIn,
@@ -357,7 +365,6 @@ function texteditor_apply(el, contents=null){
   if(f && el.dataset['target'] != 'target') {
     f.value = contents
     multiTargetObjectParam(paramsbuffer, el.dataset['target'], contents)
-    // paramsbuffer[el.dataset['target']] = contents
   }
 
   text_editor_object.destroy()
@@ -660,10 +667,13 @@ function buttonsHandler(actions) {
 
   document.addEventListener('click', function(e){
     // слушаем функциональные кнопки
-    if (e.target.classList.contains('btn') || e.target.classList.contains('nbtn'))
-      if (e.target.dataset.hasOwnProperty('action'))
-        if (actions.hasOwnProperty(e.target.dataset.action))
-          actions[e.target.dataset.action](e.target)
+    if (e.target.classList.contains('btn') || e.target.classList.contains('nbtn')) {
+      if (e.target.dataset.hasOwnProperty('action') && actions.hasOwnProperty(e.target.dataset.action)) {
+        e.preventDefault()
+        actions[e.target.dataset.action](e.target)
+      }
+    }
+
     // снимаем маркировку блоков
     if (e.target.classList.contains('rte_control')) markBlock()
   })
@@ -1132,6 +1142,8 @@ function getBlocklist(blocks) {
       'content':`<span class="badge bg-dark">${b.block}${b.multilang ? ' <span style="color:var(--bs-danger)">m</span>' : ''}</span>  ${(b.content ? (b.content[language] ? b.content[language].slice(0, 20) : b.content.slice(0, 22)) : b.title) || loc.empty}`,
     }, false)
     
+    if (b['rte_color']) element.style['background'] = b['rte_color']
+
     let expander_btn = { block:'div', classlist: 'nbtn', data:{action: 'expander', target: b.block_name} }
 
     if (b[language] && b[language]['blocks'] && b[language]['blocks'].length) {
@@ -1147,7 +1159,7 @@ function getBlocklist(blocks) {
     }
     result.appendChild(element)
   })
-
+  
   return result
 }
 // формирует html страницу со всеми детьми
@@ -1347,12 +1359,6 @@ function createBlock(eb, forRte = true) {
     }
   }
 
-  // наполняем блок дочерними блоками
-  // if (b.hasOwnProperty(language)) {
-  //   b[language]['blocks'].forEach( block => {
-  //     element.appendChild(createBlock(block, forRte))
-  //   })
-  // } else 
   if (b.hasOwnProperty('blocks')) {
     b['blocks'].forEach( block => {
       element.appendChild(createBlock(block, forRte))
@@ -1667,4 +1673,39 @@ function reverseRedirectInput() {
     
     if (target) redirectInput(target, r)
   })
+}
+
+//
+function blocklist_color_picker(el, colors=null){
+  if (!colors || !colors.length) colors = ['#ffe100','#ff2121','#1289ff','#2fe927','#bb4eff']
+  let clone = document.querySelector('.rte_color_picker')
+  if (clone) clone.remove()
+
+  let color_blocks = []
+
+  let style = window.getComputedStyle(el, null)
+  let dimension = el.clientHeight - parseFloat(style.paddingTop) - parseFloat(style.paddingBottom)
+
+  colors.forEach(c => {
+    color_blocks.push({
+      block: 'div', classlist: 'nbtn color-item',
+      style: `margin-right: ${parseFloat(style.paddingTop)}px; height:${dimension}px; width: ${dimension}px; background: ${c}`,
+      data: {action:'apply_color', target: el.dataset['target'], value:c}
+    })
+  })
+
+  let color_picker = {block: 'div', classlist: 'rte_color_picker',
+    style:`width: ${el.offsetWidth}px; padding: ${parseFloat(style.paddingTop)}px 0 0 ${parseFloat(style.paddingTop)}px;`,
+    blocks: color_blocks
+  }
+
+  el.parentElement.appendChild(createBlock(color_picker, false))
+}
+
+function apply_blocklist_color(el) {
+  if (!el.dataset['target'] && !el.dataset['value']) return
+
+  multiTargetObjectParam(paramsbuffer, el.dataset['target'], el.dataset['value'])
+  document.querySelector('.rte_color_picker').remove()
+  formSave()
 }
