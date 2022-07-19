@@ -11,7 +11,7 @@ const rte_ft = {
   ]},
   block_name: { 'label': loc.block_name, classlist: 'mb-3', 'input': 'input', type: 'text', target: 'block_name' },
   template: templatelist,
-  rte_type: { block: 'select', classlist: 'form-select form-select-sm mb-3', data: { target: 'rtype' }, blocks:[{ block: 'option', value: 'helper', content: 'helper' },{ block: 'option', value: 'attribute', content: 'attribute' }]},
+  rte_type: { block: 'select', classlist: 'form-select form-select-sm mb-3', data: { target: 'rtype' }, blocks:[{ block: 'option', content: loc.choose, attributes: {selected:true, disabled:true} },{ block: 'option', value: 'helper', content: 'helper' },{ block: 'option', value: 'attribute', content: 'attribute' }]},
   helper: { label: loc.helper, classlist: 'mb-3', input: 'input', type: 'text', target: 'helper' },
   model: { label: loc.model, classlist: 'mb-3', input: 'input', type: 'text', target: 'params.model', description: 'Not all helpers need this.' },
   hash_path: { label: loc.data, classlist: 'mb-3', input: 'input', type: 'text', target: 'params.hash_path', description: 'Path to data of page model, that will be sent to helper as hash' },
@@ -27,7 +27,7 @@ const rte_ft = {
   content: { 'label': loc.content, classlist: 'mb-3', 'input': 'textarea', type: 'text', target: 'content' },
   styles: { 'label': loc.styles, classlist: 'mb-3', 'input': 'textarea', target: 'style' },
   tag: { 'label': loc.tag, classlist: 'mb-3', 'input': 'input', type: 'text', target: 'block' },
-  text_tag: { block: 'select', classlist: 'form-select form-select-sm mb-3', data: { target: 'block' }, blocks:[ { block: 'option', content: loc.select}, { block: 'option', value: 'p', content: 'p'}, { block: 'option', value: 'h1', content: 'h1'}, { block: 'option', value: 'h2', content: 'h2'}, { block: 'option', value: 'h3', content: 'h3'}, { block: 'option', value: 'h4', content: 'h4'}, { block: 'option', value: 'h5', content: 'h5'}, { block: 'option', value: 'h6', content: 'h6'}, { block: 'option', value: 'span', content: 'span'}, { block: 'option', value: 'small', content: 'small'}, { block: 'option', value: 'strong', content: 'strong'}, { block: 'option', value: 'b', content: 'b'}, { block: 'option', value: 'em', content: 'em'}, { block: 'option', value: 'sup', content: 'sup'}, { block: 'option', value: 'sub', content: 'sub'}, { block: 'option', value: 'del', content: 'del'}, { block: 'option', value: 'ins', content: 'ins'}, { block: 'option', value: 'cite', content: 'cite'}, { block: 'option', value: 'hr', content: 'hr'} ] },
+  text_tag: { block: 'select', classlist: 'form-select form-select-sm mb-3', data: { target: 'block' }, blocks:[ { block: 'option', content: loc.choose, attributes: {selected:true, disabled:true} }, { block: 'option', content: loc.select}, { block: 'option', value: 'p', content: 'p'}, { block: 'option', value: 'h1', content: 'h1'}, { block: 'option', value: 'h2', content: 'h2'}, { block: 'option', value: 'h3', content: 'h3'}, { block: 'option', value: 'h4', content: 'h4'}, { block: 'option', value: 'h5', content: 'h5'}, { block: 'option', value: 'h6', content: 'h6'}, { block: 'option', value: 'span', content: 'span'}, { block: 'option', value: 'small', content: 'small'}, { block: 'option', value: 'strong', content: 'strong'}, { block: 'option', value: 'b', content: 'b'}, { block: 'option', value: 'em', content: 'em'}, { block: 'option', value: 'sup', content: 'sup'}, { block: 'option', value: 'sub', content: 'sub'}, { block: 'option', value: 'del', content: 'del'}, { block: 'option', value: 'ins', content: 'ins'}, { block: 'option', value: 'cite', content: 'cite'}, { block: 'option', value: 'hr', content: 'hr'} ] },
   src: { 'label': loc.src, classlist: 'mb-3', 'input': 'input', type: 'text', target: 'src' },
   src_button: { block: 'div', classlist: 'btn btn-sm btn-primary mb-3 w-100', content: loc.select_ff, data: { action: 'fs', target: 'src'} },
   content_button: { block: 'div', classlist: 'btn btn-sm btn-primary mb-3 w-100', content: loc.texteditor, data: { action: 'texteditor', target: 'content'} },
@@ -127,6 +127,7 @@ const rte_forms = [
         classlist: 'form-select form-select-sm',
         data: { target: 'classlist' },
         blocks:[
+          { block: 'option', content: loc.choose, attributes: {selected:true, disabled:true} },
           { block: 'option', value: 'container', content: 'container'},
           { block: 'option', value: 'container-fluid', content: 'container-fluid'}
         ]
