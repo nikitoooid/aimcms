@@ -65,7 +65,7 @@
   left: 0;
   top: 0;
   border-radius: 1px;
-  width: .6em;
+  width: var(--expander-width);
   height: 100%;
   background: var(--bs-gray-300);
 }
@@ -78,6 +78,8 @@
 
 .rte_bi {
   position: relative;
+  padding-right: 1px;
+  padding-left: calc(var(--expander-width) + 2px);
 }
 
 .rte_bi.active {
