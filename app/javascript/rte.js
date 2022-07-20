@@ -233,6 +233,7 @@ const rte_forms = [
       rte_ft.title_color,
       rte_ft.id,
       rte_ft.class,
+      rte_ft.tag,
       { block: 'hr' , classlist: 'mb-3'},
       rte_ft.h_content,
       {block: 'hr'},
