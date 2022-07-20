@@ -19,7 +19,7 @@ module RteTemplatesHelper
     model_objects = get_objects_of(model, block['params'])
     
     model_objects.each do |object|
-      model_objects += object.children unless object.children.nil? && object.children.empty?
+      model_objects += object.children if model.reflect_on_association(:children) && object.children.any?
     end
     # result = []
     
