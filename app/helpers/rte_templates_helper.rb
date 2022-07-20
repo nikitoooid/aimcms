@@ -18,9 +18,9 @@ module RteTemplatesHelper
     # model_objects = model_objects.limit(block['params']['limit'].to_i) unless block['params']['limit'].nil? && block['params']['limit'].to_i.zero?
     model_objects = get_objects_of(model, block['params'])
     
-    model_objects.each do |object|
-      model_objects += object.children if model.reflect_on_association(:children) && object.children.any?
-    end
+    # model_objects.each do |object|
+    #   model_objects += object.children if model.reflect_on_association(:children) && object.children.any?
+    # end
     # result = []
     
     # model_objects.each do |model_object|
@@ -30,6 +30,24 @@ module RteTemplatesHelper
     # block['content'] = result.join
 
     block['content'] = get_html_blocks(model_objects, block['blocks'].first)
+    block['content']
+  end
+
+  def rte_category_products_list(block, object = nil)
+    return if block_invalid?(block) || !Class.const_defined?(block['params']['model'].capitalize)
+    
+    model = Class.const_get(block['params']['model'])
+
+    model_objects = get_objects_of(model, block['params'])
+    
+    items = []
+    
+    model_objects.each do |object|
+      model_objects += object.children if model.reflect_on_association(:children) && object.children.any?
+      items += object.items if model.reflect_on_association(:items) && object.items.any?
+    end
+
+    block['content'] = get_html_blocks(items, block['blocks'].first)
     block['content']
   end
 
