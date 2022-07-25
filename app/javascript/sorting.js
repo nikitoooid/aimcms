@@ -1,5 +1,5 @@
 document.addEventListener('change', (event) => {
-  if (event.target.id === 'admin_page') {
+  if (event.target.id === 'admin-page') {
     init_sorting('active', 'hidden')
   }
 })
