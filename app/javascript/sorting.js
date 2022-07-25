@@ -1,6 +1,11 @@
-document.addEventListener("DOMContentLoaded", function(){
-  init_sorting('active', 'hidden')
+document.addEventListener('change', (event) => {
+  if (event.target.id === 'admin_page') {
+    init_sorting('active', 'hidden')
+  }
 })
+// document.addEventListener("DOMContentLoaded", function(){
+//   init_sorting('active', 'hidden')
+// })
 
 // управляющий элемент data-sortby="xxxx", элемент сортировки: data-xxxx="yyyy". Скрывает объекты путем класса hide_class
 function init_sorting(active_class, hide_class){
