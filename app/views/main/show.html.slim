@@ -1,3 +1,6 @@
+- content_for :head_tags, @setting.head_tags unless @setting.head_tags.nil?
+- content_for :body_tags, @setting.body_tags unless @setting.body_tags.nil?
+
 - content_for :title, @page.title
 - content_for :page_meta, page_meta_tags(@page, meta: ['description'],
                 og: ['og:title', 'og:image', 'og:type', 'og:description', 'og:url'])

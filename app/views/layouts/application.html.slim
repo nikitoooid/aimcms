@@ -5,6 +5,8 @@
   doctype html
   html
     head
+      = yield :head_tags if content_for?(:head_tags)
+
       title = content_for?(:title) ? yield(:title) : @setting.site_name
 
       = meta_favicon
@@ -31,3 +33,5 @@
       == yield
 
       == render 'shared/footer'
+
+      = yield :body_tags if content_for?(:body_tags)
