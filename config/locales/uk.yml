@@ -114,10 +114,10 @@ uk:
         delete:     "Видалити користувача"
         confirm:    "Вы впевнені?"
       update:
-        success:    "Данные користувача обновлены"
-        fail:       "Помилка при оновленні данных користувача"
+        success:    "Дані користувача оновлені"
+        fail:       "Помилка при оновленні даних користувача"
       destroy:
-        success:    "Пользователь видалено."
+        success:    "Користувача видалено."
 
     pages:
       index:
@@ -152,20 +152,20 @@ uk:
         og_image: "og image url"
         og_url:   "og url"
         og_desc:  "og description"
-        index:    "индексировать сторінку"
+        index:    "індексувати сторінку"
         follow:   "переходити за посиланнями"
     blocks:
       form:
-          title:    "Назва блока"
-          rte_type: "RTE тип (необязательно)"
-          container_tag: "HTML тег блока"
+          title:    "Назва блоку"
+          rte_type: "RTE тип (не обов'язково)"
+          container_tag: "HTML тег блоку"
       index:
-        header:   "Шаблоны"
+        header:   "Шаблони"
         new:      "Створити шаблон"
         title:    "Назва"
-        desc:     "Тип шаблона"
+        desc:     "Тип шаблону"
         category: "Категорія"
-        system:   "Системные шаблоны"
+        system:   "Системні шаблони"
       block:
         nocategory: "Без категорії"
         show:     "Переглянути"
@@ -209,8 +209,8 @@ uk:
         fail:     "Помилка при сохранении настроек"
     styles:
       index:
-        header:   "Пользовательские стили"
-        new:      "Нова таблиця стилей"
+        header:   "Користувацькі стилі"
+        new:      "Нова таблиця стилів"
       style:
         open:     "Відкрити"
         delete:   "Видалити"
@@ -227,19 +227,19 @@ uk:
         success:  "Стиль видалено"
     categories:
       index:
-        header:   "Категории"
-        new:      "Створити категорию"
+        header:   "Категорії"
+        new:      "Створити категорію"
         title:    "Назва"
         slug:     "Slug"
-        created:  "Создано"
-        updated:  "Обновлено"
-        type_page:      "Категории страниц"
-        type_block:     "Категории шаблонов"
-        type_document:  "Категории файлов"
+        created:  "Створено"
+        updated:  "Оновлено"
+        type_page:      "Категорії сторінок"
+        type_block:     "Категорії шаблонів"
+        type_document:  "Категорії файлів"
       new:
-        header:   "Нова категория"
+        header:   "Нова категорія"
       edit:
-        header:   "Редагувати категорию"
+        header:   "Редагувати категорію"
       category:
         edit:     "Редагувати"
         delete:   "Видалити"
@@ -314,7 +314,7 @@ uk:
     blocklist:          'Список блоків'
     code_header:        'Редактор CODE'
     templates:          'Шаблони'
-    main_settings:      'Основные параметри'
+    main_settings:      'Основні параметри'
     block_name:         "Ім'я блоку"
     id:                 'Id блоку'
     classes:            'Css класи'
@@ -331,7 +331,7 @@ uk:
     select_ff:          'Обрати файл'
     nocategory:         "Без категорії"
 
-    helper:             "Ім'я хелпера"
+    helper:             "Ім'я хелперу"
     attribute:          "Ім'я атрибуту"
     model:              "Ім'я моделі"
     data:               'Шлях до хешу'
@@ -342,3 +342,6 @@ uk:
     language:           'Мова'
     make_multilang:     'Зробити мультимовним'
     make_onelang:       'Зробити одномовним'
+    texteditor:         'Відкрити в текстовому редакторі'
+    choose:             'Обрати'
+    

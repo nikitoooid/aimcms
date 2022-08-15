@@ -1,5 +1,7 @@
-document.addEventListener("DOMContentLoaded", function(){
-  init_sorting('active', 'hidden')
+document.addEventListener("click", function(){
+  let control = document.querySelector('[data-sortby]')
+  let prepared_control = document.querySelector('.sort_list')
+  if (control && !prepared_control) init_sorting('active', 'hidden')
 })
 
 // управляющий элемент data-sortby="xxxx", элемент сортировки: data-xxxx="yyyy". Скрывает объекты путем класса hide_class

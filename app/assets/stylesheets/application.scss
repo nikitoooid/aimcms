@@ -5,6 +5,7 @@
 
 :root {
   --sidebarWidth: 300px;
+  --expander-width: 8px;
 }
 
 .hide, .hidden { display: none; }
@@ -18,7 +19,7 @@
 }
 
 .flash {
-  position: absolute;
+  position: fixed;
   right: 2em;
   bottom: 1em;
 

@@ -7,22 +7,32 @@ module RteTemplatesHelper
     
     model = Class.const_get(block['params']['model'])
 
-    model_objects = []
+    model_objects = get_objects_of(model, block['params'])
+
+    block['content'] = get_html_blocks(model_objects, block['blocks'].first)
+    block['content']
+  end
+
+  def rte_category_products_list(block, object = nil)
+    return if block_invalid?(block) || !Class.const_defined?(block['params']['model'].capitalize)
     
-    if block['params']['find'].nil? || block['params']['find']['key'].nil? || block['params']['find']['value'].nil?
-      model_objects = block['params']['order'].nil? ? model.all : model.order(block['params']['order'])
-    else
-      model_objects = model.where(block['params']['find']['key'] => block['params']['find']['value']) unless block['params']['find']['key'].nil? && block['params']['find']['value'].nil?
+    model = Class.const_get(block['params']['model'])
+
+    model_objects = get_objects_of(model, block['params'])
+    children_objects = []
+    
+    model_objects.each do |object|
+      children_objects += get_children_of(object) if model.reflect_on_association(:children)
     end
 
-    model_objects = model_objects.limit(block['params']['limit'].to_i) unless block['params']['limit'].nil? && block['params']['limit'].to_i.zero?
-    result = []
+    model_objects += children_objects
     
-    model_objects.each do |model_object|
-      result.push( create_block(block['blocks'].first, model_object) )
+    items = []
+    model_objects.each do |object|
+      items += object.items if !object.items.nil? && object.items.any?
     end
 
-    block['content'] = result.join
+    block['content'] = get_html_blocks(items, block['blocks'].first)
     block['content']
   end
 
@@ -57,6 +67,42 @@ module RteTemplatesHelper
   end
 
   private
+
+  def get_children_of(object)
+    return [] if object.children.nil? || object.children.empty?
+    
+    children = object.children
+    sub_children = []
+
+    children.each { |c| sub_children += get_children_of(c) }
+
+    children + sub_children
+  end
+
+  def get_objects_of(model, params)
+    model_objects = []
+    
+    if params['find'].nil? || params['find']['key'].nil? || params['find']['value'].nil?
+      model_objects = params['order'].nil? ? model.all : model.order(params['order'])
+    else
+      model_objects = model.where(params['find']['key'] => params['find']['value']) unless params['find']['key'].nil? && params['find']['value'].nil?
+    end
+
+    model_objects = model_objects.limit(params['limit'].to_i) unless params['limit'].nil? && params['limit'].to_i.zero?
+    model_objects
+  end
+
+  def get_html_blocks(objects, template=nil)
+    return if template.nil?
+
+    result = []
+    
+    objects.each do |object|
+      result.push( create_block(template, object) )
+    end
+
+    result.join
+  end
 
   def block_invalid?(block)
     return true if block['blocks'].nil? || !block['blocks'].any? || block['params'].nil?

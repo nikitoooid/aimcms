@@ -18,12 +18,12 @@ module RteHelper
     subpaths = path.split(".")
     object = obj
 
-    subpaths.each do |path|
-      attribute_command_result = attribute_commands_processor(obj, path)
+    subpaths.each do |sp|
+      attribute_command_result = attribute_commands_processor(obj, sp)
       return attribute_command_result unless attribute_command_result.nil?
-      return nil if object[path].nil?
+      return nil if object[sp].nil?
       
-      object = object[path]
+      object = object[sp]
     end
     
     object unless object.nil? || object.empty?
@@ -52,12 +52,7 @@ module RteHelper
   end
 
   def rte_helper(block, model=nil)
-    p ''
-    p ''
-    p 'RTE Helper'
     return if block['helper'].nil?
-    p block['helper']
-    p ''
     if block['params'].nil?
       ApplicationController.helpers.try(block['helper'], nil, model)
     else
@@ -84,14 +79,15 @@ module RteHelper
 
   def attribute_commands_processor(object, command)
     return unless command.first == "[" && command.last == "]"
-
-    subcommands = command[1..-1].split('|')
+    subcommands = command[1..-2].split('|')
     result = []
 
     subcommands.each do |sc|
-      result.push(sc[1..-1]) if sc.first == '"' && sc.last == '"'
-
-      result.push(object[sc]) unless object[sc].nil?
+      if sc.first == '"' && sc.last == '"'
+        result.push(sc[1..-2])
+      elsif !object[sc].nil? 
+        result.push(object[sc])
+      end
     end
 
     return result.join if result.any?

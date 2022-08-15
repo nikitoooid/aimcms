@@ -27,6 +27,7 @@ Rails.application.routes.draw do
 
   get '/products/:slug', to: 'products#show'
   get '/categories/:slug', to: 'products#show_category_items'
+  get '/sitemap', to: 'main#sitemap'
   get '/:slug', to: 'main#show'
 
 end
