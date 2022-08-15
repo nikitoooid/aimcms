@@ -1,12 +1,3 @@
-// document.addEventListener('change', (event) => {
-//   if (event.target.id === 'admin-page') {
-//     init_sorting('active', 'hidden')
-//   }
-// })
-// document.addEventListener("DOMContentLoaded", function(){
-//   init_sorting('active', 'hidden')
-// })
-
 document.addEventListener("click", function(){
   let control = document.querySelector('[data-sortby]')
   let prepared_control = document.querySelector('.sort_list')
