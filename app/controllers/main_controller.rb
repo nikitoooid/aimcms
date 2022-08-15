@@ -10,4 +10,9 @@ class MainController < ApplicationController
     render :show
   end
 
+  def sitemap
+    @pages = Page.all
+    @products = Product.all
+  end
+
 end
