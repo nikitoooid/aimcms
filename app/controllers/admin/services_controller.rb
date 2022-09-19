@@ -31,4 +31,12 @@ class Admin::ServicesController < Admin::MainController
     end
   end
 
+  def join_page
+    render :join
+  end
+
+  def join
+    JoinOffersService.new('http://src.ktg.in.ua/price/yml_catalog.xml').call
+  end
+
 end

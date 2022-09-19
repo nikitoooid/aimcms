@@ -23,6 +23,8 @@ Rails.application.routes.draw do
 
     get 'services/sync', to: 'services#sync_page'
     post 'services/sync', to: 'services#sync'
+    # get 'services/join', to: 'services#join_page'
+    get 'services/join', to: 'services#join'
   end
 
   get '/products/:slug', to: 'products#show'
