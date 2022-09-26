@@ -36,7 +36,9 @@ class Admin::ServicesController < Admin::MainController
   end
 
   def join
-    JoinOffersService.new('http://src.ktg.in.ua/price/yml_catalog.xml').call
+    @errors = JoinOffersService.new('https://b2b.ktg.in.ua/data/yml_catalog.xml').call
+
+    render :xml => @errors
   end
 
 end
