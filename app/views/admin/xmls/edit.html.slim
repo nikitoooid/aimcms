@@ -1,0 +1,10 @@
+
+div class="content p-2 pt-3"
+  .container-fluid
+
+    div class="d-flex align-items-center"
+      h1 style="margin-right: 1rem" #{t('.header')} #{@xml.title}
+      span.text-muted = @xml.active? ? t('.formed') : t('.unformed')
+    hr
+
+    == render 'form'

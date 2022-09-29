@@ -204,6 +204,7 @@ ru:
         save:         "Сохранить изменения"
         product_template: "Шаблон для товаров"
         css:          "CSS для всего сайта"
+        xml_joiner:   "Функции XML объеденителя"
       update:
         success:  "Настройки успешно сохранены"
         fail:     "Ошибка при сохранении настроек"
@@ -297,6 +298,51 @@ ru:
     services:
       sync:
         success: 'Синхронизировано'
+    xmls:
+      index:
+        header:         "Файлы XML синхронизации"
+        created:        "Создан"
+        updated:        "Обновлён"
+        status:         "Статус"
+        slug:           "Slug файла"
+      new:
+        header:         "Новый XML файл"
+      edit:
+        header:         "Редактировать XML файл"
+        formed:         "готов к использованию"
+        unformed:       "не сформирован"
+      create:
+        success:        "XML файл успешно создан"
+        fail:           "Ошибка создания XML файла"
+      update:
+        success:        "XML файл успешно обновлён"
+        fail:           "Ошибка обновления XML файла"
+      destroy:
+        success:        "XML файл удалён"
+      form:
+        title:          "Название файла"
+        slug:           "Slug файла"
+        pairs:          "Пары для объединения"
+        indoor:         "Внутренний блок"
+        outdoor:        "Внешний блок"
+        custom_name:    "Название пары"
+        offer_path:     "Offer path"
+        search_by:      "Искать по"
+        remove_nodes:   "Не добавлять в пару следующие ноды"
+        rewrite_nodes:  "Перезаписать нодами внешнего блока"
+        join_nodes:     "Объеденить ноды (через \"/\")"
+        add_nodes:      "Переместить ноды внешнего блока"
+        submit:         "Сохранить"
+        star:           "читайте документацию Nokogiri"
+        url:            "Ссылка на XML файл"
+        skip_unpaired:  "Исключить из файла позиции, которых нет в списке пар"
+      xml:
+        formed:         "готов к использованию"
+        unformed:       "не сформирован"
+        show:           "Показать как XML"
+        edit:           "Открыть"
+        delete:         "Удалить"
+        execute:        "Выполнить сейчас"
 
   rte:
     page_settings:      'Страница'

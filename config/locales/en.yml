@@ -204,6 +204,7 @@ en:
         save:         "Save changes"
         product_template: "Default template for products"
         css:          "CSS for all pages"
+        xml_joiner:   "XML joiner features"
       update:
         success:  "Settings successfully saved"
         fail:     "Settings updating failed"
@@ -297,6 +298,51 @@ en:
     services:
       sync:
         success: 'Syncronized'
+    xmls:
+      index:
+        header:         "XML sync files"
+        created:        "Created"
+        updated:        "Updated"
+        status:         "Status"
+        slug:           "File slug"
+      new:
+        header:         "New XML file"
+      edit:
+        header:         "Edit"
+        formed:         "ready to use"
+        unformed:       "not formed"
+      create:
+        success:        "XML file successfully created"
+        fail:           "XML file creating error"
+      update:
+        success:        "XML file successfully upated"
+        fail:           "XML file updating error"
+      destroy:
+        success:        "XML file deleted"
+      form:
+        title:          "File title"
+        slug:           "File slug"
+        pairs:          "Unit pairs"
+        indoor:         "Indoor unit"
+        outdoor:        "Outdoor unit"
+        custom_name:    "Custom name"
+        offer_path:     "Offer path"
+        search_by:      "Search by"
+        remove_nodes:   "Remove nodes"
+        rewrite_nodes:  "Rewrite nodes"
+        join_nodes:     "Join nodes"
+        add_nodes:      "Add nodes"
+        submit:         "Save"
+        star:           "read Nokogiri documentation"
+        url:            "URL to XML file"
+        skip_unpaired:  "Skip unlisted offers"
+      xml:
+        formed:         "ready to use"
+        unformed:       "not formed"
+        show:           "Show"
+        edit:           "Edit"
+        delete:         "Delete"
+        execute:        "Execute now"
 
   rte:
     page_settings:      'Page'

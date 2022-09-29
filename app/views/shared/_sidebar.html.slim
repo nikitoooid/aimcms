@@ -21,7 +21,10 @@ div class="sidebar_front d-flex flex-column flex-shrink-0 p-3 text-white bg-dark
         = sidebar_item t('admin.categories.index.header'), admin_product_categories_path, 'tags'
         - if @setting.active_store_sync
           = sidebar_item t('store_sync'), admin_services_sync_path, 'arrow-repeat'
-
+    - if @setting.xml_joiner
+      hr
+        = sidebar_item t('admin.xmls.index.header'), admin_xmls_path, 'filetype-xml'
+        = sidebar_item t('admin.xmls.new.header'), new_admin_xml_path, 'plus-square'
     hr
     = sidebar_item t('admin.users.index.header'), admin_users_path, 'people'
     = sidebar_item t('admin.styles.index.header'), admin_styles_path, 'filetype-css'

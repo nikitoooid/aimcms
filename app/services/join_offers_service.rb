@@ -6,20 +6,7 @@ class JoinOffersService
 
   def initialize(source_url, params = {})
     @source_url = source_url
-    # @params = params
-    @params = {
-      "pairs" => {
-        'SIE-035SHDC' => {"name" => 'SOE-035VHDC', "custom_name" => "Кондиціонер SIE/SOE-035SHDC"},
-        'SIE-025SHDC' => {"name" => 'SOE-025VHDC', "custom_name" => "Кондиціонер SIE/SOE-025SHDC"},
-        'SIE-050SHDC' => {"name" => 'SOE-050VHDC', "custom_name" => "Кондиціонер SIE/SOE-050SHDC"}
-      },
-      offer_xpath: "//offer",
-      search_by: "name",
-      remove_nodes: "param[@name='Электропитание, В/Ф/Гц']",
-      rewrite_nodes: "description",
-      join_nodes: "param[@name='Вес нетто, кг']",
-      add_nodes: "url;picture;param[@name='Компрессор'];param[@name='Расстояние между лапами, мм']"
-    }
+    @params = params
     @error_messsages = []
   end
 
@@ -30,8 +17,8 @@ class JoinOffersService
     joined = 0
 
     # create array of joined elements
-    return nil if (@params['pairs'].nil? || @params['pairs'].empty?)
-    @params['pairs'].each do |target, support|
+    return nil if (@params.pairs.nil? || @params.pairs.empty?)
+    @params.pairs.each do |target, support|
       next if (support.nil? || support.empty?)
       
       xml_target = get_offer(target)
@@ -42,6 +29,8 @@ class JoinOffersService
       #суммировать цену
       xml_target.xpath('price')[0].content = xml_target.xpath('price')[0].content.to_f + xml_support.xpath('price')[0].content.to_f
       #доступность
+
+      #удаление лишних позиций
 
       join_successful = remove_nodes(xml_target, @params[:remove_nodes]) &&
                         rewrite_nodes(xml_target, xml_support, @params[:rewrite_nodes]) &&
@@ -60,8 +49,6 @@ class JoinOffersService
     end
 
     @xml_document
-
-    # save xml as public file (???) if join_successful
   end
 
   private

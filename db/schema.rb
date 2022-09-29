@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_03_195329) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_29_143850) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -133,6 +133,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_03_195329) do
     t.text "product_whitelist"
     t.text "product_blacklist"
     t.integer "style_id"
+    t.boolean "xml_joiner", default: false
   end
 
   create_table "styles", force: :cascade do |t|
@@ -167,6 +168,23 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_03_195329) do
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["type"], name: "index_users_on_type"
+  end
+
+  create_table "xmls", force: :cascade do |t|
+    t.string "title", null: false
+    t.boolean "is_formed", default: false
+    t.string "slug", null: false
+    t.json "pairs"
+    t.string "offer_path"
+    t.string "search_by"
+    t.string "remove_nodes"
+    t.string "rewrite_nodes"
+    t.string "join_nodes"
+    t.string "add_nodes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "url"
+    t.boolean "skip_unpaired", default: false, null: false
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"

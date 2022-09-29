@@ -1,0 +1,25 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  is_formed: false
+  slug: MyString
+  pairs: 
+  offer_path: MyString
+  search_by: MyString
+  remove_nodes: MyString
+  rewrite_nodes: MyString
+  join_nodes: MyString
+  add_nodes: MyString
+
+two:
+  title: MyString
+  is_formed: false
+  slug: MyString
+  pairs: 
+  offer_path: MyString
+  search_by: MyString
+  remove_nodes: MyString
+  rewrite_nodes: MyString
+  join_nodes: MyString
+  add_nodes: MyString
