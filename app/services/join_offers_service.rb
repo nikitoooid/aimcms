@@ -5,19 +5,29 @@ class JoinOffersService
   attr_reader :xml_document
 
   def initialize(source_url, params = {})
+    p
+    p
+    p 'JOINSERVICE'
+    p '--- params:'
+    p source_url
+    p params
     @source_url = source_url
     @params = params
     @error_messsages = []
   end
 
   def call
+    p '--- call'
     # open xml
+    p '--- open file'
     return nil unless set_xml_document(@source_url)
     join_successful = false
     joined = 0
 
     # create array of joined elements
+    p '--- params pairs checking'
     return nil if (@params.pairs.nil? || @params.pairs.empty?)
+    p '--- pairs works'
     @params.pairs.each do |target, support|
       next if (support.nil? || support.empty?)
       
@@ -54,7 +64,7 @@ class JoinOffersService
   private
 
   def set_xml_document(source_url)
-    @xml_document = Nokogiri::XML(open(source_url))
+    @xml_document = Nokogiri::XML(URI.open(source_url))
     @error_messsages.push("XML not found by url: #{@source_url}") if @xml_document.nil?
     @xml_document.nil? ? false : true
   end

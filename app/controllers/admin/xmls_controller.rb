@@ -47,7 +47,7 @@ class Admin::XmlsController < Admin::MainController
   end
 
   def join
-    if @xml.join
+    if @xml.join && @xml.save
       redirect_to admin_xmls_path, flash: { success: t('.success') }
     else
       redirect_to admin_xmls_path, flash: { danger: t('.fail') }
@@ -57,12 +57,15 @@ class Admin::XmlsController < Admin::MainController
   private
 
   def xml_params
-    formatted_params = params.require(:xml).permit(:title, :is_formed, :slug, :xml_url,
-                                :pairs, :offer_path, :search_by, :remove_nodes,
-                                :rewrite_nodes, :join_nodes, :add_nodes)
+    # formatted_params = params.require(:xml).permit(:title, :is_formed, :slug, :url,
+    #                             :pairs, :offer_path, :search_by, :remove_nodes,
+    #                             :rewrite_nodes, :join_nodes, :add_nodes, :skip_unpaired)
 
-    formatted_params[:pairs] = JSON.parse(formatted_params[:pairs]) unless formatted_params[:pairs].empty?
-    formatted_params
+    # formatted_params[:pairs] = JSON.parse(formatted_params[:pairs]) unless formatted_params[:pairs].empty?
+    # formatted_params
+    params.require(:xml).permit(:title, :is_formed, :slug, :url,
+                                :pairs, :offer_path, :search_by, :remove_nodes,
+                                :rewrite_nodes, :join_nodes, :add_nodes, :skip_unpaired)
   end
 
   def set_xml

@@ -6,7 +6,7 @@ tr
   td.text-muted = xml.updated_at.strftime("%d.%m.%Y %H:%M:%S")
   td
     div class="d-flex justify-content-end"
-      = link_to t('.execute'), "admin/services/join/#{xml.id}", data: {'turbo-method' => :post}, class: 'btn btn-sm btn-primary me-2'
+      = link_to t('.execute'), "/admin/services/join/#{xml.id}", data: {'turbo-method' => :post}, class: 'btn btn-sm btn-primary me-2'
       = link_to t('.show'), admin_xml_path(xml), class: 'btn btn-sm btn-dark me-2'
       = link_to t('.edit'), edit_admin_xml_path(xml), class: 'btn btn-sm btn-dark me-2', data: { turbo: false }
       = link_to t('.delete'), admin_xml_path(xml), data: {'turbo-method' => :delete}, class: 'btn btn-sm btn-danger'
