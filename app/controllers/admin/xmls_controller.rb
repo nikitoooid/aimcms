@@ -7,7 +7,7 @@ class Admin::XmlsController < Admin::MainController
   end
 
   def show
-    render :xml => @xml.xml_content
+    render xml: @xml.xml_content.download
   end
 
   def new
@@ -47,10 +47,20 @@ class Admin::XmlsController < Admin::MainController
   end
 
   def join
-    if @xml.join && @xml.save
-      redirect_to admin_xmls_path, flash: { success: t('.success') }
+    result = JoinOffersService.new(@xml.url,{
+      pairs:          @xml.pairs,
+      offer_xpath:    @xml.offer_path,
+      search_by:      @xml.search_by,
+      remove_nodes:   @xml.remove_nodes,
+      rewrite_nodes:  @xml.rewrite_nodes,
+      join_nodes:     @xml.join_nodes,
+      add_nodes:      @xml.add_nodes
+    }).call
+
+    if result[:status] == :success && @xml.append_xml(result[:body].first)
+      redirect_to admin_xmls_path, flash: { success: "#{t('.success')}\n#{result[:headers][:errors].join("\n")}" }
     else
-      redirect_to admin_xmls_path, flash: { danger: t('.fail') }
+      redirect_to admin_xmls_path, flash: { danger: "#{t('.fail')}\n#{result[:headers][:errors].join("\n")}" }
     end
   end
 

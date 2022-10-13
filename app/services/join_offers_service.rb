@@ -5,30 +5,31 @@ class JoinOffersService
   attr_reader :xml_document
 
   def initialize(source_url, params = {})
-    p
-    p
-    p 'JOINSERVICE'
-    p '--- params:'
-    p source_url
-    p params
     @source_url = source_url
     @params = params
     @error_messsages = []
   end
 
   def call
-    p '--- call'
-    # open xml
-    p '--- open file'
-    return nil unless set_xml_document(@source_url)
+    status = :success
+
+    unless set_xml_document(@source_url)
+      status = :error
+      @error_messsages.push("Error, when setting XML document from #{@source_url}")
+    end
+
     join_successful = false
     joined = 0
 
     # create array of joined elements
-    p '--- params pairs checking'
-    return nil if (@params.pairs.nil? || @params.pairs.empty?)
-    p '--- pairs works'
-    @params.pairs.each do |target, support|
+    if (@params[:pairs].nil? || @params[:pairs].empty?)
+      status = :error
+      @error_messsages.push("Pairs creating failed")
+    else
+      @params[:pairs] = JSON.parse(@params[:pairs]) if @params[:pairs].is_a?(String)
+    end
+
+    @params[:pairs].each do |target, support|
       next if (support.nil? || support.empty?)
       
       xml_target = get_offer(target)
@@ -48,17 +49,17 @@ class JoinOffersService
                         add_nodes(xml_target, xml_support, @params[:add_nodes])
 
       if join_successful
-        p("DONE: #{target} join successful")
         xml_support.remove 
       else
-        p "ERROR: #{target} join unsuccessful"
         @error_messsages.push("ERROR: #{target} join unsuccessful")
       end
+    end if status == :success
 
-      joined += 1 if join_successful
-    end
-
-    @xml_document
+    return {
+      status: status,
+      headers: {errors: @error_messsages},
+      body: [@xml_document]
+    }
   end
 
   private
