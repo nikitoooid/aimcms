@@ -343,6 +343,9 @@ en:
         edit:           "Edit"
         delete:         "Delete"
         execute:        "Execute now"
+      join:
+        success:        "XML successfully joined"
+        fail:           "XML joining error"
 
   rte:
     page_settings:      'Page'

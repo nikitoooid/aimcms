@@ -343,6 +343,9 @@ ru:
         edit:           "Открыть"
         delete:         "Удалить"
         execute:        "Выполнить сейчас"
+      join:
+        success:        "XML успешно обработан"
+        fail:           "Ошибка при обработке xml файла"
 
   rte:
     page_settings:      'Страница'

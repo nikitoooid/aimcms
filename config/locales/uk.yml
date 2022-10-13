@@ -343,6 +343,9 @@ uk:
         edit:           "Переглянути"
         delete:         "Видалити"
         execute:        "Виконати зараз"
+      join:
+        success:        "XML успішно опрацьований"
+        fail:           "Помилка при опрацюванні xml файлу"
 
   rte:
     page_settings:      'Сторінка'
