@@ -37,11 +37,10 @@ class JoinOffersService
       next if (xml_target.empty? || xml_support.empty?)
 
       xml_target.xpath('name')[0].content = target['support']['custom_name'] || "#{target['name']}/#{target['support']['name']}"
-      #суммировать цену
       xml_target.xpath('price')[0].content = xml_target.xpath('price')[0].content.to_f + xml_support.xpath('price')[0].content.to_f
-      #доступность
+      xml_target.xpath('@available')[0].content = is_available?(xml_target, xml_support) ? 'true' : 'false'
 
-      #удаление лишних позиций
+      #TODO:удаление лишних позиций
 
       join_successful = remove_nodes(xml_target, @params[:remove_nodes]) &&
                         rewrite_nodes(xml_target, xml_support, @params[:rewrite_nodes]) &&
@@ -139,6 +138,13 @@ class JoinOffersService
     end
 
     true
+  end
+
+  def is_available? (target_offer, support_offer)
+    target_availiability = target_offer.xpath('@available').text == 'true'
+    target_availiability = support_offer.xpath('@available').text == 'true'
+
+    target_availiability && target_availiability
   end
 
 end
