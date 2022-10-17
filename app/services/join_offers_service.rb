@@ -15,7 +15,7 @@ class JoinOffersService
 
     unless set_xml_document(@source_url)
       status = :error
-      @error_messsages.push("Error, when setting XML document from #{@source_url}")
+      @error_messsages.push("Error, when setting XML document from #{@source_url};")
     end
 
     join_successful = false
@@ -24,19 +24,19 @@ class JoinOffersService
     # create array of joined elements
     if (@params[:pairs].nil? || @params[:pairs].empty?)
       status = :error
-      @error_messsages.push("Pairs creating failed")
+      @error_messsages.push("Pairs creating failed;")
     else
       @params[:pairs] = JSON.parse(@params[:pairs]) if @params[:pairs].is_a?(String)
     end
 
-    @params[:pairs].each do |target, support|
-      next if (support.nil? || support.empty?)
+    @params[:pairs].each do |target|
+      next if (target['support'].nil? || target['support'].empty?)
       
-      xml_target = get_offer(target)
-      xml_support = get_offer(support['name'])
+      xml_target = get_offer(target['name'])
+      xml_support = get_offer(target['support']['name'])
       next if (xml_target.empty? || xml_support.empty?)
 
-      xml_target.xpath('name')[0].content = support['custom_name'] || "#{target}/#{support['name']}"
+      xml_target.xpath('name')[0].content = target['support']['custom_name'] || "#{target['name']}/#{target['support']['name']}"
       #суммировать цену
       xml_target.xpath('price')[0].content = xml_target.xpath('price')[0].content.to_f + xml_support.xpath('price')[0].content.to_f
       #доступность
@@ -51,7 +51,7 @@ class JoinOffersService
       if join_successful
         xml_support.remove 
       else
-        @error_messsages.push("ERROR: #{target} join unsuccessful")
+        @error_messsages.push("ERROR: #{target['name']} join unsuccessful;")
       end
     end if status == :success
 
@@ -66,14 +66,14 @@ class JoinOffersService
 
   def set_xml_document(source_url)
     @xml_document = Nokogiri::XML(URI.open(source_url))
-    @error_messsages.push("XML not found by url: #{@source_url}") if @xml_document.nil?
+    @error_messsages.push("XML not found by url: #{@source_url};") if @xml_document.nil?
     @xml_document.nil? ? false : true
   end
 
   def get_offer(selector)
     result = xml_document.xpath("#{@params[:offer_xpath]}[#{@params[:search_by]}='#{selector}']")
-    @error_messsages.push("#{selector} not found") if result.empty?
-    @error_messsages.push("too many #{selector}'s") if (result.length > 1)
+    @error_messsages.push("#{selector} not found;") if result.empty?
+    @error_messsages.push("too many #{selector}'s;") if (result.length > 1)
     result
   end
 
@@ -85,7 +85,7 @@ class JoinOffersService
 
     nodes_to_remove.each do |node_selector|
       node = offer.xpath(node_selector)
-      node.any? ? node.remove : @error_messsages.push("node #{node_selector} dont exists")
+      node.any? ? node.remove : @error_messsages.push("node #{node_selector} dont exists;")
     end
     
     true
