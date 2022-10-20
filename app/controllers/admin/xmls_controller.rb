@@ -47,17 +47,9 @@ class Admin::XmlsController < Admin::MainController
   end
 
   def join
-    result = JoinOffersService.new(@xml.url,{
-      pairs:          @xml.pairs,
-      offer_xpath:    @xml.offer_path,
-      search_by:      @xml.search_by,
-      remove_nodes:   @xml.remove_nodes,
-      rewrite_nodes:  @xml.rewrite_nodes,
-      join_nodes:     @xml.join_nodes,
-      add_nodes:      @xml.add_nodes
-    }).call
+    result = @xml.execute_joiner
 
-    if result[:status] == :success && @xml.append_xml(result[:body].first)
+    if result[:status] == :success
       redirect_to admin_xmls_path, flash: { success: "#{t('.success')}\n#{result[:headers][:errors].join("\n")}" }
     else
       redirect_to admin_xmls_path, flash: { danger: "#{t('.fail')}\n#{result[:headers][:errors].join("\n")}" }

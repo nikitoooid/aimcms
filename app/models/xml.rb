@@ -5,6 +5,22 @@ class Xml < ApplicationRecord
     self.is_formed
   end
 
+  def execute_joiner
+    result = JoinOffersService.new(self.url,{
+      pairs:          self.pairs,
+      offer_xpath:    self.offer_path,
+      search_by:      self.search_by,
+      remove_nodes:   self.remove_nodes,
+      rewrite_nodes:  self.rewrite_nodes,
+      join_nodes:     self.join_nodes,
+      add_nodes:      self.add_nodes
+    }).call
+
+    result[:status] = :fail unless result[:status] == :success && self.append_xml(result[:body].first)
+
+    result
+  end
+
   def append_xml(xml)
     return false if xml.nil?
 

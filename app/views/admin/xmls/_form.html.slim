@@ -14,10 +14,13 @@
   
   / JS settings engine
   div class="mb-2"
+    = f.label :pairs, t('.pairs')
     table class="table table-striped pair_table"
       thead
         tr
-          th colspan="3" = t('.pairs')
+          th = t('.indoor')
+          th = t('.outdoor')
+          th = t('.custom_name')
           th
             div class="btn btn-sm btn-primary" data-action="add"
               i class="bi-plus-square"
