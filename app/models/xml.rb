@@ -21,6 +21,10 @@ class Xml < ApplicationRecord
     result
   end
 
+  def self.join_all
+
+  end
+
   def append_xml(xml)
     return false if xml.nil?
 
