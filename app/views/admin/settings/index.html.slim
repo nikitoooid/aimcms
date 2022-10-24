@@ -95,5 +95,9 @@ div class="content p-2 pt-3"
             = f.label :product_blacklist, t('.product_blacklist'), class: 'form-label'
             = f.text_area :product_blacklist, class: "form-control"
         
+      div class="form-check mb-3"
+        = f.check_box :xml_joiner, class: 'form-check-input'
+        = f.label :xml_joiner, t('.xml_joiner'), class: 'form-check-label'
+
       .mb-3
         = f.submit t('.save'), class: 'btn btn-sm btn-primary'

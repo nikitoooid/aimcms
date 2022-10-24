@@ -204,6 +204,7 @@ uk:
         save:         "Зберегти зміни"
         product_template: "Шаблон для товарів"
         css:          "CSS для усього сайту"
+        xml_joiner:   "Функції XML об'єднувача"
       update:
         success:  "Налаштування успішно збережені"
         fail:     "Помилка при сохранении настроек"
@@ -297,6 +298,54 @@ uk:
     services:
       sync:
         success: 'Синхронізовано'
+    xmls:
+      index:
+        header:         "Файли XML синхронізації"
+        created:        "Створено"
+        updated:        "Оновлено"
+        status:         "Статус"
+        slug:           "Slug файлу"
+      new:
+        header:         "Новий XML файл"
+      edit:
+        header:         "Редагувати XML файл"
+        formed:         "готовий до використання"
+        unformed:       "не сформований"
+      create:
+        success:        "XML файл успішно створений"
+        fail:           "Помилка створення XML файлу"
+      update:
+        success:        "XML файл успішно оновлено"
+        fail:           "Помилка оновлення XML файлу"
+      destroy:
+        success:        "XML файл видалено"
+      form:
+        title:          "Назва файлу"
+        slug:           "Slug файлу"
+        pairs:          "Пари для об'єднання"
+        indoor:         "Внутрішній блок"
+        outdoor:        "Зовнішній блок"
+        custom_name:    "Назва пари"
+        offer_path:     "Offer path"
+        search_by:      "Шукати за"
+        remove_nodes:   "Не додавати в пару наступні ноди"
+        rewrite_nodes:  "Використати ноди зовнішнього блоку"
+        join_nodes:     "Об'єднати ноди (через \"/\")"
+        add_nodes:      "Перемістити ноди зовнішнього блоку"
+        submit:         "Зберегти"
+        star:           "читайте документацію Nokogiri"
+        url:            "Посилання на XML файл"
+        skip_unpaired:  "Не додавати у файл позиції, яких немає в списку пар"
+      xml:
+        formed:         "готовий до використання"
+        unformed:       "не сформований"
+        show:           "Показати як XML"
+        edit:           "Переглянути"
+        delete:         "Видалити"
+        execute:        "Виконати зараз"
+      join:
+        success:        "XML успішно опрацьований"
+        fail:           "Помилка при опрацюванні xml файлу"
 
   rte:
     page_settings:      'Сторінка'

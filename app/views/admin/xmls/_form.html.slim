@@ -1,0 +1,52 @@
+= form_with model: [:admin, @xml] do |f|
+  div class="mb-2"
+    = f.label :title, t('.title'), class: "mb-1"
+    = f.text_field :title, class: "form-control", required: true
+  div class="mb-2"
+    = f.label :slug, t('.slug'), class: "mb-1"
+    = f.text_field :slug, class: "form-control", required: true
+  div class="mb-2"
+    = f.label :url, t('.url'), class: "mb-1"
+    = f.text_field :url, class: "form-control", required: true
+  div class="mb-2"
+    = f.label :offer_path, t('.offer_path'), class: "mb-1"
+    = f.text_field :offer_path, class: "form-control", required: true
+  
+  / JS settings engine
+  div class="mb-2"
+    = f.label :pairs, t('.pairs')
+    table class="table table-striped pair_table"
+      thead
+        tr
+          th = t('.indoor')
+          th = t('.outdoor')
+          th = t('.custom_name')
+          th
+            div class="btn btn-sm btn-primary" data-action="add"
+              i class="bi-plus-square"
+      tbody   
+    = f.text_area :pairs, class: "joiner_pairs", style: 'visibility:collapse; height:0'
+
+  div class="mb-2"
+    = f.label :search_by, t('.search_by'), class: "mb-1"
+    = f.text_field :search_by, class: "form-control", required: true
+  / div class="form-check mb-3"
+  /   = f.check_box :skip_unpaired, class: 'form-check-input'
+  /   = f.label :skip_unpaired, t('.skip_unpaired'), class: 'form-check-label'
+  div class="mb-2"
+    = f.label :join_nodes, t('.join_nodes'), class: "mb-1"
+    = f.text_area :join_nodes, class: "form-control"
+  div class="mb-2"
+    = f.label :add_nodes, t('.add_nodes'), class: "mb-1"
+    = f.text_area :add_nodes, class: "form-control"
+  div class="mb-2"
+    = f.label :rewrite_nodes, t('.rewrite_nodes'), class: "mb-1"
+    = f.text_area :rewrite_nodes, class: "form-control"
+  div class="mb-2"
+    = f.label :remove_nodes, t('.remove_nodes'), class: "mb-1"
+    = f.text_area :remove_nodes, class: "form-control"
+
+  div class="mb-2"
+    = f.submit t('.submit'), class: 'btn btn-primary'
+
+= javascript_import_module_tag "joiner_form"

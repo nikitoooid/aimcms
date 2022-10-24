@@ -19,6 +19,6 @@ class Admin::SettingsController < Admin::MainController
                     :body_tags, :logo, :favicon, :active_store, :active_store_sync,
                     :product_template_id, :xml_url, :category_xpath, :product_xpath,
                     :category_whitelist, :category_blacklist, :product_whitelist,
-                    :product_blacklist, :style_id)
+                    :product_blacklist, :style_id, :xml_joiner)
   end
 end

@@ -10,3 +10,4 @@ pin "popper", to: 'popper.js', preload: true
 pin "bootstrap", to: 'bootstrap.min.js', preload: true
 pin "rte", preload: true
 pin "sorting", preload: true
+pin "joiner_form", preload: true
